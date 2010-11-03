@@ -39,8 +39,8 @@ TukuiFonts:SetScript("OnEvent", function(self, event, addon)
 	SetFont(NumberFont_Outline_Med,             NUMBER, 13, "OUTLINE")
 	SetFont(NumberFont_Shadow_Med,              NORMAL, 12) --chat editbox uses this
 	SetFont(NumberFont_Shadow_Small,            NORMAL, 12)
-	SetFont(QuestFont,                          NORMAL, 12)
-	SetFont(QuestFont_Large,                    NORMAL, 14)
+	SetFont(QuestFont,                          NORMAL, 14)
+	SetFont(QuestFont_Large,                    NORMAL, 16)
 	SetFont(SystemFont_Large,                   NORMAL, 15)
 	SetFont(SystemFont_Shadow_Huge1,			NORMAL, 20, "THINOUTLINE") -- Raid Warning, Boss emote frame too
 	SetFont(SystemFont_Med1,                    NORMAL, 12)
