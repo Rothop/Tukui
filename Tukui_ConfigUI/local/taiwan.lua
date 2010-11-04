@@ -31,7 +31,7 @@
 	-- nameplate
 	TukuiL.option_nameplates = "名條"
 	TukuiL.option_nameplates_enable = "啟用名條模組"
-	TukuiL.option_nameplates_enhancethreat = "啟用仇恨上色模式, 依照你的角色決定: 坦克 - 綠色 (獲得仇恨) 紅色 (失去仇恨) DPS - 綠色 (失去仇恨) 紅色 (獲得仇恨)"
+	TukuiL.option_nameplates_enhancethreat = "啟用仇恨上色模式, 依照你的角色決定"
 	TukuiL.option_nameplates_showhealth = "在名條上顯示生命"
 	 
 	-- addon skins
@@ -92,6 +92,9 @@
 	TukuiL.option_auras_playerdebuffsonly = "只顯示玩家DEBUFF於目標單位框架(可於auraFilter.lua設定)"
 	TukuiL.option_auras_RaidUnitBuffWatch = "開啟團隊buff監視"
 	 
+	TukuiL.option_auras_playtarbuffperrow = "於玩家/目標單位框架上每列BUFF/DEBUFF顯示數"
+	TukuiL.option_auras_smallbuffperrow = "於目標的目標/專注單位框架上每列BUFF/DEBUFF顯示數"
+	
 	-- raidframes
 	TukuiL.option_raidframes = "團隊框架"
 	TukuiL.option_raidframes_enable = "啟用團隊框架模組"
@@ -141,8 +144,16 @@
 	TukuiL.option_unitframes_DebuffHighlight = "單位框架依可驅散DEBUFF上色"
 	TukuiL.option_unitframes_mendpet = "於寵物框架顯示Mend Pet狀態條 (限DPS配置)"
 	TukuiL.option_unitframes_fontsize = "字體大小"
-	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
-	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
+	TukuiL.option_unitframes_unitframes_poweroffset = "將能量條並排於單位框架 (0 以並排)"
+	TukuiL.option_unitframes_classbar = "啟用職業條 (圖騰列, 符文列, 神聖能量列, 靈魂裂片列, 日/月蝕列)"
+    TukuiL.option_unitframes_playtarwidth = "玩家/目標單位框架的闊度"
+    TukuiL.option_unitframes_playtarheight = "玩家/目標單位框架的高度"
+    TukuiL.option_unitframes_smallwidth = "目標的目標/專注/專注目標及玩家寵物單位框架的闊度"
+    TukuiL.option_unitframes_smallheight = "目標的目標/專注/專注目標及玩家寵物單位框架的高度"
+    TukuiL.option_unitframes_arenabosswidth = "競技場/首領單位框架的闊度"
+    TukuiL.option_unitframes_arenabossheight = "競技場/首領單位框架的高度"
+    TukuiL.option_unitframes_assisttankwidth = "主坦克/助手單位框架的闊度"
+    TukuiL.option_unitframes_assisttankheight = "主坦克/助手單位框架的高度"
 	
 	-- loot
 	TukuiL.option_loot = "拾取"

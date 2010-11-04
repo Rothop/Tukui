@@ -31,7 +31,7 @@
 	-- nameplate
 	TukuiL.option_nameplates = "姓名版"
 	TukuiL.option_nameplates_enable = "开启姓名版"
-	TukuiL.option_nameplates_enhancethreat = "开启仇恨模式, 依照你的角色决定: \n 坦克 - 绿色 (获得仇恨) 红色 (失去仇恨) DPS - 绿色 (失去仇恨) 红色 (获得仇恨)"
+	TukuiL.option_nameplates_enhancethreat = "开启仇恨模式, 依照你的角色决定"
 	TukuiL.option_nameplates_showhealth = "于姓名版上显示生命文字"
 
 	-- addon skins
@@ -91,7 +91,9 @@
 	TukuiL.option_auras_playershowonlydebuffs = "只在玩家单位窗口显示debuffs (限开启玩家单位窗口光环下使用)"
 	TukuiL.option_auras_playerdebuffsonly = "只显示玩家DEBUFF于目标单位窗口"
 	TukuiL.option_auras_RaidUnitBuffWatch = "开起团队buff监视"
-
+	TukuiL.option_auras_playtarbuffperrow = "Amount of Buffs/Debuffs in a row on the Player/Target frames"
+	TukuiL.option_auras_smallbuffperrow = "Amount of Debuffs in a row on the TargetTarget/Focus frames"
+	
 	-- raidframes
 	TukuiL.option_raidframes = "团队单位窗口"
 	TukuiL.option_raidframes_enable = "开启团队单位窗口"
@@ -143,10 +145,18 @@
 	TukuiL.option_unitframes_DebuffHighlight = "单位窗口依可驱散DEBUFF上色"
 	TukuiL.option_unitframes_mendpet = "开启玩家宠物动作条于宠物头像(限DPS配置)"
 	TukuiL.option_unitframes_fontsize = "单位窗口文字大小"
-
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
-
--- loot
+	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
+	TukuiL.option_unitframes_playtarwidth = "Width of the Player/Target frames"
+	TukuiL.option_unitframes_playtarheight = "Height of the Player/Target frames"
+	TukuiL.option_unitframes_smallwidth = "Width of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_unitframes_smallheight = "Height of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_unitframes_arenabosswidth = "Width of the Arena/Boss frames"
+	TukuiL.option_unitframes_arenabossheight = "Height of the Arena/Boss frames"
+	TukuiL.option_unitframes_assisttankwidth = "Width of the MainTank/MainAssist frames"
+	TukuiL.option_unitframes_assisttankheight = "Height of the MainTank/MainAssist frames"
+	
+	-- loot
 	TukuiL.option_loot = "战利品"
 	TukuiL.option_loot_enableloot = "开启战力品窗口"
 	TukuiL.option_loot_autogreed = "开启最高等级时自动贪婪绿色等级装备"

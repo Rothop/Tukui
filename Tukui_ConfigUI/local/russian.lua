@@ -29,9 +29,9 @@
 	TukuiL.option_media_glossy = "Путь к файлу глянцевой текстуры"
 
 	-- nameplate
-	TukuiL.option_nameplates = "Индикаторы\nздоровья"
+	TukuiL.option_nameplates = "Индикаторыздоровья"
 	TukuiL.option_nameplates_enable = "Включить индикаторы здоровья"
-	TukuiL.option_nameplates_enhancethreat = "Включить поддержку угрозы, зависит от Вашей роли: \n Танк - Зеленые (aggro) Красные (noaggro) Боец - Зеленые (noaggro) Красные (aggro)"
+	TukuiL.option_nameplates_enhancethreat = "Включить поддержку угрозы, зависит от Вашей роли"
 	TukuiL.option_nameplates_showhealth = "Показывать здоровье на индикаторе"
 
 	-- addon skins
@@ -81,7 +81,7 @@
 	-- auras
 	TukuiL.option_auras = "Ауры"
 	TukuiL.option_auras_minimapauras = "Ауры около миникарты"
-	TukuiL.option_auras_arenadebuffs = "Отображать только важные вредоносные эффекты на арене или полях боя\n на фреймах группы или рейда"
+	TukuiL.option_auras_arenadebuffs = "Отображать только важные вредоносные эффекты на арене или полях боя на фреймах группы или рейда"
 	TukuiL.option_auras_auratimer = "Таймер на аурах"
 	TukuiL.option_auras_targetaura = "Ауры цели"
 	TukuiL.option_auras_focusdebuff = "Дебаффы фокуса"
@@ -89,9 +89,12 @@
 	TukuiL.option_auras_aurascale = "Масштаб текста на аурах"
 	TukuiL.option_auras_totdebuffs = "Дебаффы цели вашей цели"
 	TukuiL.option_auras_playershowonlydebuffs = "Отображать только дебаффы на рамке игрока (Ауры на рамке игрока должны быть включены)"
-	TukuiL.option_auras_playerdebuffsonly = "Отображать только свои эффекты и эффекты контроля \n (настраивается в auraFilter.lua)"
+	TukuiL.option_auras_playerdebuffsonly = "Отображать только свои эффекты и эффекты контроля  (настраивается в auraFilter.lua)"
 	TukuiL.option_auras_RaidUnitBuffWatch = "Отображать баффы на рейдовых фреймах"
 
+	TukuiL.option_auras_playtarbuffperrow = "Кол-во Баффов/Дебаффов в ряду на фрейме Игрока/Цели"
+	TukuiL.option_auras_smallbuffperrow = "Кол-во Дебаффов в ряду на фрейме ЦелиЦели/Фокуса"
+	
 	-- raidframes
 	TukuiL.option_raidframes = "Рейдовые фреймы"
 	TukuiL.option_raidframes_enable = "Включить"
@@ -141,8 +144,16 @@
 	TukuiL.option_unitframes_DebuffHighlight = "Окрасить иконки вредоносных эффектов по типу (при возможности снятия)"
 	TukuiL.option_unitframes_mendpet = "Показывать панель Лечение питомца (DPS раскладка)"
 	TukuiL.option_unitframes_fontsize = "Размер шрифта"
-	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
-	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
+	TukuiL.option_unitframes_unitframes_poweroffset = "Отступ полосы энергии(0 для отключения отступа)"
+	TukuiL.option_unitframes_classbar = "Классовая полоса(Полоса тотемов, Полоса рун, Полоса силы света, Полоса осколков, Полоса затмения)"
+	TukuiL.option_unitframes_playtarwidth = "Ширина фрейма Игрока/Цели"
+	TukuiL.option_unitframes_playtarheight = "Высота фрейма Игрока/Цели"
+	TukuiL.option_unitframes_smallwidth = "Ширина фрейма ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
+	TukuiL.option_unitframes_smallheight = "Высота ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
+	TukuiL.option_unitframes_arenabosswidth = "Ширина фреймов Арены/Босса"
+	TukuiL.option_unitframes_arenabossheight = "Высриа фреймов Арены/Босса"
+	TukuiL.option_unitframes_assisttankwidth = "Ширина фреймов Танка/Наводчика"
+	TukuiL.option_unitframes_assisttankheight = "Высота фреймов Танка/Наводчика"
 	
 	-- loot
 	TukuiL.option_loot = "Добыча"

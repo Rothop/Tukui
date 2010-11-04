@@ -2,7 +2,7 @@
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
 	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
-	["embedright"] = "Recount",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
+	["embedright"] = "Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
 	["recountscript"] = 1, 					--0 = off, 1 = shows recount when in-combat(in party or raid instance), 2 = shows recount when out of combat, hides when in-combat(in party or raid instance)
 	["classcolortheme"] = false,			--class colored theme for panels
 }
@@ -36,6 +36,14 @@ TukuiCF["unitframes"] = {
 	["aggro"] = true,                      -- show aggro
 	["poweroffset"] = 9,					--powerbar offset
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
+	["playtarwidth"] = 220,					--width of player/target frame
+	["playtarheight"] = 28,					--height of player/target frame
+	["smallwidth"] = 100,					--Width of TargetTarget, Focus, FocusTarget, Player's Pet frames
+	["smallheight"] = 23,					--Height of TargetTarget, Focus, FocusTarget, Player's Pet frames
+	["arenabosswidth"] = 180,				--Width of Arena/Boss Frames
+	["arenabossheight"] = 23,				--Height of Arena/Boss Frames
+	["assisttankwidth"] = 100,				--Width of MainTank/MainAssist frames
+	["assisttankheight"] = 20,				--Height of MainTank/MainAssist frames
 	
 	-- hunter only plugin
 	["mendpet"] = true,						--mend pet duration overlay on pet frame
@@ -70,6 +78,8 @@ TukuiCF["auras"] = {
 	["raidunitbuffwatch"] = true,       -- track important spell to watch in pve for grid mode.
 	["totdebuffs"] = true,                -- enable tot debuffs (high reso only)
 	["focusdebuffs"] = true,              -- enable focus debuffs 
+	["playtarbuffperrow"] = 8,				-- buffs/debuffs per row on player/target frames
+	["smallbuffperrow"] = 4,				-- debuffs per row on targettarget/focus frames
 }
 
 TukuiCF["castbar"] = {

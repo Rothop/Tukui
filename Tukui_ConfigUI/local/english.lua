@@ -31,7 +31,7 @@ TukuiL.option_media_glossy = "Glossy Bar Texture"
 -- nameplate
 TukuiL.option_nameplates = "Nameplates"
 TukuiL.option_nameplates_enable = "Enable Nameplates"
-TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll: \n Tank - Green (aggro) Red (noaggro) DPS - Green (noaggro) Red (aggro)"
+TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll"
 TukuiL.option_nameplates_showhealth = "Show health on nameplate"
 
 -- addon skins
@@ -81,7 +81,7 @@ TukuiL.option_datatext_stat2 = "Stat 2 for your role's position"
 -- auras
 TukuiL.option_auras = "Auras"
 TukuiL.option_auras_minimapauras = "Enable auras by the minimap"
-TukuiL.option_auras_arenadebuffs = "Show only important debuffs inside arena/bg\non party and raid frames"
+TukuiL.option_auras_arenadebuffs = "Show only important debuffs inside arena/bgon party and raid frames"
 TukuiL.option_auras_auratimer = "Enable timer on auras"
 TukuiL.option_auras_targetaura = "Enable target auras"
 TukuiL.option_auras_focusdebuff = "Enable Focus debuffs"
@@ -89,8 +89,10 @@ TukuiL.option_auras_playeraura = "Show auras on playerframe"
 TukuiL.option_auras_aurascale = "Aura text scale on auras"
 TukuiL.option_auras_totdebuffs = "Enable Target of Target debuffs"
 TukuiL.option_auras_playershowonlydebuffs = "Only show debuffs on playerframe (Must have show aura on playerframe)"
-TukuiL.option_auras_playerdebuffsonly = "Show only your debuffs, and CC debuffs on target \n (inside auraFilter.lua to config)"
+TukuiL.option_auras_playerdebuffsonly = "Show only your debuffs, and CC debuffs on target  (inside auraFilter.lua to config)"
 TukuiL.option_auras_RaidUnitBuffWatch = "Enable buff watch on raid frames"
+TukuiL.option_auras_playtarbuffperrow = "Amount of Buffs/Debuffs in a row on the Player/Target frames"
+TukuiL.option_auras_smallbuffperrow = "Amount of Debuffs in a row on the TargetTarget/Focus frames"
 
 -- raidframes
 TukuiL.option_raidframes = "Raid Frames"
@@ -143,7 +145,15 @@ TukuiL.option_unitframes_mendpet = "Show Mend Pet bar on PetFrame (DPS LAYOUT)"
 TukuiL.option_unitframes_fontsize = "Font Size"
 TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
-
+TukuiL.option_unitframes_playtarwidth = "Width of the Player/Target frames"
+TukuiL.option_unitframes_playtarheight = "Height of the Player/Target frames"
+TukuiL.option_unitframes_smallwidth = "Width of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+TukuiL.option_unitframes_smallheight = "Height of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+TukuiL.option_unitframes_arenabosswidth = "Width of the Arena/Boss frames"
+TukuiL.option_unitframes_arenabossheight = "Height of the Arena/Boss frames"
+TukuiL.option_unitframes_assisttankwidth = "Width of the MainTank/MainAssist frames"
+TukuiL.option_unitframes_assisttankheight = "Height of the MainTank/MainAssist frames"
+	
 -- loot
 TukuiL.option_loot = "Loot"
 TukuiL.option_loot_enableloot = "Enable loot window"

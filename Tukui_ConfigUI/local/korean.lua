@@ -31,7 +31,7 @@
 	-- nameplate
 	TukuiL.option_nameplates = "Nameplates"
 	TukuiL.option_nameplates_enable = "Enable Nameplates"
-	TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll: \n Tank - Green (aggro) Red (noaggro) DPS - Green (noaggro) Red (aggro)"
+	TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll"
 	TukuiL.option_nameplates_showhealth = "Show health on nameplate"
 
 	-- addon skins
@@ -81,7 +81,7 @@
 	-- auras
 	TukuiL.option_auras = "Auras"
 	TukuiL.option_auras_minimapauras = "Enable auras by the minimap"
-	TukuiL.option_auras_arenadebuffs = "Show only important debuffs inside arena/bg\non party and raid frames"
+	TukuiL.option_auras_arenadebuffs = "Show only important debuffs inside arena/bgon party and raid frames"
 	TukuiL.option_auras_auratimer = "Enable timer on auras"
 	TukuiL.option_auras_targetaura = "Enable target auras"
 	TukuiL.option_auras_focusdebuff = "Enable Focus debuffs"
@@ -89,9 +89,11 @@
 	TukuiL.option_auras_aurascale = "Aura text scale on auras"
 	TukuiL.option_auras_totdebuffs = "Enable Target of Target debuffs"
 	TukuiL.option_auras_playershowonlydebuffs = "Only show debuffs on playerframe (Must have show aura on playerframe)"
-	TukuiL.option_auras_playerdebuffsonly = "Show only your debuffs, and CC debuffs on target \n (inside auraFilter.lua to config)"
+	TukuiL.option_auras_playerdebuffsonly = "Show only your debuffs, and CC debuffs on target  (inside auraFilter.lua to config)"
 	TukuiL.option_auras_RaidUnitBuffWatch = "Enable buff watch on raid frames"
-
+	TukuiL.option_auras_playtarbuffperrow = "플레이어/대상 창의 강화 및 약화 효과 개수"
+	TukuiL.option_auras_smallbuffperrow = "대상의 대상/주시대상 창의 강화 및 약화 효과 개수"
+	
 	-- raidframes
 	TukuiL.option_raidframes = "Raid Frames"
 	TukuiL.option_raidframes_enable = "Enable Raid Frames"
@@ -141,8 +143,16 @@
 	TukuiL.option_unitframes_DebuffHighlight = "Color frames by debuff type if dispellable"
 	TukuiL.option_unitframes_mendpet = "Show Mend Pet bar on PetFrame (DPS LAYOUT)"
 	TukuiL.option_unitframes_fontsize = "Font Size"
-	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
-	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
+	TukuiL.option_unitframes_unitframes_poweroffset = "파워바 오프셋 (0은 오프셋 없음)"
+	TukuiL.option_unitframes_classbar = "직업 바 활성화 (토템바, 룬바, 신성력바, 영혼석바, 일월식바)"
+	TukuiL.option_unitframes_playtarwidth = "플레이어/대상 창 너비"
+	TukuiL.option_unitframes_playtarheight = "플레이어/대상 창 높이"
+	TukuiL.option_unitframes_smallwidth = "대상의 대상/주시대상/주시대상의 대상/소환수 창 너비"
+	TukuiL.option_unitframes_smallheight = "대상의 대상/주시대상/주시대상의 대상/소환수 창 높이"
+	TukuiL.option_unitframes_arenabosswidth = "투기장/우두머리 창 너비"
+	TukuiL.option_unitframes_arenabossheight = "투기장/우두머리 창 높이"
+	TukuiL.option_unitframes_assisttankwidth = "방어/지원공격 전담 창 너비"
+	TukuiL.option_unitframes_assisttankheight = "방어/지원공격 전담 창 높이"
 	
 	-- loot
 	TukuiL.option_loot = "Loot"
