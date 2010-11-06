@@ -86,10 +86,10 @@ local function UpdateThreat(frame)
 				--No Threat
 				if TukuiDB.Role == "Tank" then
 					frame.hp:SetStatusBarColor(1, 0, 0)
-					frame.hp.hpbg:SetVertexColor(1, 0, 0, 0.3)
+					frame.hp.hpbg:SetVertexColor(1, 0, 0, 0.4)
 				else
 					frame.hp:SetStatusBarColor(0, 1, 0)
-					frame.hp.hpbg:SetVertexColor(0, 1, 0, 0.3)
+					frame.hp.hpbg:SetVertexColor(0, 1, 0, 0.35)
 				end			
 			else
 				--Set colors to their original, not in combat
@@ -103,15 +103,15 @@ local function UpdateThreat(frame)
 				--Have Threat
 				if TukuiDB.Role == "Tank" then
 					frame.hp:SetStatusBarColor(0, 1, 0)
-					frame.hp.hpbg:SetVertexColor(0, 1, 0, 0.3)
+					frame.hp.hpbg:SetVertexColor(0, 1, 0, 0.35)
 				else
 					frame.hp:SetStatusBarColor(1, 0, 0)
-					frame.hp.hpbg:SetVertexColor(1, 0, 0, 0.3)
+					frame.hp.hpbg:SetVertexColor(1, 0, 0, 0.4)
 				end
 			else
 				--Losing/Gaining Threat
 				frame.hp:SetStatusBarColor(1, 1, 0)
-				frame.hp.hpbg:SetVertexColor(1, 1, 0, 0.3)
+				frame.hp.hpbg:SetVertexColor(1, 1, 0, 0.4)
 			end
 		end
 	end
@@ -124,37 +124,48 @@ local function UpdateThreat(frame)
 	if TukuiCF["nameplate"].showhealth == true then
 		frame.hp.value:SetText(ShortValue(valueHealth).." - "..(string.format("%d%%", math.floor((valueHealth/maxHealth)*100))))
 	end
-	
-	--Setup frame shadow to change depending on mobs health, also setup targetted unit to have white shadow
-	if TukuiCF["nameplate"].enhancethreat == true then
-		if(d <= 35 and d >= 20) then
-			frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 1, 0)
-		elseif(d < 20) then
-			frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 0, 0)
+		
+	--Change frame style if the frame is our target or not
+	if UnitName("target") == frame.name:GetText() and frame:GetAlpha() == 1 then
+		--Targetted Unit
+		frame.name:SetTextColor(1, 1, 0)
+		
+		if TukuiCF["nameplate"].enhancethreat == true then
+			frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 1, 1)
 		else
-			if UnitName("target") == frame.oldname:GetText() and frame:GetAlpha() == 1 then	
-				frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 1, 1)
-			else
+			frame.healthbackdrop:SetBackdropBorderColor(1, 1, 1)
+		end
+	else
+		--Not Targetted
+		frame.name:SetTextColor(1, 1, 1)
+		
+		if TukuiCF["nameplate"].enhancethreat ~= true then
+			frame.healthbackdrop:SetBackdropBorderColor(0.6, 0.6, 0.6)
+		else
+			if frame.hasclass ~= true then
 				frame.healthbackdrop.shadow:SetBackdropBorderColor(0, 0, 0)
 			end
 		end
 	end
 	
-	--Change frame style if the frame is our target or not
-	if UnitName("target") == frame.oldname:GetText() and frame:GetAlpha() == 1 then
-		--Targetted Unit
-		frame.name:SetTextColor(1, 1, 0)
-	else
-		--Not Targetted
-		frame.name:SetTextColor(1, 1, 1)
+	--Setup frame shadow to change depending on enemy players health, also setup targetted unit to have white shadow
+	if frame.hasclass == true then
+		if(d <= 35 and d >= 20) then
+			frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 1, 0)
+		elseif(d < 20) then
+			frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 0, 0)
+		else
+			if UnitName("target") == frame.name:GetText() and frame:GetAlpha() == 1 then
+				frame.healthbackdrop.shadow:SetBackdropBorderColor(1, 1, 1)	
+			else
+				frame.healthbackdrop.shadow:SetBackdropBorderColor(0, 0, 0)
+			end
+		end
 	end
 end
 
-local id = 0
 local function UpdateObjects(frame)
 	frame = frame:GetParent()
-	id = id + 1
-	frame:SetID(id)
 	
 	local r, g, b = frame.hp:GetStatusBarColor()
 	local r, g, b = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(b*100+.5)/100
@@ -195,10 +206,28 @@ local function UpdateObjects(frame)
 	
 	-- color hp bg dependend on hp color
     local BGr, BGg, BGb = frame.hp:GetStatusBarColor()
-	frame.hp.hpbg:SetVertexColor(BGr*0.36, BGg*0.36, BGb*0.36, 0.3)
+	frame.hp.hpbg:SetVertexColor(BGr*0.36, BGg*0.36, BGb*0.36, 0.35)
 	
 	--create variable for original colors
 	frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor = frame.hp:GetStatusBarColor()
+	
+	--Setup level text
+	local level, elite, mylevel = tonumber(frame.level:GetText()), frame.elite:IsShown(), UnitLevel("player")
+	frame.level:ClearAllPoints()
+	if TukuiCF["nameplate"].showhealth == true then
+		frame.level:SetPoint("RIGHT", frame.hp, "RIGHT", 2, 0)
+	else
+		frame.level:SetPoint("RIGHT", frame.hp, "LEFT", -1, 0)
+	end
+	if frame.boss:IsShown() then
+		frame.level:SetText("B")
+		frame.level:SetTextColor(0.8, 0.05, 0)
+		frame.level:Show()
+	elseif not elite and level == mylevel then
+		frame.level:Hide()
+	else
+		frame.level:SetText(level..(elite and "+" or ""))
+	end
 	
 	HideObjects(frame)
 end
@@ -271,13 +300,17 @@ local function SkinObjects(frame)
 	--Actual Background for the Healthbar
 	hp.hpbg = hp:CreateTexture(nil, 'BORDER')
 	hp.hpbg:SetAllPoints(hp)
-	hp.hpbg:SetTexture(1,1,1,0.3)	
+	hp.hpbg:SetTexture(1,1,1,0.4)	
 	
 	--Need to Reposition the overlay with the health
 	frame.overlay = overlay
 	
-	--Level
+	--Needed for level text
 	frame.level = level
+	frame.boss = bossicon
+	frame.elite = elite
+	frame.level:SetFont(FONT, FONTSIZE, FONTFLAG)
+	frame.level:SetShadowOffset(TukuiDB.mult, -TukuiDB.mult)
 	
 	--Create Health Text
 	if TukuiCF["nameplate"].showhealth == true then
@@ -365,14 +398,14 @@ local function SkinObjects(frame)
 	
 	--Reposition and Resize RaidIcon
 	raidicon:ClearAllPoints()
-	raidicon:SetParent(hp)	
 	raidicon:SetPoint("BOTTOM", hp, "TOP", 0, 16)
 	raidicon:SetSize(iconSize*1.4, iconSize*1.4)
 	raidicon:SetTexture(TukuiCF["media"].raidicons)	
-
+	frame.raidicon = raidicon
+	
 	--Create Class Icon
 	local cIconTex = hp:CreateTexture(nil, "OVERLAY")
-	cIconTex:SetPoint("TOPRIGHT", hp, "TOPLEFT", -8, 8)	
+	cIconTex:SetPoint("BOTTOM", hp, "TOP", 0, 16)
 	cIconTex:SetTexture("Interface\\WorldStateFrame\\Icons-Classes")
 	cIconTex:SetSize(iconSize, iconSize)
 	frame.class = cIconTex
@@ -383,10 +416,9 @@ local function SkinObjects(frame)
 	QueueObject(frame, cbshield)
 	QueueObject(frame, cbborder)
 	QueueObject(frame, oldname)
-	QueueObject(frame, level)
 	QueueObject(frame, bossicon)
 	QueueObject(frame, elite)
-
+	
 	UpdateObjects(hp)
 	UpdateCastbar(cb)
 		
@@ -423,3 +455,24 @@ CreateFrame('Frame'):SetScript('OnUpdate', function(self, elapsed)
 		self.elapsed = (self.elapsed or 0) + elapsed
 	end
 end)
+
+if TukuiCF["nameplate"].combat == true then
+	NamePlates:RegisterEvent("PLAYER_REGEN_ENABLED")
+	NamePlates:RegisterEvent("PLAYER_REGEN_DISABLED")
+	NamePlates:RegisterEvent("PLAYER_ENTERING_WORLD")
+	function NamePlates:PLAYER_REGEN_ENABLED()
+		SetCVar("nameplateShowEnemies", 0)
+	end
+	
+	function NamePlates:PLAYER_REGEN_DISABLED()
+		SetCVar("nameplateShowEnemies", 1)
+	end
+	
+	function NamePlates:PLAYER_ENTERING_WORLD()
+		if InCombatLockdown() then
+			SetCVar("nameplateShowEnemies", 1)
+		else
+			SetCVar("nameplateShowEnemies", 0)
+		end
+	end
+end
