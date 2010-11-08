@@ -19,8 +19,8 @@ if TukuiDB.client == "frFR" then
  
 	tukuilocal.disband = "GROUPE DISSOUT."
  
-	tukuilocal.datatext_download = "Download: "
-	tukuilocal.datatext_bandwidth = "Bandwidth: "
+	tukuilocal.datatext_download = "Téléchargement: "
+	tukuilocal.datatext_bandwidth = "Bande passante: "
 	tukuilocal.datatext_guild = "Guilde"
 	tukuilocal.datatext_noguild = "Pas de guilde"
 	tukuilocal.datatext_bags = "Sacs: "
@@ -141,7 +141,7 @@ if TukuiDB.client == "frFR" then
 	tukuilocal.core_autoinv_enable_c = "Autoinvite ON: "
 	tukuilocal.core_autoinv_disable = "Autoinvite OFF"
 	tukuilocal.core_welcome1 = "Bienvenue sur |cffC495DDElv's Edit de Tukui|r, version "
-	tukuilocal.core_welcome2 = "Tappez |cff00FFFF/uihelp|r pour plus d'info, tappez |cff00FFFF/tukui|r pour configurer, ou visitez http://www.tukui.org/v2/forums/forum.php?id=31"
+	tukuilocal.core_welcome2 = "Tapez |cff00FFFF/uihelp|r pour plus d'info, tapez |cff00FFFF/tukui|r pour configurer, ou visitez http://www.tukui.org/v2/forums/forum.php?id=31"
  
 	tukuilocal.core_uihelp1 = "|cff00ff00Commandes Génerales |r"
 	tukuilocal.core_uihelp2 = "|cffFF0000/tracker|r - Tukui Arena Enemy Cooldown Tracker - Tracker PVP (Icone seulement)"

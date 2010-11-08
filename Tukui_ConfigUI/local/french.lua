@@ -33,7 +33,7 @@ if GetLocale() == "frFR" then
 	TukuiL.option_nameplates_enable = "Activer les barres de vies" --"Enable Nameplates"
 	TukuiL.option_nameplates_enhancethreat = "Activer la gestion d'aggro, change automatiquement selon votre role:" --"Enable threat feature, automatically changes by your roll:  Tank - Green (aggro) Red (noaggro) DPS - Green (noaggro) Red (aggro)"
 	TukuiL.option_nameplates_showhealth = "Montrer la vie sur les barres de vies" --"Show health on nameplate"
- 	TukuiL.option_nameplates_combat = "Only show enemy nameplates in-combat"
+ 	TukuiL.option_nameplates_combat = "Voir les nameplates ennemis seulement en combat"
 	
 	-- addon skins
 	TukuiL.option_skin = "Skin d'addon" --"Addon Skins"
@@ -146,14 +146,17 @@ if GetLocale() == "frFR" then
 	TukuiL.option_unitframes_fontsize = "Taille de la police" --"Font Size"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 	TukuiL.option_unitframes_classbar = "Active les barres de classes (Barre de totem, Barre de pouvoir runique, Barre Sacrée, Barre des fragments d'âme, Barre d'Eclipse)"
-	TukuiL.option_unitframes_playtarwidth = "Largeur des portraits du Joueur/de la Cible"
-	TukuiL.option_unitframes_playtarheight = "Hauteur des portraits du Joueur/de la Cible"
-	TukuiL.option_unitframes_smallwidth = "Largeur des portraits de la Cible de la Cible/du Focus/de la Cible du Focus/du Familier du Joueur"
-	TukuiL.option_unitframes_smallheight = "Hauteur des portraits de la Cible de la Cible/du Focus/de la Cible du Focus/du Familier du Joueur"
-	TukuiL.option_unitframes_arenabosswidth = "Largeur des portraits d'Arène/des Boss"
-	TukuiL.option_unitframes_arenabossheight = "Hauteur des portraits d'Arène/des Boss"
-	TukuiL.option_unitframes_assisttankwidth = "Largeur des portraits des Tanks Principaux/des Assists Principaux"
-	TukuiL.option_unitframes_assisttankheight = "Height of the MainTank/MainAssist frames"
+	
+	-- frame sizes
+	TukuiL.option_framesizes = "UnitFrame Sizes"	
+	TukuiL.option_framesizes_playtarwidth = "Largeur des portraits du Joueur/de la Cible"
+	TukuiL.option_framesizes_playtarheight = "Hauteur des portraits du Joueur/de la Cible"
+	TukuiL.option_framesizes_smallwidth = "Largeur des portraits de la Cible de la Cible/du Focus/de la Cible du Focus/du Familier du Joueur"
+	TukuiL.option_framesizes_smallheight = "Hauteur des portraits de la Cible de la Cible/du Focus/de la Cible du Focus/du Familier du Joueur"
+	TukuiL.option_framesizes_arenabosswidth = "Largeur des portraits d'Arène/des Boss"
+	TukuiL.option_framesizes_arenabossheight = "Hauteur des portraits d'Arène/des Boss"
+	TukuiL.option_framesizes_assisttankwidth = "Largeur des portraits des Tanks Principaux/des Assists Principaux"
+	TukuiL.option_framesizes_assisttankheight = "Height of the MainTank/MainAssist frames"
 	
 	-- loot
 	TukuiL.option_loot = "Loot"
@@ -202,7 +205,8 @@ if GetLocale() == "frFR" then
 	TukuiL.option_actionbar_rbn2 = "Nombre de barre d'actions en bas (1, 1.5 ou 2)" --"Number of action bars on the bottom (1, 1.5, or 2)"
 	TukuiL.option_actionbar_rn = "Nombre de barre d'actions à droite (1, 2 ou 3)" --"Number of action bars on right (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Activer la splitbar." --"Enable split actionbar"
- 
+	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	
 	-- arena
 	TukuiL.option_arena = "Arène" --"Arena"
 	TukuiL.option_arena_st = "Activer le tracker des sorts ennemis" --"Enable enemy spell tracker in arena"

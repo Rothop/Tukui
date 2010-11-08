@@ -146,14 +146,17 @@
 	TukuiL.option_unitframes_fontsize = "Schriftgröße"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Versetzung der Power-Leiste zum Einheitenfenster (0 für keine Versetzung)"
 	TukuiL.option_unitframes_classbar = "Aktiviere Klassenleiste (Totemleiste, Runenleiste, Heiligleiste, Seelensplitterleiste, Finsternisleiste)"
-	TukuiL.option_unitframes_playtarwidth = "Breite der Spieler/Ziel Einheitenfenster"
-	TukuiL.option_unitframes_playtarheight = "Höhe der Spieler/Ziel Einheitenfenster"
-	TukuiL.option_unitframes_smallwidth = "Breite der Ziel des Ziels/Fokus/Fokus Ziel/Spieler Begleiter Einheitenfenster"
-	TukuiL.option_unitframes_smallheight = "Höhe der Ziel des Ziels/Fokus/Fokus Ziel/Spieler Begleiter Einheitenfenster"
-	TukuiL.option_unitframes_arenabosswidth = "Breite der Arena/Boss Einheitenfenster"
-	TukuiL.option_unitframes_arenabossheight = "Höhe der Arena/Boss Einheitenfenster"
-	TukuiL.option_unitframes_assisttankwidth = "Breite der Haupttank/Hauptassistent Einheitenfenster"
-	TukuiL.option_unitframes_assisttankheight = "Höhe der Haupttank/Hauptassistent Einheitenfenster"
+	
+	-- frame sizes
+	TukuiL.option_framesizes = "UnitFrame Sizes"		
+	TukuiL.option_framesizes_playtarwidth = "Breite der Spieler/Ziel Einheitenfenster"
+	TukuiL.option_framesizes_playtarheight = "Höhe der Spieler/Ziel Einheitenfenster"
+	TukuiL.option_framesizes_smallwidth = "Breite der Ziel des Ziels/Fokus/Fokus Ziel/Spieler Begleiter Einheitenfenster"
+	TukuiL.option_framesizes_smallheight = "Höhe der Ziel des Ziels/Fokus/Fokus Ziel/Spieler Begleiter Einheitenfenster"
+	TukuiL.option_framesizes_arenabosswidth = "Breite der Arena/Boss Einheitenfenster"
+	TukuiL.option_framesizes_arenabossheight = "Höhe der Arena/Boss Einheitenfenster"
+	TukuiL.option_framesizes_assisttankwidth = "Breite der Haupttank/Hauptassistent Einheitenfenster"
+	TukuiL.option_framesizes_assisttankheight = "Höhe der Haupttank/Hauptassistent Einheitenfenster"
 	
 	-- loot
 	TukuiL.option_loot = "Beute"
@@ -202,7 +205,8 @@
 	TukuiL.option_actionbar_rbn2 = "Anzahl der Aktionsleisten unten (1, 1.5, oder 2)"
 	TukuiL.option_actionbar_rn = "Anzahl der Aktionsleisten rechts (1, 2 oder 3)"
 	TukuiL.option_actionbar_splitbar = "Aktviert die geteilte Leiste um die untere Aktionsleiste"
- 
+	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	
 	-- arena
 	TukuiL.option_arena = "Arena"
 	TukuiL.option_arena_st = "Aktiviere Tukui-Arena Gegner Abklingzeiten Anzeige"

@@ -35,20 +35,20 @@ local powerbar_offset = TukuiDB.Scale(TukuiCF["unitframes"].poweroffset)
 
 local function Shared(self, unit)
 	--Set Sizes
-	player_width = TukuiDB.Scale(TukuiCF["unitframes"].playtarwidth)
-	player_height = TukuiDB.Scale(TukuiCF["unitframes"].playtarheight)
+	player_width = TukuiDB.Scale(TukuiCF["framesizes"].playtarwidth)
+	player_height = TukuiDB.Scale(TukuiCF["framesizes"].playtarheight)
 
-	target_width = TukuiDB.Scale(TukuiCF["unitframes"].playtarwidth)
-	target_height = TukuiDB.Scale(TukuiCF["unitframes"].playtarheight)
+	target_width = TukuiDB.Scale(TukuiCF["framesizes"].playtarwidth)
+	target_height = TukuiDB.Scale(TukuiCF["framesizes"].playtarheight)
 
-	smallframe_width = TukuiDB.Scale(TukuiCF["unitframes"].smallwidth)
-	smallframe_height = TukuiDB.Scale(TukuiCF["unitframes"].smallheight)
+	smallframe_width = TukuiDB.Scale(TukuiCF["framesizes"].smallwidth)
+	smallframe_height = TukuiDB.Scale(TukuiCF["framesizes"].smallheight)
 
-	arenaboss_width = TukuiDB.Scale(TukuiCF["unitframes"].arenabosswidth)
-	arenaboss_height = TukuiDB.Scale(TukuiCF["unitframes"].arenabossheight)
+	arenaboss_width = TukuiDB.Scale(TukuiCF["framesizes"].arenabosswidth)
+	arenaboss_height = TukuiDB.Scale(TukuiCF["framesizes"].arenabossheight)
 
-	assisttank_width = TukuiDB.Scale(TukuiCF["unitframes"].assisttankwidth)
-	assisttank_height = TukuiDB.Scale(TukuiCF["unitframes"].assisttankheight)
+	assisttank_width = TukuiDB.Scale(TukuiCF["framesizes"].assisttankwidth)
+	assisttank_height = TukuiDB.Scale(TukuiCF["framesizes"].assisttankheight)
 
 	-- Set Colors
 	self.colors = TukuiDB.oUF_colors
@@ -1276,7 +1276,7 @@ local function Shared(self, unit)
 			debuffs.spacing = TukuiDB.Scale(2)
 			debuffs.size = (((original_width + TukuiDB.Scale(4)) - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)
 			debuffs:SetHeight(debuffs.size)
-			debuffs:SetPoint("TOP", self, "BOTTOM", 0, -TukuiDB.Scale(3))
+			debuffs:SetPoint("TOP", self, "BOTTOM", 0, -TukuiDB.Scale(5))
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs["growth-y"] = "DOWN"
 			debuffs["growth-x"] = "RIGHT"
@@ -1295,7 +1295,7 @@ local function Shared(self, unit)
 			debuffs.spacing = TukuiDB.Scale(2)
 			debuffs.size = (((original_width + TukuiDB.Scale(4)) - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)
 			debuffs:SetHeight(debuffs.size)
-			debuffs:SetPoint("TOP", self, "BOTTOM", 0, -TukuiDB.Scale(3))
+			debuffs:SetPoint("TOP", self, "BOTTOM", 0, -TukuiDB.Scale(5))
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs["growth-y"] = "DOWN"
 			debuffs["growth-x"] = "RIGHT"
@@ -1708,26 +1708,27 @@ local function Shared(self, unit)
 		self:Tag(Name, '[Tukui:getnamecolor][Tukui:nameshort]')
 		self.Name = Name
 	end
-
+	
 	------------------------------------------------------------------------
 	--	Features we want for all units at the same time
 	------------------------------------------------------------------------
 	
 	-- here we create an invisible frame for all element we want to show over health/power.
 	-- because we can only use self here, and self is under all elements.
-	local InvFrame = CreateFrame("Frame", nil, self)
-	InvFrame:SetFrameStrata("MEDIUM")
-	InvFrame:SetFrameLevel(5)
-	InvFrame:SetAllPoints(self.Health)
-	
-	-- symbols, now put the symbol on the frame we created above.
-	local RaidIcon = InvFrame:CreateTexture(nil, "OVERLAY")
-	RaidIcon:SetTexture("Interface\\AddOns\\Tukui\\media\\textures\\raidicons.blp") 
-	RaidIcon:SetHeight(15)
-	RaidIcon:SetWidth(15)
-	RaidIcon:SetPoint("TOP", 0, 8)
-	self.RaidIcon = RaidIcon
-	
+	if unit ~= "party" then
+		local InvFrame = CreateFrame("Frame", nil, self)
+		InvFrame:SetFrameStrata("MEDIUM")
+		InvFrame:SetFrameLevel(5)
+		InvFrame:SetAllPoints(self.Health)
+		
+		-- symbols, now put the symbol on the frame we created above.
+		local RaidIcon = InvFrame:CreateTexture(nil, "OVERLAY")
+		RaidIcon:SetTexture("Interface\\AddOns\\Tukui\\media\\textures\\raidicons.blp") 
+		RaidIcon:SetHeight(15)
+		RaidIcon:SetWidth(15)
+		RaidIcon:SetPoint("TOP", 0, 8)
+		self.RaidIcon = RaidIcon
+	end
 	return self
 end
 

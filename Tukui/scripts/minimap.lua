@@ -5,7 +5,7 @@
 local p = CreateFrame("Frame", "TukuiMinimap", Minimap)
 TukuiMinimap:RegisterEvent("ADDON_LOADED")
 
-TukuiDB.CreatePanel(p, 144, 144, "CENTER", Minimap, "CENTER", -0, 0)
+TukuiDB.CreatePanel(p, TukuiDB.Scale(144 + 4), TukuiDB.Scale(144 + 4), "CENTER", Minimap, "CENTER", -0, 0)
 p:ClearAllPoints()
 p:SetPoint("TOPLEFT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
 p:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
@@ -105,7 +105,7 @@ local menuList = {
     {text = CHARACTER_BUTTON,
     func = function() ToggleCharacter("PaperDollFrame") end},
     {text = SPELLBOOK_ABILITIES_BUTTON,
-    func = function() ToggleFrame(SpellBookFrame) end},
+    func = function() ToggleSpellBook("spell") end},
     {text = TALENTS_BUTTON,
     func = function() if not PlayerTalentFrame then LoadAddOn("Blizzard_TalentUI") end PlayerTalentFrame_Toggle() end},
     {text = ACHIEVEMENT_BUTTON,

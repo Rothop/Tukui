@@ -22,6 +22,7 @@ ALLOWED_GROUPS = {
 	["castbar"]=1,
 	["raidframes"]=1,
 	["auras"]=1,
+	["framesizes"]=1,
 }
 
 local function Local(o)
@@ -174,14 +175,17 @@ local function Local(o)
 	if o == "TukuiConfigUIunitframesmendpet" then o = TukuiL.option_unitframes_mendpet end
 	if o == "TukuiConfigUIunitframespoweroffset" then o = TukuiL.option_unitframes_unitframes_poweroffset end
 	if o == "TukuiConfigUIunitframesclassbar" then o = TukuiL.option_unitframes_classbar end
-	if o == "TukuiConfigUIunitframesplaytarwidth" then o = TukuiL.option_unitframes_playtarwidth end
-	if o == "TukuiConfigUIunitframesplaytarheight" then o = TukuiL.option_unitframes_playtarheight end
-	if o == "TukuiConfigUIunitframessmallwidth" then o = TukuiL.option_unitframes_smallwidth end
-	if o == "TukuiConfigUIunitframessmallheight" then o = TukuiL.option_unitframes_smallheight end
-	if o == "TukuiConfigUIunitframesarenabosswidth" then o = TukuiL.option_unitframes_arenabosswidth end
-	if o == "TukuiConfigUIunitframesarenabossheight" then o = TukuiL.option_unitframes_arenabossheight end
-	if o == "TukuiConfigUIunitframesassisttankwidth" then o = TukuiL.option_unitframes_assisttankwidth end
-	if o == "TukuiConfigUIunitframesassisttankheight" then o = TukuiL.option_unitframes_assisttankheight end
+
+	-- frame sizes
+	if o == "TukuiConfigUIframesizes" then o = TukuiL.option_framesizes end
+	if o == "TukuiConfigUIframesizesplaytarwidth" then o = TukuiL.option_framesizes_playtarwidth end
+	if o == "TukuiConfigUIframesizesplaytarheight" then o = TukuiL.option_framesizes_playtarheight end
+	if o == "TukuiConfigUIframesizessmallwidth" then o = TukuiL.option_framesizes_smallwidth end
+	if o == "TukuiConfigUIframesizessmallheight" then o = TukuiL.option_framesizes_smallheight end
+	if o == "TukuiConfigUIframesizesarenabosswidth" then o = TukuiL.option_framesizes_arenabosswidth end
+	if o == "TukuiConfigUIframesizesarenabossheight" then o = TukuiL.option_framesizes_arenabossheight end
+	if o == "TukuiConfigUIframesizesassisttankwidth" then o = TukuiL.option_framesizes_assisttankwidth end
+	if o == "TukuiConfigUIframesizesassisttankheight" then o = TukuiL.option_framesizes_assisttankheight end
 	
 	-- loot
 	if o == "TukuiConfigUIloot" then o = TukuiL.option_loot end
@@ -234,6 +238,7 @@ local function Local(o)
 	if o == "TukuiConfigUIactionbarbottomrows" then o = TukuiL.option_actionbar_rbn end
 	if o == "TukuiConfigUIactionbarrightbars" then o = TukuiL.option_actionbar_rn end
 	if o == "TukuiConfigUIactionbarsplitbar" then o = TukuiL.option_actionbar_splitbar end
+	if o == "TukuiConfigUIactionbarbottompetbar" then o = TukuiL.option_actionbar_bottompetbar end
 	
 	-- arena
 	if o == "TukuiConfigUIarena" then o = TukuiL.option_arena end
@@ -634,41 +639,42 @@ local function CreateTukuiConfigUI()
 				end	
 				
 				colorbutton:SetScript("OnMouseDown", function(self) 
-					local button = _G[self:GetName()]
-					local r,g,b,a = button:GetBackdropBorderColor();
+					if ColorPickerFrame:IsShown() then return end
+					local newR, newG, newB, newA
+					local fired = 0
+					
+					local r,g,b,a = self:GetBackdropBorderColor();
 					r,g,b,a = round(r, 2),round(g, 2),round(b, 2),round(a, 2)
 					local originalR,originalG,originalB,originalA = r,g,b,a
-
+					
 					local function ShowColorPicker(r, g, b, a, changedCallback)
 						ColorPickerFrame:SetColorRGB(r,g,b)
-						ColorPickerFrame.hasOpacity = false
+						a = tonumber(a)
+						ColorPickerFrame.hasOpacity = (a ~= nil and a ~= 1)
+						ColorPickerFrame.opacity = a
 						ColorPickerFrame.previousValues = {originalR,originalG,originalB,originalA}
-						ColorPickerFrame.func, ColorPickerFrame.cancelFunc = changedCallback, changedCallback
+						ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = changedCallback, changedCallback, changedCallback;
 						ColorPickerFrame:Hide()
 						ColorPickerFrame:Show()
 					end
 										
 					local function myColorCallback(restore)
-						local newR, newG, newB, newA
-						if restore then
+						fired = fired + 1
+						if restore ~= nil then
 							-- The user bailed, we extract the old color from the table created by ShowColorPicker.
 							newR, newG, newB, newA = unpack(restore)
-							button:SetBackdropBorderColor(newR, newG, newB, newA)
-							value = oldvalue
-							if self == button then
-								SetValue(group,option,(oldvalue)) 
-							end
 						else
 							-- Something changed
 							newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB()
+						end
+						
+						--Kinda a cheesy way to fix setting the value in the wrong place.. oh well
+						if fired > 3 then
 							value = { newR, newG, newB, newA }
-							if self == button then
-								SetValue(group,option,(value)) 
-							end
-						button:SetBackdropBorderColor(unpack(value))
-					end
-
-					r, g, b, a = newR, newG, newB, newA
+							SetValue(group,option,(value)) 
+							self:SetBackdropBorderColor(newR, newG, newB, newA)
+							fired = 0
+						end
 					end
 										
 					ShowColorPicker(originalR, originalG, originalB, originalA, myColorCallback)

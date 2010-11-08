@@ -33,7 +33,7 @@
 	TukuiL.option_nameplates_enable = "Включить индикаторы здоровья"
 	TukuiL.option_nameplates_enhancethreat = "Включить поддержку угрозы, зависит от Вашей роли"
 	TukuiL.option_nameplates_showhealth = "Показывать здоровье на индикаторе"
-	TukuiL.option_nameplates_combat = "Only show enemy nameplates in-combat"
+	TukuiL.option_nameplates_combat = "Отображать индикаторы противников только в бою"
 	
 	-- addon skins
 	TukuiL.option_skin = "Скины аддонов"
@@ -92,7 +92,6 @@
 	TukuiL.option_auras_playershowonlydebuffs = "Отображать только дебаффы на рамке игрока (Ауры на рамке игрока должны быть включены)"
 	TukuiL.option_auras_playerdebuffsonly = "Отображать только свои эффекты и эффекты контроля  (настраивается в auraFilter.lua)"
 	TukuiL.option_auras_RaidUnitBuffWatch = "Отображать баффы на рейдовых фреймах"
-
 	TukuiL.option_auras_playtarbuffperrow = "Кол-во Баффов/Дебаффов в ряду на фрейме Игрока/Цели"
 	TukuiL.option_auras_smallbuffperrow = "Кол-во Дебаффов в ряду на фрейме ЦелиЦели/Фокуса"
 	
@@ -147,14 +146,17 @@
 	TukuiL.option_unitframes_fontsize = "Размер шрифта"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Отступ полосы энергии(0 для отключения отступа)"
 	TukuiL.option_unitframes_classbar = "Классовая полоса(Полоса тотемов, Полоса рун, Полоса силы света, Полоса осколков, Полоса затмения)"
-	TukuiL.option_unitframes_playtarwidth = "Ширина фрейма Игрока/Цели"
-	TukuiL.option_unitframes_playtarheight = "Высота фрейма Игрока/Цели"
-	TukuiL.option_unitframes_smallwidth = "Ширина фрейма ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
-	TukuiL.option_unitframes_smallheight = "Высота ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
-	TukuiL.option_unitframes_arenabosswidth = "Ширина фреймов Арены/Босса"
-	TukuiL.option_unitframes_arenabossheight = "Высриа фреймов Арены/Босса"
-	TukuiL.option_unitframes_assisttankwidth = "Ширина фреймов Танка/Наводчика"
-	TukuiL.option_unitframes_assisttankheight = "Высота фреймов Танка/Наводчика"
+	
+	-- frame sizes
+	TukuiL.option_framesizes = "UnitFrame Sizes"		
+	TukuiL.option_framesizes_playtarwidth = "Ширина фрейма Игрока/Цели"
+	TukuiL.option_framesizes_playtarheight = "Высота фрейма Игрока/Цели"
+	TukuiL.option_framesizes_smallwidth = "Ширина фрейма ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
+	TukuiL.option_framesizes_smallheight = "Высота ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
+	TukuiL.option_framesizes_arenabosswidth = "Ширина фреймов Арены/Босса"
+	TukuiL.option_framesizes_arenabossheight = "Высриа фреймов Арены/Босса"
+	TukuiL.option_framesizes_assisttankwidth = "Ширина фреймов Танка/Наводчика"
+	TukuiL.option_framesizes_assisttankheight = "Высота фреймов Танка/Наводчика"
 	
 	-- loot
 	TukuiL.option_loot = "Добыча"
@@ -203,7 +205,8 @@
 	TukuiL.option_actionbar_rbn2 = "Количество панелей внизу (1, 1.5, или 2)"
 	TukuiL.option_actionbar_rn = "Количество панелей справа (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Включить раздельную панель"
-
+	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	
 	-- arena
 	TukuiL.option_arena = "Арена"
 	TukuiL.option_arena_st = "Включить отслеживание вражеских перезарядок на арене"

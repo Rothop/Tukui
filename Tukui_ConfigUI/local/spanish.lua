@@ -145,6 +145,17 @@
 	TukuiL.option_unitframes_unitframes_poweroffset = "Compensación de la barra de poder dentro del marco de unidad (0 para no usar compensación)"
 	TukuiL.option_unitframes_classbar = "Activar la barra de clase (Totems, Runas, poder sagrado, almas, Eclipse)"
  
+	 -- frame sizes
+	TukuiL.option_framesizes = "UnitFrame Sizes"
+	TukuiL.option_framesizes_playtarwidth = "Width of the Player/Target frames"
+	TukuiL.option_framesizes_playtarheight = "Height of the Player/Target frames"
+	TukuiL.option_framesizes_smallwidth = "Width of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_framesizes_smallheight = "Height of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_framesizes_arenabosswidth = "Width of the Arena/Boss frames"
+	TukuiL.option_framesizes_arenabossheight = "Height of the Arena/Boss frames"
+	TukuiL.option_framesizes_assisttankwidth = "Width of the MainTank/MainAssist frames"
+	TukuiL.option_framesizes_assisttankheight = "Height of the MainTank/MainAssist frames"
+
 	-- loot
 	TukuiL.option_loot = "Loot"
 	TukuiL.option_loot_enableloot = "Enable loot window"
@@ -192,7 +203,8 @@
 	TukuiL.option_actionbar_rbn2 = "Número de barras de acción inferiores (1, 1.5, o 2)"
 	TukuiL.option_actionbar_rn = "Número de barras de acción en la derecha (1, 2 o 3)"
 	TukuiL.option_actionbar_splitbar = "Activar las barras de acción partidas"
- 
+	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	
 	-- arena
 	TukuiL.option_arena = "Arena"
 	TukuiL.option_arena_st = "Activar seguimiento de hechizos del enemigo en arenas"

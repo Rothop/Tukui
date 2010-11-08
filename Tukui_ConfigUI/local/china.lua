@@ -148,14 +148,17 @@
 	TukuiL.option_unitframes_fontsize = "单位窗口文字大小"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
-	TukuiL.option_unitframes_playtarwidth = "Width of the Player/Target frames"
-	TukuiL.option_unitframes_playtarheight = "Height of the Player/Target frames"
-	TukuiL.option_unitframes_smallwidth = "Width of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
-	TukuiL.option_unitframes_smallheight = "Height of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
-	TukuiL.option_unitframes_arenabosswidth = "Width of the Arena/Boss frames"
-	TukuiL.option_unitframes_arenabossheight = "Height of the Arena/Boss frames"
-	TukuiL.option_unitframes_assisttankwidth = "Width of the MainTank/MainAssist frames"
-	TukuiL.option_unitframes_assisttankheight = "Height of the MainTank/MainAssist frames"
+
+	-- frame sizes
+	TukuiL.option_framesizes = "UnitFrame Sizes"
+	TukuiL.option_framesizes_playtarwidth = "Width of the Player/Target frames"
+	TukuiL.option_framesizes_playtarheight = "Height of the Player/Target frames"
+	TukuiL.option_framesizes_smallwidth = "Width of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_framesizes_smallheight = "Height of the TargetTarget/Focus/FocusTarget/PlayersPet frames"
+	TukuiL.option_framesizes_arenabosswidth = "Width of the Arena/Boss frames"
+	TukuiL.option_framesizes_arenabossheight = "Height of the Arena/Boss frames"
+	TukuiL.option_framesizes_assisttankwidth = "Width of the MainTank/MainAssist frames"
+	TukuiL.option_framesizes_assisttankheight = "Height of the MainTank/MainAssist frames"
 	
 	-- loot
 	TukuiL.option_loot = "战利品"
@@ -193,7 +196,7 @@
 	TukuiL.option_reminder_RaidBuffReminder = "在小地图下开启团队BUFF提醒框架"
 
 	-- action bar
-  TukuiL.option_actionbar = "动作条"
+	TukuiL.option_actionbar = "动作条"
 	TukuiL.option_actionbar_hidess = "隐藏变身及图腾条"
 	TukuiL.option_actionbar_showgrid = "永远显示动作条格位"
 	TukuiL.option_actionbar_enable = "开启Tukui动作条"
@@ -204,7 +207,8 @@
 	TukuiL.option_actionbar_rbn2 = "底部动作条数量 (1, 1.5, 或 2)"
 	TukuiL.option_actionbar_rn = "右方动作条数量 (1, 2 或 3)"
 	TukuiL.option_actionbar_splitbar = "开启分割动作条"
-	 
+	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	
 	-- arena
 	TukuiL.option_arena = "竞技场"
 	TukuiL.option_arena_st = "竞技场中开启敌方法术追踪"
