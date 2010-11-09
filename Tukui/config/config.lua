@@ -2,8 +2,8 @@
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
 	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
-	["embedright"] = "Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
-	["recountscript"] = 1, 					--0 = off, 1 = shows recount when in-combat(in party or raid instance), 2 = shows recount when out of combat, hides when in-combat(in party or raid instance)
+	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
+	["recountscript"] = nil, 	--TEMP				--0 = off, 1 = shows recount when in-combat(in party or raid instance), 2 = shows recount when out of combat, hides when in-combat(in party or raid instance)
 	["classcolortheme"] = false,			--class colored theme for panels
 }
 
@@ -66,6 +66,7 @@ TukuiCF["raidframes"] = {
 	["maintank"] = true,                  -- enable maintank
 	["mainassist"] = true,                -- enable mainassist
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
+	["partypets"] = true,					-- enable party pets for the healer layout
 	["disableblizz"] = true,				-- fuck fuck fuckin fuck
 }
 
@@ -166,6 +167,11 @@ TukuiCF["datatext"] = {
 	["gold"] = 6,                          -- show your current gold on panels
 	["guild"] = 7,                         -- show number on guildmate connected on panels
 	["friends"] = 8,                       -- show number of friends connected.
+	["bags"] = 0,							-- show ammount of bag space available
+	["dps_text"] = 0,						-- show current dps
+	["hps_text"] = 0,						-- show current hps
+	["haste"] = 0,							-- show current haste
+	["currency"] = 0,						-- show watched items in backpack
 	
 	["battleground"] = true,               -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                     -- set time to 24h format.

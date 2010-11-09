@@ -6,6 +6,12 @@ function TukuiDB.UIScale()
 		if TukuiCF["general"].autoscale ~= true then return end
 		TukuiCF["general"].uiscale = min(2, max(.64, 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)")))
 	end
+	
+	if tonumber(string.match(GetCVar("gxResolution"), "(%d+)x%d+")) <= 1440 then
+		TukuiDB.lowversion = true
+	else
+		TukuiDB.lowversion = false
+	end
 end
 TukuiDB.UIScale()
 
@@ -128,27 +134,27 @@ end
 
 --Set Datatext Postitions
 function TukuiDB.PP(p, obj)
-	local x = TukuiDB.Scale(((UIParent:GetWidth() / 3) / 3))
+	local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3))
 	if p == 1 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
 	elseif p == 2 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.3, -TukuiDB.mult)
 	elseif p == 3 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x, -TukuiDB.mult)
 	elseif p == 4 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
 		local p = 6 --Swap these so its like how its always been..
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x, -TukuiDB.mult)
 	elseif p == 5 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.3, -TukuiDB.mult)
 	elseif p == 6 then
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
 		local p = 4 --Swap these so its like how its always been..
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/2, -TukuiDB.mult)
+		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
 	end
 	
 	if TukuiMinimap then
@@ -1227,6 +1233,9 @@ function TukuiDB.UpdateThreat(self, event, unit)
 			if self.PowerFrame and self.PowerFrame.shadow then
 				self.PowerFrame.shadow:SetBackdropBorderColor(r,g,b,0.85)
 			end
+			if self.PFrame and self.PFrame.shadow then
+				self.PFrame.shadow:SetBackdropBorderColor(r, g, b, 1)
+			end
 		else
 			if self.HealthBorder then
 				self.HealthBorder:SetBackdropBorderColor(r, g, b, 1)
@@ -1241,6 +1250,9 @@ function TukuiDB.UpdateThreat(self, event, unit)
 			self.FrameBorder.shadow:SetBackdropBorderColor(0,0,0,0.75)
 			if self.PowerFrame and self.PowerFrame.shadow then
 				self.PowerFrame.shadow:SetBackdropBorderColor(0,0,0,0.75)
+			end
+			if self.PFrame and self.PFrame.shadow then
+				self.PFrame.shadow:SetBackdropBorderColor(0, 0, 0, 1)
 			end
 		else
 			self.FrameBorder:SetBackdropBorderColor(unpack(TukuiCF["media"].altbordercolor))

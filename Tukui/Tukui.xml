@@ -76,6 +76,11 @@
 	<Script file="datatext\guild.lua"/>
 	<Script file="datatext\loc.lua"/>
 	<Script file="datatext\time.lua"/>
+	<Script file="datatext\bags.lua"/>
+	<Script file="datatext\dps.lua"/>
+	<Script file="datatext\hps.lua"/>
+	<Script file="datatext\haste.lua"/>
+	<Script file="datatext\currency.lua"/>
 	
 	<Script file="actionbars\Hide.lua"/>
 	<Script file="actionbars\Bar1.lua"/>

@@ -666,7 +666,7 @@ local function Shared(self, unit)
 		if TukuiCF["castbar"].unitcastbar == true then
 			local castbar = CreateFrame("StatusBar", self:GetName().."_Castbar", self)
 			if TukuiCF["castbar"].castermode == true then
-				castbar:SetWidth(TukuiActionBarBackground:GetWidth() - TukuiDB.Scale(2))
+				castbar:SetWidth(TukuiActionBarBackground:GetWidth() - TukuiDB.Scale(4))
 				castbar:SetPoint("BOTTOMRIGHT", TukuiActionBarBackground, "TOPRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(5))
 			else
 				castbar:SetWidth(original_width)
@@ -1765,12 +1765,12 @@ oUF:RegisterStyle('Tukz', Shared)
 
 -- Player
 local player = oUF:Spawn('player', "oUF_Tukz_player")
-player:SetPoint("BOTTOMRIGHT", TukuiActionBarBackground, "TOPLEFT", TukuiDB.Scale(-15),TukuiDB.Scale(185))
+player:SetPoint("BOTTOMRIGHT", TukuiActionBarBackground, "TOPLEFT", TukuiDB.Scale(-15),TukuiDB.Scale(195))
 player:SetSize(player_width, player_height)
 
 -- Target
 local target = oUF:Spawn('target', "oUF_Tukz_target")
-target:SetPoint("BOTTOMLEFT", TukuiActionBarBackground, "TOPRIGHT", TukuiDB.Scale(15),TukuiDB.Scale(185))
+target:SetPoint("BOTTOMLEFT", TukuiActionBarBackground, "TOPRIGHT", TukuiDB.Scale(15),TukuiDB.Scale(195))
 target:SetSize(target_width, target_height)
 
 -- Focus

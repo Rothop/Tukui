@@ -105,6 +105,11 @@ local function Local(o)
 	if o == "TukuiConfigUIdatatextdur" then o = TukuiL.option_datatext_dur end	
 	if o == "TukuiConfigUIdatatextstat1" then o = TukuiL.option_datatext_stat1 end
 	if o == "TukuiConfigUIdatatextstat2" then o = TukuiL.option_datatext_stat2 end
+	if o == "TukuiConfigUIdatatextbags" then o = TukuiL.option_datatext_bags end
+	if o == "TukuiConfigUIdatatexthps_text" then o = TukuiL.option_datatext_hps end
+	if o == "TukuiConfigUIdatatextdps_text" then o = TukuiL.option_datatext_dps end
+	if o == "TukuiConfigUIdatatexthaste" then o = SPELL_HASTE_ABBR end
+	if o == "TukuiConfigUIdatatextcurrency" then o = CURRENCY end
 	
 	--auras
 	if o == "TukuiConfigUIauras" then o = TukuiL.option_auras end
@@ -136,7 +141,7 @@ local function Local(o)
 	if o == "TukuiConfigUIraidframes" then o = TukuiL.option_raidframes end
 	if o == "TukuiConfigUIraidframesenable" then o = TukuiL.option_raidframes_enable end
 	if o == "TukuiConfigUIraidframesgridonly" then o = TukuiL.option_raidframes_gridonly end
-	if o == "TukuiConfigUIraidframeshealcomm" then o = TukuiL.option_raidframes_healcomm end
+	if o == "TukuiConfigUIraidframeshealcomm" then o = DISPLAY_INCOMING_HEALS end
 	if o == "TukuiConfigUIraidframesshowboss" then o = TukuiL.option_raidframes_boss end
 	if o == "TukuiConfigUIraidframesgridhealthvertical" then o = TukuiL.option_raidframes_hpvertical end
 	if o == "TukuiConfigUIraidframesshowrange" then o = TukuiL.option_raidframes_enablerange end
@@ -150,6 +155,7 @@ local function Local(o)
 	if o == "TukuiConfigUIraidframesfontsize" then o = TukuiL.option_raidframes_fontsize end 
 	if o == "TukuiConfigUIraidframesscale" then o = TukuiL.option_raidframes_scale end 
 	if o == "TukuiConfigUIraidframesdisableblizz" then o = TukuiL.option_raidframes_disableblizz end
+	if o == "TukuiConfigUIraidframespartypets" then o = DISPLAY_RAID_PETS.." ("..HEALER.." "..PARTY..")" end
 	
 	-- unit frames
 	if o == "TukuiConfigUIunitframes" then o = TukuiL.option_unitframes_unitframes end

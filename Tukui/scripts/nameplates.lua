@@ -137,6 +137,7 @@ local function UpdateThreat(frame, elapsed)
 			else
 				frame.healthbackdrop:SetBackdropBorderColor(1, 1, 1)
 			end
+			if frame.overlay:IsShown() then frame.overlay:Hide() end
 		else
 			--Not Targetted
 			frame.name:SetTextColor(1, 1, 1)
@@ -177,7 +178,7 @@ local function UpdateObjects(frame)
 	
 	frame.hp:ClearAllPoints()
 	frame.hp:SetSize(hpWidth, hpHeight)	
-	frame.hp:SetPoint('CENTER', frame, 0, 10)
+	frame.hp:SetPoint('CENTER', frame, 0, -10)
 	frame.hp:GetStatusBarTexture():SetHorizTile(true)
 	
 	--Class Icons
@@ -466,7 +467,7 @@ CreateFrame('Frame'):SetScript('OnUpdate', function(self, elapsed)
 		for frame in pairs(frames) do
 			UpdateThreat(frame, self.elapsed)
 		end
-
+		
 		self.elapsed = 0
 	else
 		self.elapsed = (self.elapsed or 0) + elapsed
