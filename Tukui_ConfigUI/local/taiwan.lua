@@ -4,7 +4,6 @@
 	TukuiL.option_general_uiscale = "自動調整UI比例"
 	TukuiL.option_general_multisample = "多重採樣保護"
 	TukuiL.option_general_customuiscale = " UI比例 (當自動調整關閉時)"
-	TukuiL.option_general_recountscript = "顯示Recount設定(0-關閉, 1-戰鬥時顯示, 2-非戰鬥時顯示)"
 	TukuiL.option_general_embedright = "將插件綁定於右邊對話框架(Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "框架邊緣使用職業顏色"
 	 
@@ -136,7 +135,7 @@
 	TukuiL.option_unitframes_smooth = "啟用smooth bar"
 	TukuiL.option_unitframes_portrait = "啟用玩家及目標動態頭像"
 	TukuiL.option_unitframes_enable = "啟用TUKUI團隊框架模組"
-	TukuiL.option_unitframes_enemypower = "啟用只對敵對玩家顯示目標能量值"
+	TukuiL.option_unitframes_enemypower = "只顯示玩家能量條"
 	TukuiL.option_unitframes_raidaggro = "啟用仇恨顯示"
 	TukuiL.option_unitframes_symbol = "顯示隊伍/團隊標記"
 	TukuiL.option_unitframes_threatbar = "啟用仇恨條"
@@ -149,9 +148,10 @@
 	TukuiL.option_unitframes_fontsize = "字體大小"
 	TukuiL.option_unitframes_unitframes_poweroffset = "將能量條並排於單位框架 (0 以並排)"
 	TukuiL.option_unitframes_classbar = "啟用職業條 (圖騰列, 符文列, 神聖能量列, 靈魂裂片列, 日/月蝕列)"
-    
+    TukuiL.option_unitframes_healthbackdropcolor = "全部單位視窗生命條使用背景顏色"
+	
 	 -- frame sizes
-	TukuiL.option_framesizes = "UnitFrame Sizes"	
+	TukuiL.option_framesizes = "單位視窗大小"
 	TukuiL.option_framesizes_playtarwidth = "玩家/目標單位框架的闊度"
     TukuiL.option_framesizes_playtarheight = "玩家/目標單位框架的高度"
     TukuiL.option_framesizes_smallwidth = "目標的目標/專注/專注目標及玩家寵物單位框架的闊度"
@@ -208,8 +208,13 @@
 	TukuiL.option_actionbar_rbn2 = "底部動作條數量 (1, 1.5, 或 2)"
 	TukuiL.option_actionbar_rn = "右方動作條數量 (1, 2 或 3)"
 	TukuiL.option_actionbar_splitbar = "啟用分割動作條"
-	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_bottompetbar = "將主動作條向上移動並將寵物動作條移至主動作條下方"
+	TukuiL.option_actionbar_buttonsize = "主要熱鍵大小"
+	TukuiL.option_actionbar_buttonspacing = "主要熱鍵間隔距離"
+	TukuiL.option_actionbar_petbuttonsize = "寵物/姿態/圖騰熱鍵大小"
+	TukuiL.option_actionbar_petbuttonspacing = "寵物/姿態/圖騰熱鍵鍵格距離"
 
+	
 	-- arena
 	TukuiL.option_arena = "競技場"
 	TukuiL.option_arena_st = "競技場中啟用敵方法術追蹤"

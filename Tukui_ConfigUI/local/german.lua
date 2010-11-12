@@ -4,7 +4,6 @@
 	TukuiL.option_general_uiscale = "Automatische Interface Skalierung"
 	TukuiL.option_general_multisample = "Multisample Schutz (Saubere 1px Ränder)"
 	TukuiL.option_general_customuiscale = "Interface Skalierung (falls Automatische Interface Skalierung deaktiviert ist)"
-	TukuiL.option_general_recountscript = "Recount anzeigen (0-aus, 1-Kampf, 2-außerhalb des Kampfes)"
 	TukuiL.option_general_embedright = "Addon in den rechten unterem Chat einfügen (Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Rahmenfarbe nach Klasse färben"
  
@@ -135,7 +134,7 @@
 	TukuiL.option_unitframes_smooth = "Aktiviere flüssigere Leistenänderungen"
 	TukuiL.option_unitframes_portrait = "Zeige Portraits für Spieler und Ziel an"
 	TukuiL.option_unitframes_enable = "Aktiviere Tukui Einheitenfenster"
-	TukuiL.option_unitframes_enemypower = "Aktiviere Manaanzeige nur bei Gegnern"
+	TukuiL.option_unitframes_enemypower = "Aktiviere Poweranzeige nur beim Spieler"
 	TukuiL.option_unitframes_raidaggro = "Aktiviere Bedrohungsanzeige auf Raidframes"
 	TukuiL.option_unitframes_symbol = "Zeige Symbole auf Gruppen und Raidframes"
 	TukuiL.option_unitframes_threatbar = "Aktiviere Bedrohungsleiste"
@@ -148,9 +147,10 @@
 	TukuiL.option_unitframes_fontsize = "Schriftgröße"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Versetzung der Power-Leiste zum Einheitenfenster (0 für keine Versetzung)"
 	TukuiL.option_unitframes_classbar = "Aktiviere Klassenleiste (Totemleiste, Runenleiste, Heiligleiste, Seelensplitterleiste, Finsternisleiste)"
+	TukuiL.option_unitframes_healthbackdropcolor = "Hintergrundfarbe der Gesundheitsleiste aller Einheitenfenster"
 	
 	-- frame sizes
-	TukuiL.option_framesizes = "UnitFrame Sizes"		
+	TukuiL.option_framesizes = "Einheitenfenstergröße"		
 	TukuiL.option_framesizes_playtarwidth = "Breite der Spieler/Ziel Einheitenfenster"
 	TukuiL.option_framesizes_playtarheight = "Höhe der Spieler/Ziel Einheitenfenster"
 	TukuiL.option_framesizes_smallwidth = "Breite der Ziel des Ziels/Fokus/Fokus Ziel/Spieler Begleiter Einheitenfenster"
@@ -207,7 +207,11 @@
 	TukuiL.option_actionbar_rbn2 = "Anzahl der Aktionsleisten unten (1, 1.5, oder 2)"
 	TukuiL.option_actionbar_rn = "Anzahl der Aktionsleisten rechts (1, 2 oder 3)"
 	TukuiL.option_actionbar_splitbar = "Aktviert die geteilte Leiste um die untere Aktionsleiste"
-	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_bottompetbar = "Setzt die Begleiterleiste unter die Aktionsleiste 1 und schiebt diese nach oben"
+	TukuiL.option_actionbar_buttonsize = "Größe der Aktionsleisten Buttons"
+	TukuiL.option_actionbar_buttonspacing = "Abstand der Aktionsleisten Buttons"
+	TukuiL.option_actionbar_petbuttonsize = "Größe der Begleiter/Haltungs/Totems Aktionsleisten Buttons"
+	TukuiL.option_actionbar_petbuttonspacing = "Größe der Begleiter/Haltungs/Totems Aktionsleisten Buttons"
 	
 	-- arena
 	TukuiL.option_arena = "Arena"

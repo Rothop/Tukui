@@ -4,7 +4,6 @@ if GetLocale() == "frFR" then
 	TukuiL.option_general_uiscale = "Echelle automatique de l'UI" --"Auto UI Scale"
 	TukuiL.option_general_multisample = "Protection multicouche (bordure propre de 1px)" --"Multisample protection (clean 1px border)"
 	TukuiL.option_general_customuiscale = "Echelle de l'UI (si l'échelle automatique est désactivée)" --"UI Scale (if auto-scale is disabled)"
-	TukuiL.option_general_recountscript = "Montrer Recount quand (0-jamais, 1-en combat, 2- hors combat)" --"Recount Show When (0-off, 1-combat, 2-nocombat)"
 	TukuiL.option_general_embedright = "Addon placé dans le panneau de discussion droit (Recount, Omen, Skada)" --"Addon to embed to right chat panel (Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Bordure de couleur de classe." --"Color border colors to your class"
  
@@ -29,11 +28,11 @@ if GetLocale() == "frFR" then
 	TukuiL.option_media_glossy = "Glossy Bar Texture"
 	
 	-- nameplate
-	TukuiL.option_nameplates = "Barres de vies" --"Nameplates"
-	TukuiL.option_nameplates_enable = "Activer les barres de vies" --"Enable Nameplates"
+	TukuiL.option_nameplates = "Barres d'info" --"Nameplates"
+	TukuiL.option_nameplates_enable = "Activer les barres d'info des ennemis" --"Enable Nameplates"
 	TukuiL.option_nameplates_enhancethreat = "Activer la gestion d'aggro, change automatiquement selon votre role:" --"Enable threat feature, automatically changes by your roll:  Tank - Green (aggro) Red (noaggro) DPS - Green (noaggro) Red (aggro)"
-	TukuiL.option_nameplates_showhealth = "Montrer la vie sur les barres de vies" --"Show health on nameplate"
- 	TukuiL.option_nameplates_combat = "Voir les nameplates ennemis seulement en combat"
+	TukuiL.option_nameplates_showhealth = "Montrer la vie sur les barres d'info des ennemis" --"Show health on nameplate"
+ 	TukuiL.option_nameplates_combat = "Afficher les barres d'infos des ennemis seulement en combat"
 	
 	-- addon skins
 	TukuiL.option_skin = "Skin d'addon" --"Addon Skins"
@@ -135,7 +134,7 @@ if GetLocale() == "frFR" then
 	TukuiL.option_unitframes_smooth = "Activer l'effet smooth" --"Enable smooth bar"
 	TukuiL.option_unitframes_portrait = "Activer les portraits sur le joueur et la cible" --"Enable portraits on player and target"
 	TukuiL.option_unitframes_enable = "Activer les cadres d'unités de Tukui" --"Enable Tukui Unit Frames"
-	TukuiL.option_unitframes_enemypower = "Montrer la puissance sur les ennemis uniquement" --"Enable Power display on enemy only"
+	TukuiL.option_unitframes_enemypower = "Enable Power display on player only" --"Enable Power display on enemy only"
 	TukuiL.option_unitframes_raidaggro = "Activer l'affichage de l'aggro" --"Enable aggro display"
 	TukuiL.option_unitframes_symbol = "Montrer les symboles sur le groupe/raid" --"Show symbols on party/raid"
 	TukuiL.option_unitframes_threatbar = "Activer la barre de menace" --"Enable threat bar"
@@ -148,9 +147,10 @@ if GetLocale() == "frFR" then
 	TukuiL.option_unitframes_fontsize = "Taille de la police" --"Font Size"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 	TukuiL.option_unitframes_classbar = "Active les barres de classes (Barre de totem, Barre de pouvoir runique, Barre Sacrée, Barre des fragments d'âme, Barre d'Eclipse)"
+		TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 	
 	-- frame sizes
-	TukuiL.option_framesizes = "UnitFrame Sizes"	
+	TukuiL.option_framesizes = "Taille des portraits d'unité"
 	TukuiL.option_framesizes_playtarwidth = "Largeur des portraits du Joueur/de la Cible"
 	TukuiL.option_framesizes_playtarheight = "Hauteur des portraits du Joueur/de la Cible"
 	TukuiL.option_framesizes_smallwidth = "Largeur des portraits de la Cible de la Cible/du Focus/de la Cible du Focus/du Familier du Joueur"
@@ -207,7 +207,11 @@ if GetLocale() == "frFR" then
 	TukuiL.option_actionbar_rbn2 = "Nombre de barre d'actions en bas (1, 1.5 ou 2)" --"Number of action bars on the bottom (1, 1.5, or 2)"
 	TukuiL.option_actionbar_rn = "Nombre de barre d'actions à droite (1, 2 ou 3)" --"Number of action bars on right (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Activer la splitbar." --"Enable split actionbar"
-	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_bottompetbar = "Positionner la barre de familier sous la barre d'action principale, ceci déplace la barre d'action principale vers le haut"
+	TukuiL.option_actionbar_buttonsize = "Taille des boutons de la barre d'action"
+	TukuiL.option_actionbar_buttonspacing = "Espace entre les boutons de la barre d'action"
+	TukuiL.option_actionbar_petbuttonsize = "Taille de la barre d'action du familier / de position / du totem"
+	TukuiL.option_actionbar_petbuttonspacing = "Espace entre les boutons de la barre d'action du familier / de position / du totem"
 	
 	-- arena
 	TukuiL.option_arena = "Arène" --"Arena"

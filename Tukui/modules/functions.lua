@@ -134,27 +134,48 @@ end
 
 --Set Datatext Postitions
 function TukuiDB.PP(p, obj)
-	local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3))
-	if p == 1 then
+	if TukuiDB.lowversion == true then
+		local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3))
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
-	elseif p == 2 then
+		if p == 1 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
+		elseif p == 2 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.2, -TukuiDB.mult)
+		elseif p == 3 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x, -TukuiDB.mult)
+		elseif p == 4 then
+			local p = 6 --Swap these so its like how its always been..
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x, -TukuiDB.mult)
+		elseif p == 5 then
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.3, -TukuiDB.mult)
+		elseif p == 6 then
+			local p = 4 --Swap these so its like how its always been..
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
+		end
+	else
+		local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3.2))
 		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.3, -TukuiDB.mult)
-	elseif p == 3 then
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x, -TukuiDB.mult)
-	elseif p == 4 then
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		local p = 6 --Swap these so its like how its always been..
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x, -TukuiDB.mult)
-	elseif p == 5 then
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.3, -TukuiDB.mult)
-	elseif p == 6 then
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		local p = 4 --Swap these so its like how its always been..
-		obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
+		if p == 1 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
+		elseif p == 2 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.1, -TukuiDB.mult)
+		elseif p == 3 then
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/0.9, -TukuiDB.mult)
+		elseif p == 4 then
+			local p = 6 --Swap these so its like how its always been..
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/0.8, -TukuiDB.mult)
+		elseif p == 5 then
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.1, -TukuiDB.mult)
+		elseif p == 6 then
+			local p = 4 --Swap these so its like how its always been..
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
+		elseif p == 9 then
+			local p = 10
+			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))-x/20, -TukuiDB.mult)
+		elseif p == 10 then
+			local p = 9
+			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/0.53, -TukuiDB.mult)
+		end	
 	end
 	
 	if TukuiMinimap then
@@ -228,33 +249,6 @@ RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
 RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 RoleUpdater:SetScript("OnEvent", CheckRole)
 CheckRole()
-
-if IsAddOnLoaded("Recount") then
-	if (TukuiCF["general"].recountscript == 1 or TukuiCF["general"].recountscript == 2) and IsAddOnLoaded("Recount") then
-		local recounttoggler = CreateFrame("Frame", nil, UIParent)
-		local function OnEvent()
-		local inInstance, instanceType = IsInInstance()
-			if inInstance and (instanceType == "raid" or instanceType == "party") then
-					if TukuiCF["general"].recountscript == 1 then
-						if InCombatLockdown() then
-							Recount_MainWindow:Show()
-						end
-					elseif TukuiCF["general"].recountscript == 2 then
-						if InCombatLockdown() then
-							Recount_MainWindow:Hide()
-						else
-							Recount_MainWindow:Show()
-						end				
-					end
-			end
-		end
-		recounttoggler:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		recounttoggler:RegisterEvent("PLAYER_ENTERING_WORLD")
-		recounttoggler:RegisterEvent("PLAYER_REGEN_ENABLED")
-		recounttoggler:RegisterEvent("PLAYER_REGEN_DISABLED")
-		recounttoggler:SetScript("OnEvent", OnEvent)
-	end
-end
 
 ------------------------------------------------------------------------
 --	ActionBar Functions
@@ -699,7 +693,7 @@ end
 
 TukuiDB.PostNamePosition = function(self)
 	self.Name:ClearAllPoints()
-	if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and TukuiCF["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and TukuiCF["unitframes"].targetpowerpvponly == false) then
+	if (self.Power.value:GetText() and UnitIsPlayer("target") and TukuiCF["unitframes"].targetpowerplayeronly == true) or (self.Power.value:GetText() and TukuiCF["unitframes"].targetpowerplayeronly == false) then
 		self.Name:SetPoint("CENTER", self.health, "CENTER", 0, 1)
 	else
 		self.Power.value:SetAlpha(0)
@@ -1091,6 +1085,12 @@ TukuiDB.ToggleBars = function(self)
 	local unit = parent.unit
 	if unit == "vehicle" then unit = "player" end
 	if unit ~= "player" then return end
+	
+	if IsAddOnLoaded("Tukui_Dps_Layout") then
+		oUF_Tukz_player = oUF_TukzDPS_player
+	elseif IsAddOnLoaded("Tukui_Heal_Layout") then
+		oUF_Tukz_player = oUF_TukzHeal_player
+	end
 	
 	if self == oUF_Tukz_player.EclipseBar and (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) then 
 		oUF_Tukz_player.EclipseBar:SetScript("OnUpdate", function() 

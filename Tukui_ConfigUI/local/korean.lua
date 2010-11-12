@@ -4,7 +4,6 @@
 	TukuiL.option_general_uiscale = "Auto UI Scale"
 	TukuiL.option_general_multisample = "Multisample protection (clean 1px border)"
 	TukuiL.option_general_customuiscale = "UI Scale (if auto-scale is disabled)"
-	TukuiL.option_general_recountscript = "Recount Show When (0-off, 1-combat, 2-nocombat)"
 	TukuiL.option_general_embedright = "Addon to embed to right chat panel (Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Color border colors to your class"
 
@@ -135,7 +134,7 @@
 	TukuiL.option_unitframes_smooth = "Enable smooth bar"
 	TukuiL.option_unitframes_portrait = "Enable portraits on player and target"
 	TukuiL.option_unitframes_enable = "Enable Tukui Unit Frames"
-	TukuiL.option_unitframes_enemypower = "Enable Power display on enemy only"
+	TukuiL.option_unitframes_enemypower = "Enable Power display on player only"
 	TukuiL.option_unitframes_raidaggro = "Enable aggro display"
 	TukuiL.option_unitframes_symbol = "Show symbols on party/raid"
 	TukuiL.option_unitframes_threatbar = "Enable threat bar"
@@ -148,6 +147,7 @@
 	TukuiL.option_unitframes_fontsize = "Font Size"
 	TukuiL.option_unitframes_unitframes_poweroffset = "파워바 오프셋 (0은 오프셋 없음)"
 	TukuiL.option_unitframes_classbar = "직업 바 활성화 (토템바, 룬바, 신성력바, 영혼석바, 일월식바)"
+		TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 	
 	-- frame sizes
 	TukuiL.option_framesizes = "UnitFrame Sizes"		
@@ -208,6 +208,10 @@
 	TukuiL.option_actionbar_rn = "Number of action bars on right (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Enable split actionbar"
 	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_buttonsize = "Size of the main action buttons"
+	TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
+	TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
+	TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
 	
 	-- arena
 	TukuiL.option_arena = "Arena"

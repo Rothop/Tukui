@@ -4,7 +4,6 @@
 	TukuiL.option_general_uiscale = "自动调整UI比例"
 	TukuiL.option_general_multisample = "多重采样保护"
 	TukuiL.option_general_customuiscale = "UI比例 (限用于自动调整关闭时)"
-	TukuiL.option_general_recountscript = "显示Recount设定(0-关闭, 1-战斗时显示, 2-非战斗时显示)"
 	TukuiL.option_general_embedright = "将插件绑定于右边对话框架(Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "框架使用职业颜色"
 
@@ -137,7 +136,7 @@
 	TukuiL.option_unitframes_smooth = "开启smooth bar插件"
 	TukuiL.option_unitframes_portrait = "开启玩家及目标头像"
 	TukuiL.option_unitframes_enable = "开启Tukui单位窗口"
-	TukuiL.option_unitframes_enemypower = "开启只于敌对玩家显示目标能量值"
+	TukuiL.option_unitframes_enemypower = "Enable Power display on player only"
 	TukuiL.option_unitframes_raidaggro = "开启仇恨显示"
 	TukuiL.option_unitframes_symbol = "显示队伍/团队标计"
 	TukuiL.option_unitframes_threatbar = "开启仇恨条"
@@ -150,7 +149,8 @@
 	TukuiL.option_unitframes_fontsize = "单位窗口文字大小"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
-
+	TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
+	
 	-- frame sizes
 	TukuiL.option_framesizes = "UnitFrame Sizes"
 	TukuiL.option_framesizes_playtarwidth = "Width of the Player/Target frames"
@@ -210,6 +210,10 @@
 	TukuiL.option_actionbar_rn = "右方动作条数量 (1, 2 或 3)"
 	TukuiL.option_actionbar_splitbar = "开启分割动作条"
 	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_buttonsize = "Size of the main action buttons"
+	TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
+	TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
+	TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
 	
 	-- arena
 	TukuiL.option_arena = "竞技场"

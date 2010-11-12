@@ -4,7 +4,6 @@
 	TukuiL.option_general_uiscale = "Автоматически масштабировать интерфейс"
 	TukuiL.option_general_multisample = "Мультисемплинг (ровные края шириной 1 пиксель)"
 	TukuiL.option_general_customuiscale = "Масштаб интерфейса (если автомасштабирование отключено)"
-	TukuiL.option_general_recountscript = "Показывать (0-выкл, 1-в бою, 2-вне боя)"
 	TukuiL.option_general_embedright = "Аддон правой панели(Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Окрасить края рамок в соответствии с Вашим классом"
 
@@ -135,7 +134,7 @@
 	TukuiL.option_unitframes_smooth = "Сглаживать анимацию полос"
 	TukuiL.option_unitframes_portrait = "Включить портреты для игрока и цели"
 	TukuiL.option_unitframes_enable = "Включить фреймы Tukui"
-	TukuiL.option_unitframes_enemypower = "Отображение полосы энегрии только на враждебных целях"
+	TukuiL.option_unitframes_enemypower = "Enable Power display on player only"
 	TukuiL.option_unitframes_raidaggro = "Включить отображение аггро"
 	TukuiL.option_unitframes_symbol = "Отображать метки на рейде/группе"
 	TukuiL.option_unitframes_threatbar = "Включить панель угрозы"
@@ -148,9 +147,10 @@
 	TukuiL.option_unitframes_fontsize = "Размер шрифта"
 	TukuiL.option_unitframes_unitframes_poweroffset = "Отступ полосы энергии(0 для отключения отступа)"
 	TukuiL.option_unitframes_classbar = "Классовая полоса(Полоса тотемов, Полоса рун, Полоса силы света, Полоса осколков, Полоса затмения)"
+		TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 	
 	-- frame sizes
-	TukuiL.option_framesizes = "UnitFrame Sizes"		
+	TukuiL.option_framesizes = "Размеры фреймов"	
 	TukuiL.option_framesizes_playtarwidth = "Ширина фрейма Игрока/Цели"
 	TukuiL.option_framesizes_playtarheight = "Высота фрейма Игрока/Цели"
 	TukuiL.option_framesizes_smallwidth = "Ширина фрейма ЦелиЦели/Фокусу/ЦелиФокуса/Питомца"
@@ -172,7 +172,7 @@
 	TukuiL.option_tooltip_hidecombat = "Прятать подсказку в бою"
 	TukuiL.option_tooltip_hidebutton = "Отключить подсказку для кнопок панели действий"
 	TukuiL.option_tooltip_hideuf = "Отключить подсказку для юнитфреймов"
-	TukuiL.option_tooltip_cursor = "Enable cursor tooltip"
+	TukuiL.option_tooltip_cursor = "Включить подсказку под указателем"
 	TukuiL.option_tooltip_combatraid = "Прятать в бою только в рейде"
 	TukuiL.option_tooltip_colorreaction = "Всегда окрашивать рамку и полосу здоровья в зависимости от отношения"
 	TukuiL.option_tooltip_xOfs = "X-Отступ подсказки (-x = Лево, +x = Право)"
@@ -207,7 +207,11 @@
 	TukuiL.option_actionbar_rbn2 = "Количество панелей внизу (1, 1.5, или 2)"
 	TukuiL.option_actionbar_rn = "Количество панелей справа (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Включить раздельную панель"
-	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
+	TukuiL.option_actionbar_bottompetbar = "Переместить панель питомца под главную панель заклинаний"
+	TukuiL.option_actionbar_buttonsize = "Размер кнопок панели действий"
+	TukuiL.option_actionbar_buttonspacing = "Промежуток между кнопками панели действий"
+	TukuiL.option_actionbar_petbuttonsize = "Размер кнопок панели действий для питомца/стоек/тотемов"
+	TukuiL.option_actionbar_petbuttonspacing = "Промежуток между кнопками панели действий для питомца/стоек/тотемов"
 	
 	-- arena
 	TukuiL.option_arena = "Арена"
