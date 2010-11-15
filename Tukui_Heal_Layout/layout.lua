@@ -1311,7 +1311,7 @@ local function Shared(self, unit)
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs["growth-y"] = "DOWN"
 			debuffs["growth-x"] = "RIGHT"
-			debuffs.PostCreateIcon = TukuiDB.PostCreateAuraSmall
+			debuffs.PostCreateIcon = TukuiDB.PostCreateAura
 			debuffs.PostUpdateIcon = TukuiDB.PostUpdateAura
 			self.Debuffs = debuffs	
 			
@@ -1330,7 +1330,7 @@ local function Shared(self, unit)
 			debuffs.initialAnchor = 'TOPLEFT'
 			debuffs["growth-y"] = "DOWN"
 			debuffs["growth-x"] = "RIGHT"
-			debuffs.PostCreateIcon = TukuiDB.PostCreateAuraSmall
+			debuffs.PostCreateIcon = TukuiDB.PostCreateAura
 			debuffs.PostUpdateIcon = TukuiDB.PostUpdateAura
 			self.Debuffs = debuffs	
 			
@@ -1343,6 +1343,9 @@ local function Shared(self, unit)
 				local castbar = CreateFrame("StatusBar", self:GetName().."_Castbar", self)
 				castbar:SetStatusBarTexture(normTex)
 				self.Castbar = castbar
+			end
+			if TukuiCF["auras"].raidunitbuffwatch == true then
+				TukuiDB.createAuraWatch(self,unit)
 			end
 		end
 		
@@ -1627,8 +1630,8 @@ local function Shared(self, unit)
 			self.Debuffs = debuffs
 			
 			--set filter for buffs/debuffs
-			self.Buffs.CustomFilter = TukuiDB.ArenaBuffFilter
-			self.Debuffs.CustomFilter = TukuiDB.ArenaDebuffFilter
+			self.Buffs.CustomFilter = TukuiDB.AuraFilter
+			self.Debuffs.CustomFilter = TukuiDB.AuraFilter
 		end
 		
 		
@@ -1819,15 +1822,6 @@ if TukuiCF.arena.unitframes then
 end
 
 if TukuiCF.raidframes.showboss then
-	for i = 1,MAX_BOSS_FRAMES do
-		local t_boss = _G["Boss"..i.."TargetFrame"]
-		t_boss:UnregisterAllEvents()
-		t_boss.Show = TukuiDB.dummy
-		t_boss:Hide()
-		_G["Boss"..i.."TargetFrame".."HealthBar"]:UnregisterAllEvents()
-		_G["Boss"..i.."TargetFrame".."ManaBar"]:UnregisterAllEvents()
-	end
-
 	local boss = {}
 	for i = 1, MAX_BOSS_FRAMES do
 		boss[i] = oUF:Spawn("boss"..i, "oUF_TukzHealBoss"..i)
@@ -1877,6 +1871,14 @@ end
 
 local party
 if TukuiCF["raidframes"].disableblizz == true then --seriosly lazy addon authors can suck my dick
+	for i = 1,MAX_BOSS_FRAMES do
+		local t_boss = _G["Boss"..i.."TargetFrame"]
+		t_boss:UnregisterAllEvents()
+		t_boss.Show = TukuiDB.dummy
+		t_boss:Hide()
+		_G["Boss"..i.."TargetFrame".."HealthBar"]:UnregisterAllEvents()
+		_G["Boss"..i.."TargetFrame".."ManaBar"]:UnregisterAllEvents()
+	end
 	party = oUF:SpawnHeader("oUF_noParty", nil, "party", "showParty", true)
 	local blizzloader = CreateFrame("Frame")
 	blizzloader:RegisterEvent("ADDON_LOADED")

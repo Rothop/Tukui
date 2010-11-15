@@ -68,6 +68,7 @@ TukuiCF["raidframes"] = {
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
 	["partypets"] = true,					-- enable party pets for the healer layout
 	["disableblizz"] = true,				-- fuck fuck fuckin fuck
+	["healthdeficit"] = false,			-- show the health deficit on the raidframes
 }
 
 TukuiCF["auras"] = {

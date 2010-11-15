@@ -120,12 +120,42 @@ function TukuiDB.SetTransparentTemplate(f)
     border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", TukuiDB.Scale(1), TukuiDB.Scale(-1))
 end
 
-function round(number, decimals)
+TukuiDB.SetFontString = function(parent, fontName, fontHeight, fontStyle)
+	local fs = parent:CreateFontString(nil, "OVERLAY")
+	fs:SetFont(fontName, fontHeight, fontStyle)
+	fs:SetJustifyH("LEFT")
+	fs:SetShadowColor(0, 0, 0)
+	fs:SetShadowOffset(TukuiDB.mult, -TukuiDB.mult)
+	return fs
+end
+
+function TukuiDB.Round(number, decimals)
+	if not decimals then decimals = 0 end
     return (("%%.%df"):format(decimals)):format(number)
 end
 
+TukuiDB.ShortValue = function(value)
+	if value >= 1e6 then
+		return ("%.1fm"):format(value / 1e6):gsub("%.?0+([km])$", "%1")
+	elseif value >= 1e3 or value <= -1e3 then
+		return ("%.1fk"):format(value / 1e3):gsub("%.?0+([km])$", "%1")
+	else
+		return value
+	end
+end
 
-function RGBPercToHex(r, g, b)
+TukuiDB.ShortValueNegative = function(v)
+	if v <= 999 then return v end
+	if v >= 1000000 then
+		local value = string.format("%.1fm", v/1000000)
+		return value
+	elseif v >= 1000 then
+		local value = string.format("%.1fk", v/1000)
+		return value
+	end
+end
+
+TukuiDB.RGBPercToHex = function(r, g, b)
 	r = r <= 1 and r >= 0 and r or 0
 	g = g <= 1 and g >= 0 and g or 0
 	b = b <= 1 and b >= 0 and b or 0
@@ -189,28 +219,6 @@ function TukuiDB.PP(p, obj)
 	end
 end
 
--- Return true if the talent matching the name of the spell given by (Credit Pitbull4)
--- spellid has at least one point spent in it or false otherwise
-function CheckForKnownTalent(spellid)
-	local wanted_name = GetSpellInfo(spellid)
-	if not wanted_name then return nil end
-	local num_tabs = GetNumTalentTabs()
-	for t=1, num_tabs do
-		local num_talents = GetNumTalents(t)
-		for i=1, num_talents do
-			local name_talent, _, _, _, current_rank = GetTalentInfo(t,i)
-			if name_talent and (name_talent == wanted_name) then
-				if current_rank and (current_rank > 0) then
-					return true
-				else
-					return false
-				end
-			end
-		end
-	end
-	return false
-end
-
 --Check Player's Role
 local RoleUpdater = CreateFrame("Frame")
 local function CheckRole(self, event, unit)
@@ -220,7 +228,6 @@ local function CheckRole(self, event, unit)
 	else
 		resilience = false
 	end
-	--print(dodge, resil)
 	if ((TukuiDB.myclass == "PALADIN" and GetPrimaryTalentTree() == 2) or 
 	(TukuiDB.myclass == "WARRIOR" and GetPrimaryTalentTree() == 3) or 
 	(TukuiDB.myclass == "DEATHKNIGHT" and GetPrimaryTalentTree() == 1)) and
@@ -234,7 +241,7 @@ local function CheckRole(self, event, unit)
 		local base, posBuff, negBuff = UnitAttackPower("player");
 		local playerap = base + posBuff + negBuff;
 
-		if ((playerap > playerint) or (playeragi > playerint)) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139))) then
+		if (((playerap > playerint) or (playeragi > playerint)) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139)))) or TukuiDB.myclass == "ROGUE" or TukuiDB.myclass == "HUNTER" then
 			TukuiDB.Role = "Melee"
 		else
 			TukuiDB.Role = "Caster"
@@ -463,44 +470,40 @@ function TukuiDB.SpawnMenu(self)
 	end
 end
 
-function TukuiDB.PostUpdatePower(element, unit, min, max)
-	element:GetParent().Health:SetHeight(max ~= 0 and 20 or 22)
-end
-
-TukuiDB.SetFontString = function(parent, fontName, fontHeight, fontStyle)
-	local fs = parent:CreateFontString(nil, "OVERLAY")
-	fs:SetFont(fontName, fontHeight, fontStyle)
-	fs:SetJustifyH("LEFT")
-	fs:SetShadowColor(0, 0, 0)
-	fs:SetShadowOffset(1.25, -1.25)
-	return fs
-end
-
-local ShortValue = function(value)
-	if value >= 1e6 then
-		return ("%.1fm"):format(value / 1e6):gsub("%.?0+([km])$", "%1")
-	elseif value >= 1e3 or value <= -1e3 then
-		return ("%.1fk"):format(value / 1e3):gsub("%.?0+([km])$", "%1")
-	else
-		return value
-	end
-end
-
-local ShortValueNegative = function(v)
-	if v <= 999 then return v end
-	if v >= 1000000 then
-		local value = string.format("%.1fm", v/1000000)
-		return value
-	elseif v >= 1000 then
-		local value = string.format("%.1fk", v/1000)
-		return value
-	end
-end
-
 TukuiDB.AuraFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID)	
+	local header = icon:GetParent():GetParent():GetParent():GetName()
 	local inInstance, instanceType = IsInInstance()
 	icon.owner = caster
-	if unit == "target" then
+	icon.isStealable = isStealable
+	if header == "oUF_TukuiHealR6R25" then --Healer 25 Layout only
+		if inInstance and (instanceType == "pvp" or instanceType == "arena") then
+			if DebuffWhiteList[name] or TargetPVPOnly[name] then
+				return true
+			else
+				return false
+			end
+		else
+			if DebuffHealerWhiteList[name] then
+				return true
+			else
+				return false
+			end
+		end	
+	elseif (unit == "arena1" or unit == "arena2" or unit == "arena3" or unit == "arena4" or unit == "arena5") then --Arena frames
+		if dtype then
+			if DebuffWhiteList[name] then
+				return true
+			else
+				return false
+			end			
+		else
+			if ArenaBuffWhiteList[name] then
+				return true
+			else
+				return false
+			end		
+		end
+	elseif unit == "target" then --Target Only
 		if TukuiCF["auras"].playerdebuffsonly == true then
 			-- Show all debuffs on friendly targets
 			if UnitIsFriend("player", "target") then return true end
@@ -523,7 +526,7 @@ TukuiDB.AuraFilter = function(icons, unit, icon, name, rank, texture, count, dty
 		else
 			return true
 		end
-	else
+	else --Everything else
 		if unit ~= "player" and unit ~= "targettarget" and unit ~= "focus" and TukuiCF["auras"].arenadebuffs == true and inInstance and (instanceType == "pvp" or instanceType == "arena") then
 			if DebuffWhiteList[name] or TargetPVPOnly[name] then
 				return true
@@ -540,94 +543,82 @@ TukuiDB.AuraFilter = function(icons, unit, icon, name, rank, texture, count, dty
 	end
 end
 
-TukuiDB.ArenaBuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID)
-	if ArenaBuffWhiteList[name] then
-		return true
-	else
-		return false
-	end
-end
-
-TukuiDB.ArenaDebuffFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID)
-	if DebuffWhiteList[name] then
-		return true
-	else
-		return false
-	end	
-end
-
-TukuiDB.HealerFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID)
-	local inInstance, instanceType = IsInInstance()
-	
-	if inInstance and (instanceType == "pvp" or instanceType == "arena") then
-		if DebuffWhiteList[name] or TargetPVPOnly[name] then
-			return true
-		else
-			return false
-		end
-	else
-		if DebuffHealerWhiteList[name] then
-			return true
-		else
-			return false
-		end
-	end
-
-end
-
-
 TukuiDB.PostUpdateHealth = function(health, unit, min, max)
-	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
-		if not UnitIsConnected(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_offline.."|r")
-		elseif UnitIsDead(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_dead.."|r")
-		elseif UnitIsGhost(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_ghost.."|r")
+	local header = health:GetParent():GetParent():GetName()
+	if header == "oUF_TukuiHealParty" or header == "oUF_TukuiDPSParty" or header == "oUF_TukuiHealR6R25" or header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealR26R40" or header == "oUF_TukuiDPSR26R40" then --Raid/Party Layouts
+		if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
+			if not UnitIsConnected(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_offline.."|r")
+			elseif UnitIsDead(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_dead.."|r")
+			elseif UnitIsGhost(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_ghost.."|r")
+			end
+		else
+			if min ~= max and TukuiCF["raidframes"].healthdeficit == true then
+				health.value:SetText("|cff559655-"..TukuiDB.ShortValueNegative(max-min).."|r")
+			else
+				health.value:SetText("")
+			end
 		end
+		if (header == "oUF_TukuiHealR6R25" or header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealR26R40" or header == "oUF_TukuiDPSR26R40") and TukuiCF["raidframes"].hidenonmana == true then
+			local powertype, _ = UnitPowerType(unit)
+			if powertype ~= SPELL_POWER_MANA then
+				health:SetHeight(health:GetParent():GetHeight())
+			else
+				if header == "oUF_TukuiHealR6R25" then
+					health:SetHeight(health:GetParent():GetHeight() * 0.85)
+				elseif header == "oUF_TukuiDPSR6R25" then
+					health:SetHeight(health:GetParent():GetHeight() * 0.75)
+				else
+					health:SetHeight(health:GetParent():GetHeight())	
+				end
+			end	
+		end		
 	else
-		if min ~= max then
-			local r, g, b
-			r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
-			if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
-				if TukuiCF["unitframes"].showtotalhpmp == true then
-					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", ShortValue(min), ShortValue(max))
+		if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
+			if not UnitIsConnected(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_offline.."|r")
+			elseif UnitIsDead(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_dead.."|r")
+			elseif UnitIsGhost(unit) then
+				health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_ghost.."|r")
+			end
+		else
+			if min ~= max then
+				local r, g, b
+				r, g, b = oUF.ColorGradient(min/max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+				if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
+					if TukuiCF["unitframes"].showtotalhpmp == true then
+						health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", TukuiDB.ShortValue(min), TukuiDB.ShortValue(max))
+					else
+						health.value:SetFormattedText("|cffAF5050%d|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", min, r * 255, g * 255, b * 255, floor(min / max * 100))
+					end
+				elseif unit == "target" or unit == "focus" or (unit and unit:find("boss%d")) then
+					if TukuiCF["unitframes"].showtotalhpmp == true then
+						health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", TukuiDB.ShortValue(min), TukuiDB.ShortValue(max))
+					else
+						health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", TukuiDB.ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+					end
+				elseif (unit and unit:find("arena%d")) then
+					health.value:SetText("|cff559655"..TukuiDB.ShortValue(min).."|r")
 				else
 					health.value:SetFormattedText("|cffAF5050%d|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", min, r * 255, g * 255, b * 255, floor(min / max * 100))
 				end
-			elseif unit == "target" or unit == "focus" or (unit and unit:find("boss%d")) then
-				if TukuiCF["unitframes"].showtotalhpmp == true then
-					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", ShortValue(min), ShortValue(max))
+			else
+				if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
+					health.value:SetText("|cff559655"..max.."|r")
+				elseif unit == "target" or unit == "focus" or (unit and unit:find("arena%d")) then
+					health.value:SetText("|cff559655"..TukuiDB.ShortValue(max).."|r")
 				else
-					health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+					health.value:SetText("|cff559655"..max.."|r")
 				end
-			elseif (unit and unit:find("arena%d")) then
-				health.value:SetText("|cff559655"..ShortValue(min).."|r")
-			else
-				health.value:SetFormattedText("|cffAF5050%d|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", min, r * 255, g * 255, b * 255, floor(min / max * 100))
-			end
-		else
-			if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
-				health.value:SetText("|cff559655"..max.."|r")
-			elseif unit == "target" or unit == "focus" or (unit and unit:find("arena%d")) then
-				health.value:SetText("|cff559655"..ShortValue(max).."|r")
-			else
-				health.value:SetText("|cff559655"..max.."|r")
 			end
 		end
 	end
 end
 
-TukuiDB.PostUpdatePowerRaid = function(self, unit, min, max)
-	local powertype, _ = UnitPowerType(unit)
-	if powertype ~= SPELL_POWER_MANA then
-		self:Hide()
-	else
-		self:Show()
-	end
-end
-
-TukuiDB.CheckPowerRaid = function(self, event)
+TukuiDB.CheckPower = function(self, event)
 	local unit = self.unit
 	local powertype, _ = UnitPowerType(unit)
 	if powertype ~= SPELL_POWER_MANA then
@@ -647,48 +638,6 @@ TukuiDB.CheckPowerRaid = function(self, event)
 			self.Power:Show()
 		end
 	end	
-end
-
-TukuiDB.PostUpdateHealthParty = function(health, unit, min, max)
-	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
-		if not UnitIsConnected(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_offline.."|r")
-		elseif UnitIsDead(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_dead.."|r")
-		elseif UnitIsGhost(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_ghost.."|r")
-		end
-	else
-		health.value:SetText("")
-	end
-end
-
-TukuiDB.PostUpdateHealthRaid = function(health, unit, min, max)
-	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
-		if not UnitIsConnected(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_offline.."|r")
-		elseif UnitIsDead(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_dead.."|r")
-		elseif UnitIsGhost(unit) then
-			health.value:SetText("|cffD7BEA5"..tukuilocal.unitframes_ouf_ghost.."|r")
-		end
-	else
-		health.value:SetText("")
-	end
-	if TukuiCF["raidframes"].hidenonmana == true then
-		local powertype, _ = UnitPowerType(unit)
-		if powertype ~= SPELL_POWER_MANA then
-			health:SetHeight(health:GetParent():GetHeight())
-		else
-			if IsAddOnLoaded("Tukui_Heal_Layout") and health:GetParent():GetParent():GetName() == "oUF_TukuiHealR6R25" then
-				health:SetHeight(health:GetParent():GetHeight() * 0.85)
-			elseif health:GetParent():GetParent():GetName() == "oUF_TukuiDPSR6R25" then
-				health:SetHeight(health:GetParent():GetHeight() * 0.75)
-			else
-				health:SetHeight(health:GetParent():GetHeight())	
-			end
-		end	
-	end
 end
 
 TukuiDB.PostNamePosition = function(self)
@@ -712,12 +661,23 @@ end
 
 TukuiDB.PostUpdatePower = function(power, unit, min, max)
 	local self = power:GetParent()
+	local header = power:GetParent():GetParent():GetName()
 	local pType, pToken = UnitPowerType(unit)
 	local color = TukuiDB.oUF_colors.power[pToken]
-
+	
+	if header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealR6R25" then
+		if pType ~= SPELL_POWER_MANA then
+			power:Hide()
+		else
+			power:Show()
+		end
+	end
+	
+	if not power.value then return end
+	
 	if color then
 		power.value:SetTextColor(color[1], color[2], color[3])
-	end
+	end	
 		
 	if min == 0 then 
 			power.value:SetText("") 
@@ -731,21 +691,21 @@ TukuiDB.PostUpdatePower = function(power, unit, min, max)
 				if pType == 0 then
 					if unit == "target" then
 						if TukuiCF["unitframes"].showtotalhpmp == true then
-							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", TukuiDB.ShortValue(max - (max - min)), TukuiDB.ShortValue(max))
 						else
-							power.value:SetFormattedText("%d%% |cffD7BEA5-|r %s", floor(min / max * 100), ShortValue(max - (max - min)))
+							power.value:SetFormattedText("%d%% |cffD7BEA5-|r %s", floor(min / max * 100), TukuiDB.ShortValue(max - (max - min)))
 						end
 					elseif unit == "player" and self:GetAttribute("normalUnit") == "pet" or unit == "pet" then
 						if TukuiCF["unitframes"].showtotalhpmp == true then
-							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", TukuiDB.ShortValue(max - (max - min)), TukuiDB.ShortValue(max))
 						else
 							power.value:SetFormattedText("%d%%", floor(min / max * 100))
 						end
 					elseif (unit and unit:find("arena%d")) then
-						power.value:SetText(ShortValue(min))
+						power.value:SetText(TukuiDB.ShortValue(min))
 					else
 						if TukuiCF["unitframes"].showtotalhpmp == true then
-							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", ShortValue(max - (max - min)), ShortValue(max))
+							power.value:SetFormattedText("%s |cffD7BEA5|||r %s", TukuiDB.ShortValue(max - (max - min)), TukuiDB.ShortValue(max))
 						else
 							power.value:SetFormattedText("%d%% |cffD7BEA5-|r %d", floor(min / max * 100), max - (max - min))
 						end
@@ -755,13 +715,14 @@ TukuiDB.PostUpdatePower = function(power, unit, min, max)
 				end
 			else
 				if unit == "pet" or unit == "target" or (unit and unit:find("arena%d")) then
-					power.value:SetText(ShortValue(min))
+					power.value:SetText(TukuiDB.ShortValue(min))
 				else
 					power.value:SetText(min)
 				end
 			end
 		end
 	end
+	
 	if self.Name then
 		if unit == "target" then TukuiDB.PostNamePosition(self, power) end
 	end
@@ -789,9 +750,7 @@ local FormatTime = function(s)
 	return format("%.1f", s)
 end
 
-
-
-local CreateAuraTimer = function(self, elapsed)
+local CreateAuraTimer = function(self, elapsed)	
 	if self.timeLeft then
 		self.elapsed = (self.elapsed or 0) + elapsed
 		if self.elapsed >= 0.1 then
@@ -818,15 +777,22 @@ local CreateAuraTimer = function(self, elapsed)
 	end
 end
 
-local CancelAura = function(self, button)
-	if button == "RightButton" and not self.debuff then
-		--CancelUnitBuff("player", self:GetID()) Protected in cata
-	end
-end
-
 function TukuiDB.PostCreateAura(element, button)
+	local unit = button:GetParent():GetParent().unit
+	local header = button:GetParent():GetParent():GetParent():GetName()
+	
+	if header == "oUF_TukuiHealR6R25" then
+		button:EnableMouse(false)
+		button:SetFrameLevel(button:GetParent():GetParent().Power:GetFrameLevel() + 4)
+	end
+	
+	if unit == "focus" or unit == "targettarget" or header == "oUF_TukuiHealR6R25" or header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealParty" then
+		button.remaining = TukuiDB.SetFontString(button, TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.85, "THINOUTLINE")
+	else
+		button.remaining = TukuiDB.SetFontString(button, TukuiCF["media"].font, TukuiCF["auras"].auratextscale, "THINOUTLINE")
+	end
+	
 	TukuiDB.SetTemplate(button)
-	button.remaining = TukuiDB.SetFontString(button, TukuiCF["media"].font, TukuiCF["auras"].auratextscale, "THINOUTLINE")
 	button.remaining:SetPoint("CENTER", TukuiDB.Scale(0), TukuiDB.mult)
 	
 	button.cd.noOCC = true		 	-- hide OmniCC CDs
@@ -842,106 +808,29 @@ function TukuiDB.PostCreateAura(element, button)
 	button.count:SetJustifyH("RIGHT")
 	button.count:SetFont(TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.8, "THINOUTLINE")
 
-	
 	button.overlayFrame = CreateFrame("frame", nil, button, nil)
 	button.cd:SetFrameLevel(button:GetFrameLevel() + 1)
 	button.cd:ClearAllPoints()
 	button.cd:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
 	button.cd:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-	button.overlayFrame:SetFrameLevel(button.cd:GetFrameLevel() + 1)	   
+	button.overlayFrame:SetFrameLevel(button.cd:GetFrameLevel() + 2)	   
 	button.overlay:SetParent(button.overlayFrame)
 	button.count:SetParent(button.overlayFrame)
 	button.remaining:SetParent(button.overlayFrame)
-			
-	button.Glow = CreateFrame("Frame", nil, button)
-	button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
-	button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
-	button.Glow:SetFrameStrata("BACKGROUND")	
-	button.Glow:SetBackdrop{edgeFile = TukuiCF["media"].glowTex, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-	button.Glow:SetBackdropColor(0, 0, 0, 0)
-	button.Glow:SetBackdropBorderColor(0, 0, 0)
-end
-
-function TukuiDB.PostCreateAuraSmall(element, button)
-	TukuiDB.SetTemplate(button)
-	button.remaining = TukuiDB.SetFontString(button, TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.85, "THINOUTLINE")
-	button.remaining:SetPoint("CENTER", TukuiDB.Scale(0), TukuiDB.mult*1.5)
 	
-	button.cd.noOCC = true		 	-- hide OmniCC CDs
-	button.cd.noCooldownCount = true	-- hide CDC CDs
-	
-	button.cd:SetReverse()
-	button.icon:SetPoint("TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-	button.icon:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	button.icon:SetDrawLayer('ARTWORK')
-	
-	button.count:SetPoint("BOTTOMRIGHT", 0, TukuiDB.Scale(1.5))
-	button.count:SetJustifyH("RIGHT")
-	button.count:SetFont(TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.8, "THINOUTLINE")
-
-	
-	button.overlayFrame = CreateFrame("frame", nil, button, nil)
-	button.cd:SetFrameLevel(button:GetFrameLevel() + 1)
-	button.cd:ClearAllPoints()
-	button.cd:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-	button.cd:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-	button.overlayFrame:SetFrameLevel(button.cd:GetFrameLevel() + 1)	   
-	button.overlay:SetParent(button.overlayFrame)
-	button.count:SetParent(button.overlayFrame)
-	button.remaining:SetParent(button.overlayFrame)
-			
-	button.Glow = CreateFrame("Frame", nil, button)
-	button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
-	button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
-	button.Glow:SetFrameStrata("BACKGROUND")	
-	button.Glow:SetBackdrop{edgeFile = TukuiCF["media"].glowTex, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-	button.Glow:SetBackdropColor(0, 0, 0, 0)
-	button.Glow:SetBackdropBorderColor(0, 0, 0)
-end
-
-function TukuiDB.PostCreateAuraSmallHealer25(element, button)
-	button:EnableMouse(false)
-	button:SetFrameLevel(15)
-	TukuiDB.SetTemplate(button)
-	button.remaining = TukuiDB.SetFontString(button, TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.85, "THINOUTLINE")
-	button.remaining:SetPoint("CENTER", TukuiDB.Scale(0), TukuiDB.mult*1.5)
-	
-	button.cd.noOCC = true		 	-- hide OmniCC CDs
-	button.cd.noCooldownCount = true	-- hide CDC CDs
-	
-	button.cd:SetReverse()
-	button.icon:SetPoint("TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-	button.icon:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	button.icon:SetDrawLayer('ARTWORK')
-	
-	button.count:SetPoint("BOTTOMRIGHT", 0, TukuiDB.Scale(1.5))
-	button.count:SetJustifyH("RIGHT")
-	button.count:SetFont(TukuiCF["media"].font, TukuiCF["auras"].auratextscale*0.8, "THINOUTLINE")
-
-	
-	button.overlayFrame = CreateFrame("frame", nil, button, nil)
-	button.cd:SetFrameLevel(button:GetFrameLevel() + 1)
-	button.cd:ClearAllPoints()
-	button.cd:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-	button.cd:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-	button.overlayFrame:SetFrameLevel(button.cd:GetFrameLevel() + 1)	   
-	button.overlay:SetParent(button.overlayFrame)
-	button.count:SetParent(button.overlayFrame)
-	button.remaining:SetParent(button.overlayFrame)
-			
-	button.Glow = CreateFrame("Frame", nil, button)
-	button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
-	button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
-	button.Glow:SetFrameLevel(button:GetFrameLevel() -1)
-	button.Glow:SetBackdrop{edgeFile = TukuiCF["media"].glowTex, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-	button.Glow:SetBackdropColor(0, 0, 0, 0)
-	button.Glow:SetBackdropBorderColor(0, 0, 0)
+	if header ~= "oUF_TukuiHealR6R25" then
+		button.Glow = CreateFrame("Frame", nil, button)
+		button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
+		button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
+		button.Glow:SetFrameLevel(button:GetFrameLevel() -1)
+		button.Glow:SetBackdrop{edgeFile = TukuiCF["media"].glowTex, edgeSize = 3, insets = {left = 0, right = 0, top = 0, bottom = 0}}
+		button.Glow:SetBackdropColor(0, 0, 0, 0)
+		button.Glow:SetBackdropBorderColor(0, 0, 0)
+	end
 end
 
 function TukuiDB.PostUpdateAura(icons, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
-	local name, _, _, _, dtype, duration, expirationTime, unitCaster, isStealable = UnitAura(unit, index, icon.filter)
+	local name, _, _, _, dtype, duration, expirationTime, unitCaster, _ = UnitAura(unit, index, icon.filter)
 	
 	if(icon.debuff) then
 		if(not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle") and (not DebuffWhiteList[name]) then
@@ -957,14 +846,12 @@ function TukuiDB.PostUpdateAura(icons, unit, icon, index, offset, filter, isDebu
 			icon.icon:SetDesaturated(false)
 		end
 	else
-		if (isStealable or (TukuiDB.myclass == "PRIEST" and dtype == "Magic")) and not UnitIsFriend("player", unit) then
+		if (icon.isStealable or (TukuiDB.myclass == "PRIEST" and dtype == "Magic")) and not UnitIsFriend("player", unit) then
 			icon:SetBackdropBorderColor(237/255, 234/255, 142/255)
 		else
 			icon:SetBackdropBorderColor(unpack(TukuiCF["media"].bordercolor))
 		end
 	end
-	
-
 	
 	if duration and duration > 0 then
 		if TukuiCF["auras"].auratimer == true then
@@ -975,7 +862,7 @@ function TukuiDB.PostUpdateAura(icons, unit, icon, index, offset, filter, isDebu
 	else
 		icon.remaining:Hide()
 	end
- 
+	
 	icon.duration = duration
 	icon.timeLeft = expirationTime
 	icon.first = true
@@ -996,7 +883,7 @@ TukuiDB.PostCastStart = function(self, unit, name, rank, castid)
 	if unit == "vehicle" then unit = "player" end
 	--Fix blank castbar with opening text
 	if name == "Opening" then
-		self.Text:SetText("Opening")
+		self.Text:SetText(OPENING)
 	end
 	
 	if self.interrupt and unit ~= "player" then
@@ -1137,13 +1024,16 @@ TukuiDB.ComboDisplay = function(self, event, unit)
 		for i=1, MAX_COMBO_POINTS do
 			cpoints[i]:Show()
 		end
+		if (IsAddOnLoaded("Tukui_Dps_Layout") and DPSElementsCharPos and DPSElementsCharPos["ComboBar"] == true) then return end
+		if (IsAddOnLoaded("Tukui_Heal_Layout") and HealElementsCharPos and HealElementsCharPos["ComboBar"] == true) then return end
 		self.FrameBorder.shadow:SetPoint("TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(17))
 		if self.Buffs then self.Buffs:ClearAllPoints() self.Buffs:SetPoint("BOTTOM", self.Health, "TOP", 0, TukuiDB.Scale(17)) end	
 	else
 		for i=1, MAX_COMBO_POINTS do
 			cpoints[i]:Hide()
 		end
-
+		if (IsAddOnLoaded("Tukui_Dps_Layout") and DPSElementsCharPos and DPSElementsCharPos["ComboBar"] == true) then return end
+		if (IsAddOnLoaded("Tukui_Heal_Layout") and HealElementsCharPos and HealElementsCharPos["ComboBar"] == true) then return end
 		self.FrameBorder.shadow:SetPoint("TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(4))	
 		if self.Buffs then self.Buffs:ClearAllPoints() self.Buffs:SetPoint("BOTTOM", self.Health, "TOP", 0, TukuiDB.Scale(4)) end	
 	end
@@ -1164,7 +1054,6 @@ TukuiDB.RestingIconUpdate = function (self)
 		self.Resting:Hide()
 	end
 end
-
 
 TukuiDB.UpdateReputationColor = function(self, event, unit, bar)
 	local name, id = GetWatchedFactionInfo()
@@ -1270,14 +1159,9 @@ TukuiDB.updateAllElements = function(frame)
 	for _, v in ipairs(frame.__elements) do
 		v(frame, "UpdateElement", frame.unit)
 	end
-end
-
-TukuiDB.updateAllElementsRaid = function(frame)
-	for _, v in ipairs(frame.__elements) do
-		v(frame, "UpdateElement", frame.unit)
-	end
 	
-	if TukuiCF["raidframes"].hidenonmana == true then
+	local header = frame:GetParent():GetName()
+	if (header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealR6R25") and TukuiCF["raidframes"].hidenonmana == true then
 		local powertype, _ = UnitPowerType(frame.unit)
 		if powertype ~= SPELL_POWER_MANA then
 			frame.Health:SetHeight(frame.Health:GetParent():GetHeight())
@@ -1295,16 +1179,16 @@ TukuiDB.updateAllElementsRaid = function(frame)
 			if frame.Power then
 				frame.Power:Show()
 			end
-		end	
+		end		
 	end
 end
 
 function TukuiDB.ExperienceText(self, unit, min, max)
 	local rested = GetXPExhaustion()
 	if rested then 
-		self.Text:SetFormattedText('XP: '..ShortValue(min)..' / '..ShortValue(max)..' <%d%%>  R: +'..ShortValue(rested)..' <%d%%>', min / max * 100, rested / max * 100)
+		self.Text:SetFormattedText('XP: '..TukuiDB.ShortValue(min)..' / '..TukuiDB.ShortValue(max)..' <%d%%>  R: +'..TukuiDB.ShortValue(rested)..' <%d%%>', min / max * 100, rested / max * 100)
 	else
-		self.Text:SetFormattedText('XP: '..ShortValue(min)..' / '..ShortValue(max)..' <%d%%>', min / max * 100)
+		self.Text:SetFormattedText('XP: '..TukuiDB.ShortValue(min)..' / '..TukuiDB.ShortValue(max)..' <%d%%>', min / max * 100)
 	end
 end
 
@@ -1329,7 +1213,6 @@ function TukuiDB.CreateAuraWatchIcon(self, icon)
 	end 	
 end
 
-local _, class = UnitClass("player")
 function TukuiDB.createAuraWatch(self, unit)
 	local auras = CreateFrame("Frame", nil, self)
 	auras:SetPoint("TOPLEFT", self.Health, 2, -2)
@@ -1367,6 +1250,12 @@ function TukuiDB.createAuraWatch(self, unit)
 			for key, value in pairs(TukuiDB.HealerBuffIDs[TukuiDB.myclass]) do
 				tinsert(buffs, value)
 			end
+		end
+	end
+	
+	if TukuiDB.PetBuffs[TukuiDB.myclass] then
+		for key, value in pairs(TukuiDB.PetBuffs[TukuiDB.myclass]) do
+			tinsert(buffs, value)
 		end
 	end
 
