@@ -6,7 +6,8 @@
 	TukuiL.option_general_customuiscale = "Escala de la interfaz (si la escala automática está desactivada)"
 	TukuiL.option_general_embedright = "Addon que se ajustará en el panel de chat derecho (Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Colorear los bordes del color de tu clase"
- 
+	TukuiL.option_general_autocustomlagtolerance = "Automatically update the Blizzard Custom Lag Tolerance option to your latency."
+	 
 	--Media
 	TukuiL.option_media = "Medios"
 	TukuiL.option_media_font = "Ruta de la fuente que será usada como fuente principal"
@@ -176,6 +177,7 @@
 	TukuiL.option_tooltip_xOfs = "Compensación en el eje X del tooltip (-x = Izquierda, +x = Derecha)"
 	TukuiL.option_tooltip_yOfs = "Compensación en el eje Ydel tooltip (-y = Izquierda, +y = Arriba)"
  
+	
 	-- others
 	TukuiL.option_others = "Otros"
 	TukuiL.option_others_bg = "Activar la liberación automática del cadáver en los campos de batalla"

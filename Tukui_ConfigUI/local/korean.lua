@@ -6,7 +6,8 @@
 	TukuiL.option_general_customuiscale = "UI Scale (if auto-scale is disabled)"
 	TukuiL.option_general_embedright = "Addon to embed to right chat panel (Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "Color border colors to your class"
-
+	TukuiL.option_general_autocustomlagtolerance = "Automatically update the Blizzard Custom Lag Tolerance option to your latency."
+	
 	--Media
 	TukuiL.option_media = "Media"
 	TukuiL.option_media_font = "Font file path for main font"
@@ -178,6 +179,7 @@
 	TukuiL.option_tooltip_xOfs = "X-Offset of the tooltip (-x = Left, +x = Right)"
 	TukuiL.option_tooltip_yOfs = "Y-Offset of the tooltip (-y = Down, +y = Up)"
 
+	
 	-- others
 	TukuiL.option_others = "Others"
 	TukuiL.option_others_bg = "Enable Auto-Release in battleground"

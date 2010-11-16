@@ -6,7 +6,8 @@
 	TukuiL.option_general_customuiscale = "UI比例 (限用于自动调整关闭时)"
 	TukuiL.option_general_embedright = "将插件绑定于右边对话框架(Recount, Omen, Skada)"
 	TukuiL.option_general_classtheme = "框架使用职业颜色"
-
+	TukuiL.option_general_autocustomlagtolerance = "Automatically update the Blizzard Custom Lag Tolerance option to your latency."
+	
 	--Media
 	TukuiL.option_media = "Media"
 	TukuiL.option_media_font = "Font file path for main font"
@@ -179,7 +180,7 @@
 	TukuiL.option_tooltip_colorreaction = "提示讯息及生命条依照敌对状态上色"
 	TukuiL.option_tooltip_xOfs = "提示讯息X-轴位子调整 (-x = 左, +x = 右)"
 	TukuiL.option_tooltip_yOfs = "提示讯息Y-轴位子调整 (-y = 下, +y = 上)"
-
+	
 	-- others
 	TukuiL.option_others = "其它"
 	TukuiL.option_others_bg = "战场中自动放魂"
