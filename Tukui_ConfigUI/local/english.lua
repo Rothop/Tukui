@@ -149,6 +149,7 @@ TukuiL.option_unitframes_fontsize = "Font Size"
 TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
 TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
+TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
 
 -- frame sizes
 TukuiL.option_framesizes = "UnitFrame Sizes"
@@ -178,6 +179,7 @@ TukuiL.option_tooltip_combatraid = "Only hide in combat when in a raid"
 TukuiL.option_tooltip_colorreaction = "Always color tooltip border and healthbar by reaction"
 TukuiL.option_tooltip_xOfs = "X-Offset of the tooltip (-x = Left, +x = Right)"
 TukuiL.option_tooltip_yOfs = "Y-Offset of the tooltip (-y = Down, +y = Up)"
+TukuiL.option_tooltip_itemid = "Display Item ID"
 
 -- others
 TukuiL.option_others = "Others"

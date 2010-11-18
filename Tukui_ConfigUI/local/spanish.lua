@@ -147,7 +147,8 @@
 	TukuiL.option_unitframes_unitframes_poweroffset = "Compensación de la barra de poder dentro del marco de unidad (0 para no usar compensación)"
 	TukuiL.option_unitframes_classbar = "Activar la barra de clase (Totems, Runas, poder sagrado, almas, Eclipse)"
 	TukuiL.option_unitframes_healthbackdropcolor = "Color de fondo de la barra de vida para todas las unidades"
-	
+	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
+		
 	 -- frame sizes
 	TukuiL.option_framesizes = "Tamaño de los marcos de unidad"
 	TukuiL.option_framesizes_playtarwidth = "Width of the Player/Target frames"
@@ -176,7 +177,7 @@
 	TukuiL.option_tooltip_colorreaction = "Colorear el borde y la barra de vida del tooltip según la reacción"
 	TukuiL.option_tooltip_xOfs = "Compensación en el eje X del tooltip (-x = Izquierda, +x = Derecha)"
 	TukuiL.option_tooltip_yOfs = "Compensación en el eje Ydel tooltip (-y = Izquierda, +y = Arriba)"
- 
+	TukuiL.option_tooltip_itemid = "Display Item ID"
 	
 	-- others
 	TukuiL.option_others = "Otros"

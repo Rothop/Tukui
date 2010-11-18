@@ -183,6 +183,7 @@ local function Local(o)
 	if o == "TukuiConfigUIunitframespoweroffset" then o = TukuiL.option_unitframes_unitframes_poweroffset end
 	if o == "TukuiConfigUIunitframesclassbar" then o = TukuiL.option_unitframes_classbar end
 	if o == "TukuiConfigUIunitframeshealthbackdropcolor" then o = TukuiL.option_unitframes_healthbackdropcolor end
+	if o == "TukuiConfigUIunitframeshealthcolorbyvalue" then o = TukuiL.option_unitframes_healthcolorbyvalue end
 	
 	-- frame sizes
 	if o == "TukuiConfigUIframesizes" then o = TukuiL.option_framesizes end
@@ -212,6 +213,7 @@ local function Local(o)
 	if o == "TukuiConfigUItooltipcolorreaction" then o = TukuiL.option_tooltip_colorreaction end
 	if o == "TukuiConfigUItooltipxOfs" then o = TukuiL.option_tooltip_xOfs end
 	if o == "TukuiConfigUItooltipyOfs" then o = TukuiL.option_tooltip_yOfs end
+	if o == "TukuiConfigUItooltipitemid" then o = TukuiL.option_tooltip_itemid end
 	
 	-- others
 	if o == "TukuiConfigUIothers" then o = TukuiL.option_others end
