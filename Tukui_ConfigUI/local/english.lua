@@ -54,7 +54,7 @@ TukuiL.option_classtimer_enable = "Enable Classtimer"
 TukuiL.option_classtimer_bar_height = "Bar Height"
 TukuiL.option_classtimer_bar_spacing = "Bar Spacing"
 TukuiL.option_classtimer_icon_position = "Icon Position (0-Left,1-Right,2-Outside Left,3-Outside Right)"
-TukuiL.option_classtimer_layout = "Layout (1-4)"
+TukuiL.option_classtimer_layout = "Layout (1-5)"
 TukuiL.option_classtimer_showspark = "Show Spark"
 TukuiL.option_classtimer_cast_suparator = "Cast Seperator"
 TukuiL.option_classtimer_classcolor = "Class Color"
@@ -150,6 +150,7 @@ TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the
 TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
 TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
+TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
 
 -- frame sizes
 TukuiL.option_framesizes = "UnitFrame Sizes"
@@ -215,6 +216,7 @@ TukuiL.option_actionbar_buttonsize = "Size of the main action buttons"
 TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
 TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
 TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
+TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 	
 -- arena
 TukuiL.option_arena = "Arena"

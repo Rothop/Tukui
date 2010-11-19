@@ -54,7 +54,7 @@
 	TukuiL.option_classtimer_bar_height = "計時條高度"
 	TukuiL.option_classtimer_bar_spacing = "計時條間距"
 	TukuiL.option_classtimer_icon_position = "圖示位置 (0-左邊,1-右邊,2-外面左邊,3-外面右邊)"
-	TukuiL.option_classtimer_layout = "樣式配置 (1-4)"
+	TukuiL.option_classtimer_layout = "樣式配置 (1-5)"
 	TukuiL.option_classtimer_showspark = "顯示閃光"
 	TukuiL.option_classtimer_cast_suparator = "Cast Seperator"
 	TukuiL.option_classtimer_classcolor = "職業上色"
@@ -150,8 +150,9 @@
 	TukuiL.option_unitframes_unitframes_poweroffset = "將能量條並排於單位框架 (0 以並排)"
 	TukuiL.option_unitframes_classbar = "啟用職業條 (圖騰列, 符文列, 神聖能量列, 靈魂裂片列, 日/月蝕列)"
     TukuiL.option_unitframes_healthbackdropcolor = "全部單位視窗生命條使用背景顏色"
-	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
-		
+	TukuiL.option_unitframes_healthcolorbyvalue = "生命條依照剩餘生命上色"
+	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
+			
 	 -- frame sizes
 	TukuiL.option_framesizes = "單位視窗大小"
 	TukuiL.option_framesizes_playtarwidth = "玩家/目標單位框架的闊度"
@@ -180,7 +181,7 @@
 	TukuiL.option_tooltip_colorreaction = "提示訊息及生命條依照敵對狀態上色"
 	TukuiL.option_tooltip_xOfs = "提示訊息X-軸位子調整 (-x = 左, +x = 右)"
 	TukuiL.option_tooltip_yOfs = "提示訊息Y-軸位子調整 (-y = 下, +y = 上)"
-	TukuiL.option_tooltip_itemid = "Display Item ID"
+	TukuiL.option_tooltip_itemid = "顯示物品ID"
 	
 	-- others
 	TukuiL.option_others = "其它功能"
@@ -217,6 +218,7 @@
 	TukuiL.option_actionbar_petbuttonsize = "寵物/姿態/圖騰熱鍵大小"
 	TukuiL.option_actionbar_petbuttonspacing = "寵物/姿態/圖騰熱鍵鍵格距離"
 
+	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 	
 	-- arena
 	TukuiL.option_arena = "競技場"

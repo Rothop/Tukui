@@ -54,7 +54,7 @@
 	TukuiL.option_classtimer_bar_height = "바 높이"
 	TukuiL.option_classtimer_bar_spacing = "바 간격"
 	TukuiL.option_classtimer_icon_position = "아이콘 위치 (0-좌측,1-우측,2-좌측 바깥쪽,3-우측 바깥쪽)"
-	TukuiL.option_classtimer_layout = "배열 (1-4)"
+	TukuiL.option_classtimer_layout = "배열 (1-5)"
 	TukuiL.option_classtimer_showspark = "스파크를 표시"
 	TukuiL.option_classtimer_cast_suparator = "시전 분리기를 표시"
 	TukuiL.option_classtimer_classcolor = "직업색상을 사용"
@@ -150,6 +150,7 @@
 	TukuiL.option_unitframes_classbar = "직업 바를 사용"
 	TukuiL.option_unitframes_healthbackdropcolor = "생명령 바의 배경 색상"
  	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
+	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
 	
 	-- 창 크기
 	TukuiL.option_framesizes = "개체창 크기"
@@ -215,7 +216,8 @@
 	TukuiL.option_actionbar_buttonspacing = "행동 단축버튼의 간격"
 	TukuiL.option_actionbar_petbuttonsize = "특수 기술 단축버튼의 크기"
 	TukuiL.option_actionbar_petbuttonspacing = "특수 기술 단축버튼의 간격"
- 
+	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
+	
 	-- 투기장
 	TukuiL.option_arena = "투기장"
 	TukuiL.option_arena_st = "상대 플레이어 주문 추적을 사용"

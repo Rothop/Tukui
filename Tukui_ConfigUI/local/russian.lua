@@ -54,7 +54,7 @@
 	TukuiL.option_classtimer_bar_height = "Высота полос"
 	TukuiL.option_classtimer_bar_spacing = "Промежуток меж полосами"
 	TukuiL.option_classtimer_icon_position = "Положение иконки (0-Слева,1-Справа,2-Снаружи слева,3-Снаружи справа)"
-	TukuiL.option_classtimer_layout = "Раскладка (1-4)"
+	TukuiL.option_classtimer_layout = "Раскладка (1-5)"
 	TukuiL.option_classtimer_showspark = "Показывать засечку"
 	TukuiL.option_classtimer_cast_suparator = "Разделитель применения"
 	TukuiL.option_classtimer_classcolor = "Цвет по классу"
@@ -150,6 +150,7 @@
 	TukuiL.option_unitframes_classbar = "Классовая полоса(Полоса тотемов, Полоса рун, Полоса силы света, Полоса осколков, Полоса затмения)"
 	TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
+	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
 		
 	-- frame sizes
 	TukuiL.option_framesizes = "Размеры фреймов"	
@@ -215,6 +216,7 @@
 	TukuiL.option_actionbar_buttonspacing = "Промежуток между кнопками панели действий"
 	TukuiL.option_actionbar_petbuttonsize = "Размер кнопок панели действий для питомца/стоек/тотемов"
 	TukuiL.option_actionbar_petbuttonspacing = "Промежуток между кнопками панели действий для питомца/стоек/тотемов"
+	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 	
 	-- arena
 	TukuiL.option_arena = "Арена"

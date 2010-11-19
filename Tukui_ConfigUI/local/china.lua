@@ -54,7 +54,7 @@
 	TukuiL.option_classtimer_bar_height = "计时条高度"
 	TukuiL.option_classtimer_bar_spacing = "计时条间距"
 	TukuiL.option_classtimer_icon_position = "图标位置 (0-左边,1-右边,2-外面左边,3-外面右边)"
-	TukuiL.option_classtimer_layout = "配置 (1-4)"
+	TukuiL.option_classtimer_layout = "配置 (1-5)"
 	TukuiL.option_classtimer_showspark = "显示火花"
 	TukuiL.option_classtimer_cast_suparator = "施法间距"
 	TukuiL.option_classtimer_classcolor = "职业上色"
@@ -152,6 +152,7 @@
 	TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar, SoulshardBar, EclipseBar)"
 	TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
+	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
 	
 	-- frame sizes
 	TukuiL.option_framesizes = "UnitFrame Sizes"
@@ -217,6 +218,7 @@
 	TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
 	TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
 	TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
+	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 	
 	-- arena
 	TukuiL.option_arena = "竞技场"

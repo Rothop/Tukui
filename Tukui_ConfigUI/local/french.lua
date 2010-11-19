@@ -54,7 +54,7 @@ if GetLocale() == "frFR" then
 	TukuiL.option_classtimer_bar_height = "Hauteur de la barre" --"Bar Height"
 	TukuiL.option_classtimer_bar_spacing = "Espacement entre les barres" --"Bar Spacing"
 	TukuiL.option_classtimer_icon_position = "Position de l'icone (0-gauche, 1-droite, 2-extérieur gauche, 3-extérieur droit" --"Icon Position (0-Left,1-Right,2-Outside Left,3-Outside Right)"
-	TukuiL.option_classtimer_layout = "Mode (1-4)" --"Layout (1-4)"
+	TukuiL.option_classtimer_layout = "Mode (1-5)" --"Layout (1-5)"
 	TukuiL.option_classtimer_showspark = "Montrer une lueur" --"Show Spark"
 	TukuiL.option_classtimer_cast_suparator = "Séparateur de cast" --"Cast Seperator"
 	TukuiL.option_classtimer_classcolor = "Couleur de classe" --"Class Color"
@@ -149,8 +149,9 @@ if GetLocale() == "frFR" then
 	TukuiL.option_unitframes_unitframes_poweroffset = "Offset of the powerbar on the frame (0 for no offset)"
 	TukuiL.option_unitframes_classbar = "Active les barres de classes (Barre de totem, Barre de pouvoir runique, Barre Sacrée, Barre des fragments d'âme, Barre d'Eclipse)"
 	TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
-	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
-	
+	TukuiL.option_unitframes_healthcolorbyvalue = "Couleur de la barre de vie selon la vie restante."
+	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
+		
 	-- frame sizes
 	TukuiL.option_framesizes = "Taille des portraits d'unité"
 	TukuiL.option_framesizes_playtarwidth = "Largeur des portraits du Joueur/de la Cible"
@@ -180,6 +181,7 @@ if GetLocale() == "frFR" then
 	TukuiL.option_tooltip_xOfs = "X-Offset de l'infobulle (-x = gauche, +x = droite)" --"X-Offset of the tooltip (-x = Left, +x = Right)"
 	TukuiL.option_tooltip_yOfs = "Y-Offset de l'infobulle (-y = descendre, +y = monter)" --"Y-Offset of the tooltip (-y = Down, +y = Up)"
 	TukuiL.option_tooltip_itemid = "Display Item ID"
+	TukuiL.option_tooltip_itemid = "Affiche l'ID de l'objet"
 	
 	-- others
 	TukuiL.option_others = "Divers" --"Others"
@@ -215,6 +217,7 @@ if GetLocale() == "frFR" then
 	TukuiL.option_actionbar_buttonspacing = "Espace entre les boutons de la barre d'action"
 	TukuiL.option_actionbar_petbuttonsize = "Taille de la barre d'action du familier / de position / du totem"
 	TukuiL.option_actionbar_petbuttonspacing = "Espace entre les boutons de la barre d'action du familier / de position / du totem"
+	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 	
 	-- arena
 	TukuiL.option_arena = "Arène" --"Arena"

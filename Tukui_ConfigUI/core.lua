@@ -184,6 +184,7 @@ local function Local(o)
 	if o == "TukuiConfigUIunitframesclassbar" then o = TukuiL.option_unitframes_classbar end
 	if o == "TukuiConfigUIunitframeshealthbackdropcolor" then o = TukuiL.option_unitframes_healthbackdropcolor end
 	if o == "TukuiConfigUIunitframeshealthcolorbyvalue" then o = TukuiL.option_unitframes_healthcolorbyvalue end
+	if o == "TukuiConfigUIunitframescombat" then o = TukuiL.option_unitframes_combat end
 	
 	-- frame sizes
 	if o == "TukuiConfigUIframesizes" then o = TukuiL.option_framesizes end
@@ -253,6 +254,7 @@ local function Local(o)
 	if o == "TukuiConfigUIactionbarbuttonspacing" then o = TukuiL.option_actionbar_buttonspacing end
 	if o == "TukuiConfigUIactionbarpetbuttonsize" then o = TukuiL.option_actionbar_petbuttonsize end
 	if o == "TukuiConfigUIactionbarpetbuttonspacing" then o = TukuiL.option_actionbar_petbuttonspacing end
+	if o == "TukuiConfigUIactionbarswaptopbottombar" then o = TukuiL.option_actionbar_swaptopbottombar end
 	
 	-- arena
 	if o == "TukuiConfigUIarena" then o = TukuiL.option_arena end
