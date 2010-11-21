@@ -34,7 +34,10 @@
 	TukuiL.option_nameplates_enhancethreat = "Aktiviere Bedrohungsanzeige, anpassung an deine Rolle"
 	TukuiL.option_nameplates_showhealth = "Zeige Leben auf den Namensplaketten"
  	TukuiL.option_nameplates_combat = "Zeige die Gegner Namensplaketten nur im Kampf"
- 
+ 	TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
+
 	-- addon skins
 	TukuiL.option_skin = "Addon-Skins"
 	TukuiL.option_skin_dxe = "Deus Vox Encounters"
@@ -113,7 +116,8 @@
 	TukuiL.option_raidframes_fontsize = "Schriftgröße für Raidframess"
 	TukuiL.option_raidframes_scale = "Skalierung der Raidframes (benutze Dezimalstellen zB: 0.96)"
 	TukuiL.option_raidframes_disableblizz = "Deaktiviere Standart Blizzard Gruppen und Raidanzeige"
- 
+ 	TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+	
 	-- castbar
 	TukuiL.option_castbar = "Zauberleiste"
 	TukuiL.option_castbar_nointerruptcolor = "Farbe der Zauberleiste wenn nicht unterbrechbar"
@@ -149,8 +153,8 @@
 	TukuiL.option_unitframes_unitframes_poweroffset = "Versetzung der Power-Leiste zum Einheitenfenster (0 für keine Versetzung)"
 	TukuiL.option_unitframes_classbar = "Aktiviere Klassenleiste (Totemleiste, Runenleiste, Heiligleiste, Seelensplitterleiste, Finsternisleiste)"
 	TukuiL.option_unitframes_healthbackdropcolor = "Hintergrundfarbe der Gesundheitsleiste aller Einheitenfenster"
- 	TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
-	TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
+ 	TukuiL.option_unitframes_healthcolorbyvalue = "Färbe den Lebensbalken nach verbleibenden Leben"
+	TukuiL.option_unitframes_combat = "Einheitenfenster ausblenden, wenn nicht im Kampf"
 		
 	-- frame sizes
 	TukuiL.option_framesizes = "Einheitenfenstergröße"
@@ -180,7 +184,7 @@
 	TukuiL.option_tooltip_colorreaction = "Tooltip Rand/Gesundheits Farbe nach Reaktion"
 	TukuiL.option_tooltip_xOfs = "X-Richtung des Tooltips (-x = Links, +x = Rechts)"
 	TukuiL.option_tooltip_yOfs = "Y-Richtung des Tooltips (-y = Unten, +y = Oben)"
-	TukuiL.option_tooltip_itemid = "Display Item ID"
+	TukuiL.option_tooltip_itemid = "Anzeige der Item ID"
 	
 	-- others
 	TukuiL.option_others = "Sonstiges"
@@ -208,7 +212,7 @@
 	TukuiL.option_actionbar_hk = "Zeige Tastenbelegung auf den Buttons"
 	TukuiL.option_actionbar_ssmo = "Gestaltenwandler- oder Totemleiste nur bei Mouseover anzeigen"
 	TukuiL.option_actionbar_rbn = "Anzahl der Aktionsleisten unten (1 oder 2)"
-	TukuiL.option_actionbar_rbn2 = "Anzahl der Aktionsleisten unten (1, 1.5, oder 2)"
+	TukuiL.option_actionbar_rbn2 = "Anzahl der Aktionsleisten unten (1, 2, oder 3)"
 	TukuiL.option_actionbar_rn = "Anzahl der Aktionsleisten rechts (1, 2 oder 3)"
 	TukuiL.option_actionbar_splitbar = "Aktviert die geteilte Leiste um die untere Aktionsleiste"
 	TukuiL.option_actionbar_bottompetbar = "Setzt die Begleiterleiste unter die Aktionsleiste 1 und schiebt diese nach oben"
@@ -216,7 +220,7 @@
 	TukuiL.option_actionbar_buttonspacing = "Abstand der Aktionsleisten Buttons"
 	TukuiL.option_actionbar_petbuttonsize = "Größe der Begleiter/Haltungs/Totems Aktionsleisten Buttons"
 	TukuiL.option_actionbar_petbuttonspacing = "Abstand der Begleiter/Haltungs/Totems Aktionsleisten Buttons"
-	TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
+	TukuiL.option_actionbar_swaptopbottombar = "Tausche die untere und obere Aktionsleiste"
 	
 	-- arena
 	TukuiL.option_arena = "Arena"

@@ -56,7 +56,9 @@ end
 barbg:SetWidth(((TukuiDB.buttonsize * 12) + (TukuiDB.buttonspacing * 13)))
 barbg:SetFrameLevel(bottompanel:GetFrameLevel() + 2)
 barbg:SetFrameStrata("LOW")
-if TukuiCF["actionbar"].bottomrows == 2 then
+if TukuiCF["actionbar"].bottomrows == 3 then
+	barbg:SetHeight((TukuiDB.buttonsize * 3) + (TukuiDB.buttonspacing * 4))
+elseif TukuiCF["actionbar"].bottomrows == 2 then
 	barbg:SetHeight((TukuiDB.buttonsize * 2) + (TukuiDB.buttonspacing * 3))
 else
 	barbg:SetHeight(TukuiDB.buttonsize + (TukuiDB.buttonspacing * 2))
@@ -88,6 +90,11 @@ if TukuiCF["actionbar"].splitbar == true then
 	TukuiDB.CreatePanel(splitright, (TukuiDB.buttonsize * 3) + (TukuiDB.buttonspacing * 4), TukuiActionBarBackground:GetHeight(), "LEFT", TukuiActionBarBackground, "RIGHT", TukuiDB.Scale(4), 0)
 	splitright:SetFrameLevel(TukuiActionBarBackground:GetFrameLevel())
 	splitright:SetFrameStrata(TukuiActionBarBackground:GetFrameStrata())
+	
+	if TukuiCF["actionbar"].bottomrows == 3 then
+		splitleft:SetWidth((TukuiDB.buttonsize * 4) + (TukuiDB.buttonspacing * 5))
+		splitright:SetWidth((TukuiDB.buttonsize * 4) + (TukuiDB.buttonspacing * 5))
+	end
 	
 	TukuiDB.CreateShadow(splitleft)
 	splitleft.shadow:SetFrameStrata("BACKGROUND")

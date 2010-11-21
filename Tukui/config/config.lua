@@ -39,9 +39,6 @@ TukuiCF["unitframes"] = {
 	["poweroffset"] = 9,					--powerbar offset
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
-
-	-- hunter only plugin
-	["mendpet"] = true,						--mend pet duration overlay on pet frame
 }
 
 TukuiCF["framesizes"] = {
@@ -72,6 +69,8 @@ TukuiCF["raidframes"] = {
 	["partypets"] = true,					-- enable party pets for the healer layout
 	["disableblizz"] = true,				-- fuck fuck fuckin fuck
 	["healthdeficit"] = false,			-- show the health deficit on the raidframes
+	["griddps"] = true,					-- show dps layout in grid style
+	["role"] = false,					--display role on raidframe
 }
 
 TukuiCF["auras"] = {
@@ -105,7 +104,7 @@ TukuiCF["classtimer"] = {
 		["bar_height"] = 17,
 		["bar_spacing"] = 1,
 		["icon_position"] = 2, -- 0 = left, 1 = right, 2 = Outside left, 3 = Outside Right
-		["layout"] = 5, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
+		["layout"] = 4, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
 		["showspark"] = true,
 		["cast_suparator"] = true,
 		
@@ -149,6 +148,9 @@ TukuiCF["nameplate"] = {
 		["enhancethreat"] = true,				-- threat features based on if your a tank or not
 		["overlap"] = false,				--allow nameplates to overlap
 		["combat"] = false,					--only show enemy nameplates in-combat.
+		["goodcolor"] = {0, 1, 0},			--good threat color (tank shows this with threat, everyone else without)
+		["badcolor"] = {1, 0, 0},			--bad threat color (opposite of above)
+		["transitioncolor"] = {242/255, 161/255, 10/255},	--threat color when gaining threat
 }
 
 TukuiCF["loot"] = {
@@ -192,7 +194,7 @@ TukuiCF["chat"] = {
 	["enable"] = true,                     -- blah
 		["whispersound"] = true,               -- play a sound when receiving whisper
 		["showbackdrop"] = true,				-- show a backdrop on the chat panels
-		["chatwidth"] = 350,					-- width of chat frame
+		["chatwidth"] = 348,					-- width of chat frame
 		["chatheight"] = 111,					-- height of chat frame
 		["fadeoutofuse"] = true,				-- fade chat text when out of use
 		["sticky"] = true,						-- when opening the chat edit box resort to previous channel

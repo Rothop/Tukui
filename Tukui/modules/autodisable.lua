@@ -2,7 +2,7 @@
 -- prevent action bar users config errors
 ------------------------------------------------------------------------
 
-if TukuiCF["actionbar"].bottomrows == 0 or TukuiCF["actionbar"].bottomrows > 2 then
+if TukuiCF["actionbar"].bottomrows == 0 or TukuiCF["actionbar"].bottomrows > 3 then
 	TukuiCF["actionbar"].bottomrows = 1
 end
 
@@ -18,8 +18,22 @@ if TukuiCF["unitframes"].classcolor == true then
 	TukuiCF["unitframes"].healthcolorbyvalue = false
 end
 
-if TukuiCF["actionbar"].bottomrows ~= 2 then
+if TukuiCF["actionbar"].bottomrows < 2 then
 	TukuiCF["actionbar"].swaptopbottombar = nil
+end
+
+if TukuiCF["actionbar"].bottomrows == 3 and TukuiCF["actionbar"].rightbars ~= 0 and TukuiCF["actionbar"].splitbar == true then
+	TukuiCF["actionbar"].rightbars = 0
+end
+
+if TukuiCF["actionbar"].bottomrows == 3 and TukuiCF["actionbar"].rightbars > 2 then
+	TukuiCF["actionbar"].rightbars = 2
+end
+
+if TukuiDB.client == "zhTW" or TukuiDB.client == "zhCN" then
+	TukuiCF["media"].uffont = [[fonts\bLEI00D.ttf]]
+	TukuiCF["media"].font = [[fonts\bLEI00D.ttf]]
+	TukuiCF["media"].dmgfont = [[fonts\bLEI00D.ttf]]
 end
 
 ------------------------------------------------------------------------

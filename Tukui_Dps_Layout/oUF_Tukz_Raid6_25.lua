@@ -1,7 +1,16 @@
 if not TukuiCF["raidframes"].enable == true then return end
 
-local raidframe_width = TukuiDB.Scale(110)*TukuiCF["raidframes"].scale
-local raidframe_height = TukuiDB.Scale(21)*TukuiCF["raidframes"].scale
+local raidframe_width
+local raidframe_height
+if TukuiCF["raidframes"].griddps ~= true then
+	raidframe_width = TukuiDB.Scale(110)*TukuiCF["raidframes"].scale
+	raidframe_height = TukuiDB.Scale(21)*TukuiCF["raidframes"].scale
+else
+	raidframe_width = (ChatLBackground:GetWidth() / 5) - (TukuiDB.Scale(7) - TukuiDB.Scale(1))
+	raidframe_height = TukuiDB.Scale(37)
+end
+
+
 
 local function Shared(self, unit)
 	self.colors = TukuiDB.oUF_colors
@@ -15,7 +24,11 @@ local function Shared(self, unit)
 	self:HookScript("OnShow", TukuiDB.updateAllElements)
 
 	local health = CreateFrame('StatusBar', nil, self)
-	health:SetHeight(raidframe_height*.75)
+	if TukuiCF["raidframes"].griddps ~= true then
+		health:SetHeight(raidframe_height*.75)
+	else
+		health:SetHeight(raidframe_height*.83)
+	end
 	health:SetPoint("TOPLEFT")
 	health:SetPoint("TOPRIGHT")
 	health:SetStatusBarTexture(TukuiCF["media"].normTex)
@@ -27,7 +40,11 @@ local function Shared(self, unit)
 	self.Health.bg = health.bg
 	
 	health.value = health:CreateFontString(nil, "OVERLAY")
-	health.value:SetPoint("RIGHT", health, "RIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(1))
+	if TukuiCF["raidframes"].griddps ~= true then
+		health.value:SetPoint("RIGHT", health, "RIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(1))
+	else
+		health.value:SetPoint("BOTTOM", health, "BOTTOM", 0, TukuiDB.Scale(4))
+	end
 	health.value:SetFont(TukuiCF["media"].uffont, (TukuiCF["raidframes"].fontsize*.83)*TukuiCF["raidframes"].scale, "THINOUTLINE")
 	health.value:SetTextColor(1,1,1)
 	health.value:SetShadowOffset(1, -1)
@@ -90,12 +107,30 @@ local function Shared(self, unit)
 	power.colorDisconnected = true
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
-	name:SetPoint("LEFT", health, "LEFT", TukuiDB.Scale(2), TukuiDB.Scale(1))
-	name:SetFont(TukuiCF["media"].uffont, TukuiCF["raidframes"].fontsize*TukuiCF["raidframes"].scale, "THINOUTLINE")
+	if TukuiCF["raidframes"].griddps ~= true then
+		name:SetPoint("LEFT", health, "LEFT", TukuiDB.Scale(2), TukuiDB.Scale(1))
+		name:SetFont(TukuiCF["media"].uffont, TukuiCF["raidframes"].fontsize*TukuiCF["raidframes"].scale, "THINOUTLINE")
+	else
+		name:SetPoint("TOP", health, "TOP", 0, TukuiDB.Scale(-3))
+		name:SetFont(TukuiCF["media"].uffont, (TukuiCF["raidframes"].fontsize-1)*TukuiCF["raidframes"].scale, "THINOUTLINE")	
+	end
 	name:SetShadowOffset(1, -1)
 	name.frequentUpdates = 0.2
 	self:Tag(name, "[Tukui:getnamecolor][Tukui:nameshort]")
 	self.Name = name
+	
+	if TukuiCF["raidframes"].role == true then
+		local LFDRole = self.Health:CreateTexture(nil, "OVERLAY")
+		LFDRole:SetHeight(TukuiDB.Scale(6))
+		LFDRole:SetWidth(TukuiDB.Scale(6))
+		if TukuiCF["raidframes"].griddps ~= true then
+			LFDRole:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(-2), TukuiDB.Scale(-2))
+		else
+			LFDRole:SetPoint("TOP", self.Name, "BOTTOM", 0, TukuiDB.Scale(-1))
+		end
+		LFDRole:SetTexture("Interface\\AddOns\\Tukui\\media\\textures\\lfdicons.blp")
+		self.LFDRole = LFDRole
+	end
 	
     if TukuiCF["unitframes"].aggro == true then
 		table.insert(self.__elements, TukuiDB.UpdateThreat)
@@ -116,7 +151,11 @@ local function Shared(self, unit)
 	local ReadyCheck = self.Health:CreateTexture(nil, "OVERLAY")
 	ReadyCheck:SetHeight(TukuiCF["raidframes"].fontsize)
 	ReadyCheck:SetWidth(TukuiCF["raidframes"].fontsize)
-	ReadyCheck:SetPoint('LEFT', self.Name, 'RIGHT', 4, 0)
+	if TukuiCF["raidframes"].griddps ~= true then
+		ReadyCheck:SetPoint('LEFT', self.Name, 'RIGHT', 4, 0)
+	else	
+		ReadyCheck:SetPoint('TOP', self.Name, 'BOTTOM', 0, -2)
+	end
 	self.ReadyCheck = ReadyCheck
 	
 
@@ -132,12 +171,21 @@ local function Shared(self, unit)
 	end
 	
     local debuffs = CreateFrame('Frame', nil, self)
-	debuffs:SetPoint('LEFT', self, 'RIGHT', TukuiDB.Scale(6), 0)
-	debuffs:SetHeight(raidframe_height)
-	debuffs:SetWidth(raidframe_height*5)
-	debuffs.size = (raidframe_height)
-	debuffs.num = 5
-	debuffs.spacing = 2
+	if TukuiCF["raidframes"].griddps ~= true then
+		debuffs:SetPoint('LEFT', self, 'RIGHT', TukuiDB.Scale(6), 0)
+		debuffs:SetHeight(raidframe_height)
+		debuffs:SetWidth(raidframe_height*5)
+		debuffs.size = (raidframe_height)
+		debuffs.num = 5
+		debuffs.spacing = 2
+	else
+		debuffs:SetPoint('BOTTOM', self, 'BOTTOM', 0, 1)
+		debuffs:SetHeight(raidframe_height*0.6)
+		debuffs:SetWidth(raidframe_height*0.6)
+		debuffs.size = (raidframe_height*0.6)
+		debuffs.num = 1
+		debuffs.spacing = 0	
+	end
     debuffs.initialAnchor = 'LEFT'
 	debuffs.PostCreateIcon = TukuiDB.PostCreateAura
 	debuffs.PostUpdateIcon = TukuiDB.PostUpdateAura
@@ -173,25 +221,52 @@ end
 oUF:RegisterStyle('TukuiDPSR6R25', Shared)
 oUF:Factory(function(self)
 	oUF:SetActiveStyle("TukuiDPSR6R25")	
-	local raid = self:SpawnHeader("oUF_TukuiDPSR6R25", nil, "custom [@raid6,noexists][@raid26,exists] hide;show",
-		'oUF-initialConfigFunction', [[
-			local header = self:GetParent()
-			self:SetWidth(header:GetAttribute('initial-width'))
-			self:SetHeight(header:GetAttribute('initial-height'))
-		]],
-		'initial-width', raidframe_width,
-		'initial-height', raidframe_height,			
-		"showRaid", true, 
-		"showParty", true,
-		"showSolo", false,
-		"point", "BOTTOM",
-		"showPlayer", TukuiCF["raidframes"].showplayerinparty,
-		"groupFilter", "1,2,3,4,5",
-		"groupingOrder", "1,2,3,4,5",
-		"groupBy", "GROUP",	
-		"yOffset", TukuiDB.Scale(6)
-	)	
-	raid:SetPoint("BOTTOMLEFT", ChatLBackground, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(40))
+	local raid
+	if TukuiCF["raidframes"].griddps ~= true then
+		raid = self:SpawnHeader("oUF_TukuiDPSR6R25", nil, "custom [@raid6,noexists][@raid26,exists] hide;show",
+			'oUF-initialConfigFunction', [[
+				local header = self:GetParent()
+				self:SetWidth(header:GetAttribute('initial-width'))
+				self:SetHeight(header:GetAttribute('initial-height'))
+			]],
+			'initial-width', raidframe_width,
+			'initial-height', raidframe_height,			
+			"showRaid", true, 
+			"showParty", true,
+			"showSolo", false,
+			"point", "BOTTOM",
+			"showPlayer", TukuiCF["raidframes"].showplayerinparty,
+			"groupFilter", "1,2,3,4,5",
+			"groupingOrder", "1,2,3,4,5",
+			"groupBy", "GROUP",	
+			"yOffset", TukuiDB.Scale(6)
+		)	
+		raid:SetPoint("BOTTOMLEFT", ChatLBackground, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(40))
+	else
+		raid = self:SpawnHeader("oUF_TukuiDPSR6R25", nil, "custom [@raid6,noexists][@raid26,exists] hide;show",
+			'oUF-initialConfigFunction', [[
+				local header = self:GetParent()
+				self:SetWidth(header:GetAttribute('initial-width'))
+				self:SetHeight(header:GetAttribute('initial-height'))
+			]],
+			'initial-width', raidframe_width,
+			'initial-height', raidframe_height,	
+			"showRaid", true, 
+			"showParty", true,
+			"showPlayer", TukuiCF["raidframes"].showplayerinparty,
+			"xoffset", TukuiDB.Scale(6),
+			"yOffset", TukuiDB.Scale(-6),
+			"point", "LEFT",
+			"groupFilter", "1,2,3,4,5",
+			"groupingOrder", "1,2,3,4,5",
+			"groupBy", "GROUP",
+			"maxColumns", 5,
+			"unitsPerColumn", 5,
+			"columnSpacing", TukuiDB.Scale(6),
+			"columnAnchorPoint", "TOP"		
+		)	
+		raid:SetPoint("BOTTOMLEFT", ChatLBackground, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(35))	
+	end
 	
 	local function ChangeVisibility(visibility)
 		if(visibility) then

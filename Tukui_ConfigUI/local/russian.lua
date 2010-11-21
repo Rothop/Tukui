@@ -34,6 +34,9 @@
 	TukuiL.option_nameplates_enhancethreat = "Включить поддержку угрозы, зависит от Вашей роли"
 	TukuiL.option_nameplates_showhealth = "Показывать здоровье на индикаторе"
 	TukuiL.option_nameplates_combat = "Отображать индикаторы противников только в бою"
+	TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
 	
 	-- addon skins
 	TukuiL.option_skin = "Скины аддонов"
@@ -113,7 +116,8 @@
 	TukuiL.option_raidframes_fontsize = "Размер шрифта рейдовых фреймов"
 	TukuiL.option_raidframes_scale = "Масштаб рейд фреймов (например : 0.96)"
 	TukuiL.option_raidframes_disableblizz = "Отключить фреймы рейда/группы от Blizzard"
-
+	TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+	
 	-- castbar
 	TukuiL.option_castbar = "Полоса применений"
 	TukuiL.option_castbar_nointerruptcolor = "Цвет полосы заклинания, которое невозможно сбить"
@@ -208,7 +212,7 @@
 	TukuiL.option_actionbar_hk = "Отображать горяжие клавиши на кнопках"
 	TukuiL.option_actionbar_ssmo = "Панель стоек/тотемов при наведении мыши"
 	TukuiL.option_actionbar_rbn = "Количество панелей внизу (1 or 2)"
-	TukuiL.option_actionbar_rbn2 = "Количество панелей внизу (1, 1.5, или 2)"
+	TukuiL.option_actionbar_rbn2 = "Количество панелей внизу (1, 2, или 3)"
 	TukuiL.option_actionbar_rn = "Количество панелей справа (1, 2 or 3)"
 	TukuiL.option_actionbar_splitbar = "Включить раздельную панель"
 	TukuiL.option_actionbar_bottompetbar = "Переместить панель питомца под главную панель заклинаний"

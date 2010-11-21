@@ -34,6 +34,9 @@
 	TukuiL.option_nameplates_enhancethreat = "위협수준 기능 사용, 당신의 역할에 따라 자동적으로 변경됨"
 	TukuiL.option_nameplates_showhealth = "생명력을 표시"
 	TukuiL.option_nameplates_combat = "전투 중에만 표시"
+	TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
  
 	-- 애드온 스킨
 	TukuiL.option_skin = "애드온 스킨"
@@ -113,7 +116,8 @@
 	TukuiL.option_raidframes_fontsize = "공격대창의 글꼴크기"
 	TukuiL.option_raidframes_scale = "공격대창의 크기"
 	TukuiL.option_raidframes_disableblizz = "블리자드 기본 파티창 및 공격대창을 비활성화"
- 
+	TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+	
 	-- 시전바
 	TukuiL.option_castbar = "시전바"
 	TukuiL.option_castbar_nointerruptcolor = "방해받지 않을 때 바의 색"
@@ -208,7 +212,7 @@
 	TukuiL.option_actionbar_hk = "단축키를 표시"
 	TukuiL.option_actionbar_ssmo = "커서가 위치할 때만 특수 기술 단축바를 표시"
 	TukuiL.option_actionbar_rbn = "하단 단축바 줄의 수 (1, 2)"
-	TukuiL.option_actionbar_rbn2 = "하단 단축바 줄의 수 (1, 1.5, 2)"
+	TukuiL.option_actionbar_rbn2 = "하단 단축바 줄의 수 (1, 2, 3)"
 	TukuiL.option_actionbar_rn = "우측 단축바 줄의 수"
 	TukuiL.option_actionbar_splitbar = "스플릿 단축바를 사용"
 	TukuiL.option_actionbar_bottompetbar = "펫 기술 단축바를 하단 단축바 아래에 표시"

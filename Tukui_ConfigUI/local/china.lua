@@ -34,6 +34,9 @@
 	TukuiL.option_nameplates_enhancethreat = "开启仇恨模式, 依照你的角色决定"
 	TukuiL.option_nameplates_showhealth = "于姓名版上显示生命文字"
 	TukuiL.option_nameplates_combat = "Only show enemy nameplates in-combat"
+	TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
 	
 	-- addon skins
 	TukuiL.option_skin = "插件皮肤化"
@@ -113,7 +116,8 @@
 	TukuiL.option_raidframes_fontsize = "团队单位窗口文字大小"
 	TukuiL.option_raidframes_scale = "团队单位窗口比例 (用小数 例: 0.96)"
 	TukuiL.option_raidframes_disableblizz = "关闭暴雪默认小队团队框架"
-
+	TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+	
 	-- castbar
 	TukuiL.option_castbar = "施法条"
 	TukuiL.option_castbar_nointerruptcolor = "无法中断法术施法条颜色"
@@ -210,7 +214,7 @@
 	TukuiL.option_actionbar_hk = "显示热键文字"
 	TukuiL.option_actionbar_ssmo = "开启当鼠标移动至变身及图腾条时显示"
 	TukuiL.option_actionbar_rbn = "底部动作条数量 (1 或 2)"
-	TukuiL.option_actionbar_rbn2 = "底部动作条数量 (1, 1.5, 或 2)"
+	TukuiL.option_actionbar_rbn2 = "底部动作条数量 (1, 2, 或 3)"
 	TukuiL.option_actionbar_rn = "右方动作条数量 (1, 2 或 3)"
 	TukuiL.option_actionbar_splitbar = "开启分割动作条"
 	TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"

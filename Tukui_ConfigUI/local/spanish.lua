@@ -34,6 +34,9 @@
 	TukuiL.option_nameplates_enhancethreat = "Activar visor de amenaza, cambia automáticamente según tu rol: \n Tanque - Verde (aggro) Rojo (noaggro) DPS - Verde (noaggro) Rojo (aggro)"
 	TukuiL.option_nameplates_showhealth = "Mostrar vida en las placas de nombre"
  	TukuiL.option_nameplates_combat = "Mostrar las chapas de nombre de los enemigos sólo en combate"
+	TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+	TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
 	
 	-- addon skins
 	TukuiL.option_skin = "Pieles de addons"
@@ -111,7 +114,8 @@
 	TukuiL.option_raidframes_fontsize = "Tamaño de la fuenta en los marcos de banda"
 	TukuiL.option_raidframes_scale = "Escala de los marcos de banda (en decimales ej: 0.96)"
 	TukuiL.option_raidframes_disableblizz = "Desactivar los marcos de banda/grupo por defecto de Blizzard"
- 
+ 	TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+	
 	-- castbar
 	TukuiL.option_castbar = "Barra de lanzamiento"
 	TukuiL.option_castbar_nointerruptcolor = "Color de la barra de lanzamiento si no se puede interrumpir"
@@ -206,7 +210,7 @@
 	TukuiL.option_actionbar_hk = "Mostrar los atajos en los botones"
 	TukuiL.option_actionbar_ssmo = "Mostrar la barra de cambio de forma y/o totems al pasar el ratón"
 	TukuiL.option_actionbar_rbn = "Número de barras de acción inferiores (1 o 2)"
-	TukuiL.option_actionbar_rbn2 = "Número de barras de acción inferiores (1, 1.5, o 2)"
+	TukuiL.option_actionbar_rbn2 = "Número de barras de acción inferiores (1, 2, o 3)"
 	TukuiL.option_actionbar_rn = "Número de barras de acción en la derecha (1, 2 o 3)"
 	TukuiL.option_actionbar_splitbar = "Activar las barras de acción partidas"
 	TukuiL.option_actionbar_bottompetbar = "Posicionar la barra de mascota bajo la barra principal de acción, la barra de acción principal se desplazará hacia arriba"

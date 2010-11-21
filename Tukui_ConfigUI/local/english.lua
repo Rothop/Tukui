@@ -34,7 +34,10 @@ TukuiL.option_nameplates_enable = "Enable Nameplates"
 TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll"
 TukuiL.option_nameplates_showhealth = "Show health on nameplate"
 TukuiL.option_nameplates_combat = "Only show enemy nameplates in-combat"
-
+TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
+TukuiL.option_nameplates_badcolor = "Bad threat color, varies depending if your a tank or dps/heal"
+TukuiL.option_nameplates_transitioncolor = "Losing/Gaining threat color"
+	
 -- addon skins
 TukuiL.option_skin = "Addon Skins"
 TukuiL.option_skin_dxe = "Deus Vox Encounters"
@@ -113,6 +116,7 @@ TukuiL.option_raidframes_hidenonmana = "Only show powerbar if unit has mana (Not
 TukuiL.option_raidframes_fontsize = "Font size on raidframes"
 TukuiL.option_raidframes_scale = "Scale of raidframes (use decimals ex: 0.96)"
 TukuiL.option_raidframes_disableblizz = "Disable blizzard default party and raid frames"
+TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
 
 -- castbar
 TukuiL.option_castbar = "Castbar"
@@ -208,7 +212,7 @@ TukuiL.option_actionbar_rb = "Enable right bar on mouseover"
 TukuiL.option_actionbar_hk = "Show hotkey on buttons"
 TukuiL.option_actionbar_ssmo = "Shapeshift bar or Totem bar on mouseover"
 TukuiL.option_actionbar_rbn = "Number of action bars on the bottom (1 or 2)"
-TukuiL.option_actionbar_rbn2 = "Number of action bars on the bottom (1, 1.5, or 2)"
+TukuiL.option_actionbar_rbn2 = "Number of action bars on the bottom (1, 2, or 3)"
 TukuiL.option_actionbar_rn = "Number of action bars on right (1, 2 or 3)"
 TukuiL.option_actionbar_splitbar = "Enable split actionbar"
 TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
