@@ -493,7 +493,10 @@ TukuiDB.Fader = function(self, arg1, arg2)
 	local cur = UnitHealth("player")
 	local max = UnitHealthMax("player")
 	
-	if cur ~= max and frameshown ~= true then
+	if (UnitCastingInfo("player") or UnitChannelInfo("player")) and frameshown ~= true then
+		FadeFramesInOut(true)
+		frameshown = true	
+	elseif cur ~= max and frameshown ~= true then
 		FadeFramesInOut(true)
 		frameshown = true	
 	elseif (UnitExists("target") or UnitExists("focus")) and frameshown ~= true then
@@ -506,7 +509,7 @@ TukuiDB.Fader = function(self, arg1, arg2)
 		if InCombatLockdown() and frameshown ~= true then
 			FadeFramesInOut(true)
 			frameshown = true	
-		elseif not UnitExists("target") and not InCombatLockdown() and not UnitExists("focus") and (cur == max) then
+		elseif not UnitExists("target") and not InCombatLockdown() and not UnitExists("focus") and (cur == max) and not (UnitCastingInfo("player") or UnitChannelInfo("player")) then
 			FadeFramesInOut(false)
 			frameshown = false
 		end
@@ -888,7 +891,7 @@ function TukuiDB.PostCreateAura(element, button)
 	button.count:SetParent(button.overlayFrame)
 	button.remaining:SetParent(button.overlayFrame)
 	
-	if header ~= "oUF_TukuiHealR6R25" then
+	if header ~= "oUF_TukuiHealR6R25" and header ~= "oUF_TukuiDPSR6R25" then
 		button.Glow = CreateFrame("Frame", nil, button)
 		button.Glow:SetPoint("TOPLEFT", button, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
 		button.Glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
