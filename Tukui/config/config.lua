@@ -1,7 +1,7 @@
 ﻿TukuiCF["general"] = {
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
+	["multisampleprotect"] = true,         -- i don't recommend this because of border but, voila!
 	["embedright"] = "Skada",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
 	["classcolortheme"] = false,			--class colored theme for panels
 	["autocustomlagtolerance"] = true,		--set custom lag tollerance to your latency
@@ -67,10 +67,10 @@ TukuiCF["raidframes"] = {
 	["mainassist"] = true,                -- enable mainassist
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
 	["partypets"] = true,					-- enable party pets for the healer layout
-	["disableblizz"] = true,				-- fuck fuck fuckin fuck
+	["disableblizz"] = true,				-- duh
 	["healthdeficit"] = false,			-- show the health deficit on the raidframes
 	["griddps"] = true,					-- show dps layout in grid style
-	["role"] = false,					--display role on raidframe
+	["role"] = true,					--display role on raidframe
 }
 
 TukuiCF["auras"] = {
