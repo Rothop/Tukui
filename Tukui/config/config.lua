@@ -2,7 +2,7 @@
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
 	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
-	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
+	["embedright"] = "Skada",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
 	["classcolortheme"] = false,			--class colored theme for panels
 	["autocustomlagtolerance"] = true,		--set custom lag tollerance to your latency
 }
@@ -20,12 +20,12 @@ TukuiCF["unitframes"] = {
 	["fontsize"] = 12,						-- default font height for unitframes
 	["lowThreshold"] = 20,                 -- global low threshold, for low mana warning.
 	["targetpowerplayeronly"] = true,         -- enable power text on pvp target only
-	["showfocustarget"] = false,           -- show focus's target
+	["showfocustarget"] = true,           -- show focus's target
 	["showtotalhpmp"] = false,             -- change the display of info text on player and target with XXXX/Total.
 	["showsmooth"] = true,                 -- enable smooth bar
 	["showthreat"] = true,                 -- enable the threat bar anchored to info left panel.
 	["charportrait"] = true,              -- enable character portrait
-	["classcolor"] = false,                  -- color unitframes by class
+	["classcolor"] = true,                  -- color unitframes by class
 	["healthcolor"] = TukuiCF["media"].bordercolor, --color of the unitfram
 	["healthbackdropcolor"] = TukuiCF["media"].backdropcolor, --backdropcolor of the unitframe
 	["healthcolorbyvalue"] = true,			-- color health by current health remaining
@@ -146,7 +146,7 @@ TukuiCF["nameplate"] = {
 	["enable"] = true,                     -- enable nice skinned nameplates that fit into tukui
 		["showhealth"] = true,					-- show health text on nameplate
 		["enhancethreat"] = true,				-- threat features based on if your a tank or not
-		["overlap"] = false,				--allow nameplates to overlap
+		["overlap"] = true,				--allow nameplates to overlap
 		["combat"] = false,					--only show enemy nameplates in-combat.
 		["goodcolor"] = {0, 1, 0},			--good threat color (tank shows this with threat, everyone else without)
 		["badcolor"] = {1, 0, 0},			--bad threat color (opposite of above)
@@ -186,7 +186,7 @@ TukuiCF["datatext"] = {
 	
 	["battleground"] = true,               -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                     -- set time to 24h format.
-	["localtime"] = true,                 -- set time to local time instead of server time.
+	["localtime"] = false,                 -- set time to local time instead of server time.
 	["fontsize"] = 12,                     -- font size for panels.
 }
 
@@ -223,10 +223,10 @@ TukuiCF["buffreminder"] = {
 TukuiCF["others"] = {
 	["pvpautorelease"] = false,            -- enable auto-release in bg or wintergrasp.
 	["sellgrays"] = true,                  -- automaticly sell grays?
-	["autorepair"] = true,                 -- automaticly repair?
+	["autorepair"] = false,                 -- automaticly repair?
 	["errorenable"] = true,                     -- true to enable this mod, false to disable
 	["autoacceptinv"] = true,                 -- auto-accept invite from guildmate and friends.
 	["enablemap"] = true,                     -- reskin the map to fit tukui
 	["enablebag"] = true,                     -- enable an all in one bag mod that fit tukui perfectly
-	["spincam"] = true,						-- spin camera while afk
+	["spincam"] = false,						-- spin camera while afk
 }

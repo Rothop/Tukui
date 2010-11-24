@@ -437,6 +437,7 @@ DebuffDPSWhiteList = {
 		[SpellName(74322)] = true, -- Harvested Soul
 		[SpellName(72553)] = true, -- Gastric Bloat
 		[SpellName(72672)] = true, -- Mutated Plague
+		[SpellName(71103)] = true, -- Combobulating Spray
 			
 	--Ruby Sanctum
 		[SpellName(74502)] = true, --Enervating Brand
@@ -474,10 +475,10 @@ if TukuiCF["arena"].spelltracker == true then
 		[16190] = 180, -- Mana Tide Totem
 		[51514] = 45, -- Hex
 		[2094] = 120, -- Blind
-		[72] = 12, -- fucking prot warrior shield bash
+		[72] = 12, -- prot warrior shield bash
 		[33206] = 144, -- pain sup
 		[15487] = 45, -- silence priest
-		[34490] = 20, -- i hate hunter silencing shot
-		[14311] = 30, -- hunter forst trap shit
+		[34490] = 20, -- silencing shot
+		[14311] = 30, -- hunter forst trap
 	}
 end
