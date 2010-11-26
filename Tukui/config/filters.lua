@@ -191,24 +191,24 @@ ArenaBuffWhiteList = {
 -- Debuffs to always hide
 -- DPS Raid frames use this when not inside a BG/Arena. Player, TargetTarget, Focus always use it.
 DebuffBlacklist = {
-	[SpellName(8733)]  = true, --Blessing of Blackfathom
+	[SpellName(8733)] = true, --Blessing of Blackfathom
 	[SpellName(57724)] = true, --Sated
 	[SpellName(25771)] = true, --forbearance
 	[SpellName(57723)] = true, --Exhaustion
 	[SpellName(36032)] = true, --arcane blast
 	[SpellName(58539)] = true, --watchers corpse
 	[SpellName(26013)] = true, --deserter
-	[SpellName(6788)]  = true, --weakended soul
+	[SpellName(6788)] = true, --weakended soul
 	[SpellName(71041)] = true, --dungeon deserter
 	[SpellName(41425)] = true, --"Hypothermia"
 	[SpellName(55711)] = true, --Weakened Heart
 	[SpellName(28531)] = true, --frost aura (naxx)
 	[SpellName(67604)] = true, --Powering Up toc
-	[SpellName(8326)]  = true, --ghost
+	[SpellName(8326)] = true, --ghost
 	[SpellName(20584)] = true, --ghost
 	[SpellName(23445)] = true, --evil twin
-	[SpellName(24755)] = true, --trick or treat debuff
-	[SpellName(25163)] = true, --oozeling disgusting aura
+	[SpellName(24755)] = true, --gay homosexual tricked or treated debuff
+	[SpellName(25163)] = true, --fucking annoying pet debuff oozeling disgusting aura
 	
 	--Blood Princes
 	[SpellName(71911)] = true, --shadow resonance
@@ -286,7 +286,7 @@ DebuffWhiteList = {
 		[SpellName(25046)] = true, --Arcane Torrent
 		
 	--PVE Debuffs
-	
+		
 	-- Lich King
 		[SpellName(73787)] = true, --Necrotic Plague
 }
@@ -372,8 +372,7 @@ DebuffHealerWhiteList = {
 		[SpellName(73800)] = true, -- Soul Shriek
 		[SpellName(73797)] = true, -- Soul Reaper
 		[SpellName(73708)] = true, -- Defile
-		[SpellName(74322)] = true, -- Harvested Soul
-		[SpellName(71103)] = true, -- Combobulating Spray
+		[SpellName(74327)] = true, -- Harvest Soul
 			
 	--Ruby Sanctum
 		[SpellName(74502)] = true, --Enervating Brand
@@ -434,10 +433,9 @@ DebuffDPSWhiteList = {
 		[SpellName(73800)] = true, -- Soul Shriek
 		[SpellName(73797)] = true, -- Soul Reaper
 		[SpellName(73708)] = true, -- Defile
-		[SpellName(74322)] = true, -- Harvested Soul
+		[SpellName(74327)] = true, -- Harvest Soul
 		[SpellName(72553)] = true, -- Gastric Bloat
 		[SpellName(72672)] = true, -- Mutated Plague
-		[SpellName(71103)] = true, -- Combobulating Spray
 			
 	--Ruby Sanctum
 		[SpellName(74502)] = true, --Enervating Brand
@@ -475,10 +473,10 @@ if TukuiCF["arena"].spelltracker == true then
 		[16190] = 180, -- Mana Tide Totem
 		[51514] = 45, -- Hex
 		[2094] = 120, -- Blind
-		[72] = 12, -- prot warrior shield bash
+		[72] = 12, -- fucking prot warrior shield bash
 		[33206] = 144, -- pain sup
 		[15487] = 45, -- silence priest
-		[34490] = 20, -- silencing shot
-		[14311] = 30, -- hunter forst trap
+		[34490] = 20, -- i hate hunter silencing shot
+		[14311] = 30, -- hunter forst trap shit
 	}
 end
