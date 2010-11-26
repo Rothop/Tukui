@@ -373,6 +373,7 @@ DebuffHealerWhiteList = {
 		[SpellName(73797)] = true, -- Soul Reaper
 		[SpellName(73708)] = true, -- Defile
 		[SpellName(74327)] = true, -- Harvest Soul
+		[SpellName(71103)] = true, -- Combobulating Spray
 			
 	--Ruby Sanctum
 		[SpellName(74502)] = true, --Enervating Brand
@@ -436,6 +437,7 @@ DebuffDPSWhiteList = {
 		[SpellName(74327)] = true, -- Harvest Soul
 		[SpellName(72553)] = true, -- Gastric Bloat
 		[SpellName(72672)] = true, -- Mutated Plague
+		[SpellName(71103)] = true, -- Combobulating Spray
 			
 	--Ruby Sanctum
 		[SpellName(74502)] = true, --Enervating Brand
