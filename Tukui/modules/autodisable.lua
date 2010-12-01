@@ -14,12 +14,8 @@ if TukuiCF["actionbar"].rightbars > 2 and TukuiCF["actionbar"].splitbar == true 
 	TukuiCF["actionbar"].rightbars = 2
 end
 
-if TukuiCF["unitframes"].classcolor == true then
-	TukuiCF["unitframes"].healthcolorbyvalue = false
-end
-
 if TukuiCF["actionbar"].bottomrows < 2 then
-	TukuiCF["actionbar"].swaptopbottombar = nil
+	TukuiCF["actionbar"].swaptopbottombar = false
 end
 
 if TukuiCF["actionbar"].bottomrows == 3 and TukuiCF["actionbar"].rightbars ~= 0 and TukuiCF["actionbar"].splitbar == true then
@@ -30,54 +26,14 @@ if TukuiCF["actionbar"].bottomrows == 3 and TukuiCF["actionbar"].rightbars > 2 t
 	TukuiCF["actionbar"].rightbars = 2
 end
 
+if TukuiCF["unitframes"].classcolor == true then
+	TukuiCF["unitframes"].healthcolorbyvalue = false
+end
+
 if TukuiDB.client == "zhTW" or TukuiDB.client == "zhCN" then
 	TukuiCF["media"].uffont = [[fonts\bLEI00D.ttf]]
 	TukuiCF["media"].font = [[fonts\bLEI00D.ttf]]
 	TukuiCF["media"].dmgfont = [[fonts\bLEI00D.ttf]]
-end
-
-------------------------------------------------------------------------
--- auto-overwrite script config is X mod is found
-------------------------------------------------------------------------
-
--- because users are too lazy to disable feature in config file
--- adding an auto disable if some mods are loaded
-
-if (IsAddOnLoaded("Stuf") or IsAddOnLoaded("PitBull4") or IsAddOnLoaded("ShadowedUnitFrames") or IsAddOnLoaded("ag_UnitFrames")) then
-	TukuiCF["unitframes"].enable = false
-	TukuiCF["raidframes"].enable = false
-end
-
-if (IsAddOnLoaded("TidyPlates") or IsAddOnLoaded("Aloft")) then
-	TukuiCF["nameplate"].enable = false
-end
-
-if (IsAddOnLoaded("Dominos") or IsAddOnLoaded("Bartender4")) then
-	TukuiCF["actionbar"].enable = false
-end
-
-if (IsAddOnLoaded("Mapster")) then
-	TukuiCF["others"].enablemap = false
-end
-
-if (IsAddOnLoaded("Prat") or IsAddOnLoaded("Chatter")) then
-	TukuiCF["chat"].enable = false
-end
-
-if (IsAddOnLoaded("Quartz") or IsAddOnLoaded("AzCastBar") or IsAddOnLoaded("eCastingBar")) then
-	TukuiCF["unitframes"].unitcastbar = false
-end
-
-if (IsAddOnLoaded("Afflicted3") or IsAddOnLoaded("InterruptBar")) then
-	TukuiCF["arena"].spelltracker = false
-end
-
-if IsAddOnLoaded("ArkInventory") then
-	TukuiCF["others"].enablebag = false
-end
-
-if IsAddOnLoaded("TipTac") or IsAddOnLoaded("TipTop") then
-	TukuiCF["tooltip"].enable = false
 end
 
 ------------------------

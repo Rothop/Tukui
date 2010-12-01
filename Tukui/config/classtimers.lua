@@ -138,7 +138,7 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 770, true ), -- Farie Fire
 			CreateSpellEntry( 467 ), -- Thorns
 			CreateSpellEntry( 78675 ), -- Solar Beam
-			CreateSpellEntry( 93401 ), -- Sunfire
+			CreateSpellEntry( 93402 ), -- Sunfire
 		},
 		player = {
 			CreateSpellEntry( 48505 ), -- Starfall
@@ -272,7 +272,6 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 87342 ), -- Holy Shield
 			CreateSpellEntry( 85433 ), -- Sacred Duty
 			CreateSpellEntry( 85416 ), --Grand Crusader
-			CreateSpellEntry( 20053 ), -- Conviction
 
 			CreateSpellEntry( 85696 ), -- Zealotry
 			CreateSpellEntry( 1044 ), -- Hand of Freedom
@@ -368,15 +367,7 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 1966 ), -- Feint --
 			CreateSpellEntry( 73651 ), -- Recuperate --
 			CreateSpellEntry( 5171 ), -- Slice and Dice
-			CreateSpellEntry( 55503 ), -- Lifeblood --
 			CreateSpellEntry( 13877 ), -- Blade Flurry --
-
-
-
-
-
-
-
 		},
 		procs = {
 			CreateSpellEntry( 71396 ), -- Rage of the Fallen

@@ -97,15 +97,21 @@ local function CheckElixir(unit)
 	end
 end
 
+local function Pulse(self)
+	Flash(self, 0.3)
+end
+
 
 --Main Script
+RaidReminderShown = true
+local t = 44
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then 
 		return
 	end
 	
 	--If We're a caster we may want to see differant buffs
-	if TukuiDB.Roll == "Caster" then 
+	if TukuiDB.Role == "Caster" then 
 		SetCasterOnlyBuffs() 
 	else
 		SetBuffs()
@@ -187,10 +193,43 @@ local function OnAuraChange(self, event, arg1, unit)
 			Spell6Frame.t:SetTexture(select(3, GetSpellInfo(Spell6Buff)))
 		end
 	end
+	
+	
+	local inInstance, instanceType = IsInInstance()
+	if inInstance and (instanceType ==  "party" or instanceType == "raid") then
+		if RaidReminderShown ~= true then
+			UIFrameFadeIn(self, 0.4)
+			TukuiInfoRightLButton.Text:SetTextColor(1,1,1)
+			RaidReminderShown = true
+		end
+	else
+		if RaidReminderShown ~= false then 
+			TukuiInfoRightLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+			UIFrameFadeOut(self, 0.4)
+			RaidReminderShown = false
+		end
+	end
+	
+	--Check if your incombat and are missing a buff
+	
+	if RaidReminderShown == true and inInstance and (instanceType == "raid") and InCombatLockdown() and (FlaskFrame:GetAlpha() == 1 or Spell3Frame:GetAlpha() == 1 or Spell4Frame:GetAlpha() == 1 or Spell5Frame:GetAlpha() == 1 or Spell6Frame:GetAlpha() == 1) then
+		self:SetScript("OnUpdate", function(self)
+			t = t + 1
+			if t == 45 then
+				Pulse(self)
+				t = 4
+			end
+		end)
+	else
+		self:SetScript("OnUpdate", function() end)
+		StopFlash(self)
+		t = 0
+	end
+	
+	
 end
 
 local bsize = (((TukuiMinimap:GetWidth()) - (TukuiDB.Scale(4) * 7)) / 6)
-
 
 --Create the Main bar
 local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", TukuiMinimap)
@@ -198,11 +237,15 @@ TukuiDB.CreatePanel(raidbuff_reminder, TukuiMinimap:GetWidth(), bsize + TukuiDB.
 raidbuff_reminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 raidbuff_reminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
 raidbuff_reminder:RegisterEvent("UNIT_AURA")
+raidbuff_reminder:RegisterEvent("PLAYER_REGEN_ENABLED")
+raidbuff_reminder:RegisterEvent("PLAYER_REGEN_DISABLED")
 raidbuff_reminder:RegisterEvent("PLAYER_ENTERING_WORLD")
 raidbuff_reminder:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 raidbuff_reminder:RegisterEvent("CHARACTER_POINTS_CHANGED")
 raidbuff_reminder:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 raidbuff_reminder:SetScript("OnEvent", OnAuraChange)
+SetUpAnimGroup(RaidBuffReminder)
+
 
 
 --Function to create buttons
@@ -234,4 +277,48 @@ do
 	CreateButton("Spell4Frame", Spell3Frame, false)
 	CreateButton("Spell5Frame", Spell4Frame, false)
 	CreateButton("Spell6Frame", Spell5Frame, false)
+end
+
+--Setup toggle button
+do
+	--Toggle lock button
+	TukuiInfoRightLButton.hovered = false
+	TukuiInfoRightLButton:SetScript("OnMouseDown", function(self)
+		
+		if TukuiInfoRightLButton.hovered == true then
+			GameTooltip:ClearLines()
+			if RaidReminderShown == true then
+				GameTooltip:AddDoubleLine(tukuilocal.raidbufftoggler, HIDE,1,1,1,unpack(TukuiCF["media"].valuecolor))
+				TukuiInfoRightLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+				UIFrameFadeOut(RaidBuffReminder, 0.4)
+				RaidReminderShown = false
+			else
+				GameTooltip:AddDoubleLine(tukuilocal.raidbufftoggler, SHOW,1,1,1,unpack(TukuiCF["media"].valuecolor))
+				TukuiInfoRightLButton.Text:SetTextColor(1,1,1)
+				UIFrameFadeIn(RaidBuffReminder, 0.4)
+				RaidReminderShown = true
+			end
+		end
+	end)
+		
+	TukuiInfoRightLButton:SetScript("OnEnter", function(self)
+		TukuiInfoRightLButton.hovered = true
+		if InCombatLockdown() then return end
+		GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, TukuiDB.Scale(6));
+		GameTooltip:ClearAllPoints()
+		GameTooltip:SetPoint("BOTTOM", self, "TOP", 0, TukuiDB.mult)
+		GameTooltip:ClearLines()
+		
+		if RaidReminderShown == true then
+			GameTooltip:AddDoubleLine(tukuilocal.raidbufftoggler, SHOW,1,1,1,unpack(TukuiCF["media"].valuecolor))
+		else
+			GameTooltip:AddDoubleLine(tukuilocal.raidbufftoggler, HIDE,1,1,1,unpack(TukuiCF["media"].valuecolor))
+		end
+		GameTooltip:Show()
+	end)
+	
+	TukuiInfoRightLButton:SetScript("OnLeave", function(self)
+		TukuiInfoRightLButton.hovered = false
+		GameTooltip:Hide()
+	end)
 end

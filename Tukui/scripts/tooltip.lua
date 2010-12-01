@@ -88,9 +88,9 @@ GameTooltip:HookScript("OnUpdate",function(self, ...)
 			else
 				if CheckAddOnShown() == true and xOffset == 0 and yOffset == 0 then
 					if TukuiCF["chat"].showbackdrop == true and TukuiDB.ChatRightShown == true then
-						self:SetPoint("BOTTOMRIGHT", RDummyFrame, "TOPRIGHT", -1, TukuiDB.Scale(42))	
+						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, TukuiDB.Scale(42))	
 					else
-						self:SetPoint("BOTTOMRIGHT", RDummyFrame, "TOPRIGHT", -1, TukuiDB.Scale(18))		
+						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, TukuiDB.Scale(18))		
 					end	
 				else
 					self:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -15+xOffset, TukuiDB.Scale(42+yOffset))	
@@ -140,7 +140,7 @@ GameTooltipStatusBar:SetScript("OnValueChanged", function(self, value)
 	if not self.text then
 		self.text = self:CreateFontString(nil, "OVERLAY")
 		self.text:SetPoint("CENTER", GameTooltipStatusBar, 0, TukuiDB.Scale(-3))
-		self.text:SetFont(TukuiCF["media"].font, 12, "THINOUTLINE")
+		self.text:SetFont(TukuiCF["media"].font, TukuiCF["general"].fontscale, "THINOUTLINE")
 		self.text:Show()
 		if unit then
 			min, max = UnitHealth(unit), UnitHealthMax(unit)
@@ -214,9 +214,9 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 			else
 				if CheckAddOnShown() == true and xOffset == 0 and yOffset == 0 then
 					if TukuiCF["chat"].showbackdrop == true and TukuiDB.ChatRightShown == true then
-						self:SetPoint("BOTTOMRIGHT", RDummyFrame, "TOPRIGHT", -1, TukuiDB.Scale(42))	
+						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, TukuiDB.Scale(42))	
 					else
-						self:SetPoint("BOTTOMRIGHT", RDummyFrame, "TOPRIGHT", -1, TukuiDB.Scale(18))		
+						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, TukuiDB.Scale(18))		
 					end
 				else
 					self:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -15+xOffset, TukuiDB.Scale(42+yOffset))	
@@ -357,7 +357,7 @@ local Colorize = function(self)
 end
 
 local SetStyle = function(self)
-	TukuiDB.SetTemplate(self)
+	TukuiDB.SetNormTexTemplate(self)
 	self:SetBackdropColor(unpack(TukuiCF.media.backdropfadecolor))
 	Colorize(self)
 end

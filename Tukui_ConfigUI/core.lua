@@ -35,6 +35,7 @@ local function Local(o)
 	if o == "TukuiConfigUIgeneralembedright" then o = TukuiL.option_general_embedright end
 	if o == "TukuiConfigUIgeneralclasscolortheme" then o = TukuiL.option_general_classtheme end
 	if o == "TukuiConfigUIgeneralautocustomlagtolerance" then o = TukuiL.option_general_autocustomlagtolerance end
+	if o == "TukuiConfigUIgeneralfontscale" then o = TukuiL.option_general_fontscale end 
 	
 	--Media
 	if o =="TukuiConfigUImedia" then o = TukuiL.option_media end
@@ -235,7 +236,6 @@ local function Local(o)
 	if o == "TukuiConfigUIotherstotembardirection" then o = TukuiL.option_others_totembardirection end
 	if o == "TukuiConfigUIothersportals" then o = TukuiL.option_others_portals end
 	if o == "TukuiConfigUIothersspincam" then o = TukuiL.option_others_spincam end
-	if o == "TukuiConfigUIothersmendpet" then o = TukuiL.option_others_mendpet end
 	
 	-- reminder
 	if o == "TukuiConfigUIbuffreminder" then o = TukuiL.option_reminder end
@@ -260,6 +260,7 @@ local function Local(o)
 	if o == "TukuiConfigUIactionbarpetbuttonsize" then o = TukuiL.option_actionbar_petbuttonsize end
 	if o == "TukuiConfigUIactionbarpetbuttonspacing" then o = TukuiL.option_actionbar_petbuttonspacing end
 	if o == "TukuiConfigUIactionbarswaptopbottombar" then o = TukuiL.option_actionbar_swaptopbottombar end
+	if o == "TukuiConfigUIactionbarmacrotext" then o = TukuiL.option_actionbar_macrotext end
 	
 	-- arena
 	if o == "TukuiConfigUIarena" then o = TukuiL.option_arena end
@@ -286,6 +287,8 @@ local function Local(o)
 	if o == "TukuiConfigUIchatfadeoutofuse" then o = TukuiL_option_chat_fadeoutofuse end
 	if o == "TukuiConfigUIchatchatheight" then o = TukuiL_option_chat_chatheight end
 	if o == "TukuiConfigUIchatsticky" then o = TukuiL_option_chat_sticky end
+	if o == "TukuiConfigUIchatrightchat" then o = TukuiL_option_chat_rightchat end
+	if o == "TukuiConfigUIchatcombathide" then o = TukuiL_option_chat_combathide end
 	
 	TukuiDB.option = o
 end
@@ -293,7 +296,7 @@ end
 local NewButton = function(text,parent)
 	local result = CreateFrame("Button", nil, parent)
 	local label = result:CreateFontString(nil,"OVERLAY",nil)
-	label:SetFont(TukuiCF.media.font,12,"OUTLINE")
+	label:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 	label:SetText(text)
 	result:SetWidth(label:GetWidth())
 	result:SetHeight(label:GetHeight())
@@ -467,7 +470,7 @@ local function CreateTukuiConfigUI()
 	TukuiDB.SetTemplate(TukuiConfigUITitleBox)
 	
 	local title = TukuiConfigUITitleBox:CreateFontString("TukuiConfigUITitle", "OVERLAY")
-	title:SetFont(TukuiCF.media.font, 12)
+	title:SetFont(TukuiCF.media.font, TukuiCF["general"].fontscale)
 	title:SetPoint("LEFT", TukuiConfigUITitleBox, "LEFT",5, 0)
 		
 	local TukuiConfigUIBG = CreateFrame("Frame","TukuiConfigUI",TukuiConfigUI)
@@ -572,14 +575,14 @@ local function CreateTukuiConfigUI()
 				local o = "TukuiConfigUI"..group..option
 				Local(o)
 				_G["TukuiConfigUI"..group..option.."Text"]:SetText(TukuiDB.option)
-				_G["TukuiConfigUI"..group..option.."Text"]:SetFont(TukuiCF.media.font, 12, "OUTLINE")
+				_G["TukuiConfigUI"..group..option.."Text"]:SetFont(TukuiCF.media.font, TukuiCF["general"].fontscale, "OUTLINE")
 				button:SetChecked(value)
 				button:SetScript("OnClick", function(self) SetValue(group,option,(self:GetChecked() and true or false)) end)
 				button:SetPoint("TOPLEFT", 5, -(offset))
 				offset = offset+25
 			elseif type(value) == "number" or type(value) == "string" then
 				local label = frame:CreateFontString(nil,"OVERLAY",nil)
-				label:SetFont(TukuiCF.media.font,12,"OUTLINE")
+				label:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 				local o = "TukuiConfigUI"..group..option
 				Local(o)
 				label:SetText(TukuiDB.option)
@@ -631,7 +634,7 @@ local function CreateTukuiConfigUI()
 				offset = offset+45
 			elseif type(value) == "table" then
 				local label = frame:CreateFontString(nil,"OVERLAY",nil)
-				label:SetFont(TukuiCF.media.font,12,"OUTLINE")
+				label:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 				local o = "TukuiConfigUI"..group..option
 				Local(o)
 				label:SetText(TukuiDB.option)
@@ -648,7 +651,7 @@ local function CreateTukuiConfigUI()
 				colorbutton:SetBackdropBorderColor(unpack(value))
 				colorbutton:SetPoint("LEFT", label, "RIGHT", 2, 0)
 				local colortext = colorbutton:CreateFontString(nil,"OVERLAY",nil)
-				colortext:SetFont(TukuiCF.media.font,12,"OUTLINE")
+				colortext:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 				colortext:SetText("Set Color")
 				colortext:SetPoint("CENTER")
 				colortext:SetJustifyH("CENTER")
@@ -748,7 +751,7 @@ local function CreateTukuiConfigUI()
 		button:SetPoint("RIGHT", TukuiConfigUITitleBox, "RIGHT",-3, 0)	
 		
 		local label = TukuiConfigAllCharacters:CreateFontString(nil,"OVERLAY",nil)
-		label:SetFont(TukuiCF.media.font,12,"OUTLINE")
+		label:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 		
 		label:SetText(TukuiL.option_setsavedsetttings)
 		label:SetPoint("RIGHT", button, "LEFT")

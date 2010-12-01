@@ -87,6 +87,23 @@ function TukuiDB.SetTemplate(f)
 	end
 end
 
+function TukuiDB.SetNormTexTemplate(f)
+	local _, class = UnitClass("player")
+	local r, g, b = RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b
+	f:SetBackdrop({
+	  bgFile = TukuiCF["media"].normTex, 
+	  edgeFile = TukuiCF["media"].blank, 
+	  tile = false, tileSize = 0, edgeSize = mult, 
+	  insets = { left = -mult, right = -mult, top = -mult, bottom = -mult}
+	})
+	f:SetBackdropColor(unpack(TukuiCF["media"].backdropcolor))
+	if TukuiCF["general"].classcolortheme == true then
+		f:SetBackdropBorderColor(r, g, b)
+	else
+		f:SetBackdropBorderColor(unpack(TukuiCF["media"].bordercolor))
+	end
+end
+
 function TukuiDB.Kill(object)
 	if object.UnregisterAllEvents then
 		object:UnregisterAllEvents()
@@ -164,48 +181,40 @@ end
 
 --Set Datatext Postitions
 function TukuiDB.PP(p, obj)
-	if TukuiDB.lowversion == true then
-		local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3))
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		if p == 1 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
-		elseif p == 2 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.2, -TukuiDB.mult)
-		elseif p == 3 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x, -TukuiDB.mult)
-		elseif p == 4 then
-			local p = 6 --Swap these so its like how its always been..
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x, -TukuiDB.mult)
-		elseif p == 5 then
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.3, -TukuiDB.mult)
-		elseif p == 6 then
-			local p = 4 --Swap these so its like how its always been..
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
-		end
-	else
-		local x = TukuiDB.Scale(((string.match(GetCVar("gxResolution"), "(%d+)x%d+") / 3) / 3.2))
-		obj:SetHeight(TukuiBottomPanel:GetHeight())
-		if p == 1 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.6, -TukuiDB.mult)
-		elseif p == 2 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/1.1, -TukuiDB.mult)
-		elseif p == 3 then
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/0.9, -TukuiDB.mult)
-		elseif p == 4 then
-			local p = 6 --Swap these so its like how its always been..
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/0.8, -TukuiDB.mult)
-		elseif p == 5 then
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.1, -TukuiDB.mult)
-		elseif p == 6 then
-			local p = 4 --Swap these so its like how its always been..
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))+x/1.6, -TukuiDB.mult)
-		elseif p == 9 then
-			local p = 10
-			obj:SetPoint("BOTTOM", UIParent,"BOTTOMRIGHT", -(x*(p-3))-x/20, -TukuiDB.mult)
-		elseif p == 10 then
-			local p = 9
-			obj:SetPoint("BOTTOM", UIParent, "BOTTOMLEFT", (x*p)-x/0.53, -TukuiDB.mult)
-		end	
+	obj:SetHeight(TukuiDB.Scale(15))
+	local left = TukuiInfoLeft
+	local right = TukuiInfoRight
+	local mapleft = TukuiMinimapStatsLeft
+	local mapright = TukuiMinimapStatsRight
+	
+	if p == 1 then
+		obj:SetHeight(left:GetHeight())
+		obj:SetPoint("LEFT", left, 15, 0)
+		obj:SetPoint('TOP', left)
+		obj:SetPoint('BOTTOM', left)
+	elseif p == 2 then
+		obj:SetHeight(left:GetHeight())
+		obj:SetPoint('TOP', left)
+		obj:SetPoint('BOTTOM', left)
+	elseif p == 3 then
+		obj:SetHeight(left:GetHeight())
+		obj:SetPoint("RIGHT", left, -15, 0)
+		obj:SetPoint('TOP', left)
+		obj:SetPoint('BOTTOM', left)
+	elseif p == 4 then
+		obj:SetHeight(right:GetHeight())
+		obj:SetPoint("LEFT", right, 15, 0)
+		obj:SetPoint('TOP', right)
+		obj:SetPoint('BOTTOM', right)
+	elseif p == 5 then
+		obj:SetHeight(right:GetHeight())
+		obj:SetPoint('TOP', right)
+		obj:SetPoint('BOTTOM', right)
+	elseif p == 6 then
+		obj:SetHeight(right:GetHeight())
+		obj:SetPoint("RIGHT", right, -15, 0)
+		obj:SetPoint('TOP', right)
+		obj:SetPoint('BOTTOM', right)
 	end
 	
 	if TukuiMinimap then
@@ -256,6 +265,75 @@ RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
 RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 RoleUpdater:SetScript("OnEvent", CheckRole)
 CheckRole()
+
+------------------------------------------------------------------------
+-- Animation Functions (Credit Hydra)
+------------------------------------------------------------------------
+SetUpAnimGroup = function(self)
+	self.anim = self:CreateAnimationGroup("Flash")
+	self.anim.fadein = self.anim:CreateAnimation("ALPHA", "FadeIn")
+	self.anim.fadein:SetChange(1)
+	self.anim.fadein:SetOrder(2)
+
+	self.anim.fadeout = self.anim:CreateAnimation("ALPHA", "FadeOut")
+	self.anim.fadeout:SetChange(-1)
+	self.anim.fadeout:SetOrder(1)
+end
+
+Flash = function(self, duration)
+	if not self.anim then
+		SetUpAnimGroup(self)
+	end
+
+	self.anim.fadein:SetDuration(duration)
+	self.anim.fadeout:SetDuration(duration)
+	self.anim:Play()
+end
+
+StopFlash = function(self)
+	if self.anim then
+		self.anim:Finish()
+	end
+end
+
+AnimGroup = function (self,x,y,duration)
+	self.anim = self:CreateAnimationGroup("Move_In")
+	self.anim.in1 = self.anim:CreateAnimation("Translation")
+	self.anim.in1:SetDuration(0)
+	self.anim.in1:SetOrder(1)
+	self.anim.in2 = self.anim:CreateAnimation("Translation")
+	self.anim.in2:SetDuration(duration)
+	self.anim.in2:SetOrder(2)
+	self.anim.in2:SetSmoothing("OUT")
+	self.anim_o = self:CreateAnimationGroup("Move_Out")
+	self.anim_out2 = self.anim_o:CreateAnimation("Translation")
+	self.anim_out2:SetDuration(duration)
+	self.anim_out2:SetOrder(1)
+	self.anim_out2:SetSmoothing("IN")
+	self.anim.in1:SetOffset(x,y)
+	self.anim.in2:SetOffset(-x,-y)
+	self.anim_out2:SetOffset(x,y)
+	self.anim_o:SetScript("OnFinished",function() self:Hide() end)
+end
+
+SlideIn = function(self)
+	if not self.anim then
+		AnimGroup(self)
+	end
+
+	self.anim_o:Stop()
+	self:Show()
+	self.anim:Play()
+end
+
+SlideOut = function(self)
+	if self.anim then
+		self.anim:Finish()
+	end
+
+	self.anim:Stop()
+	self.anim_o:Play()
+end
 
 ------------------------------------------------------------------------
 --	ActionBar Functions
@@ -428,33 +506,6 @@ if not TukuiCF["unitframes"].enable == true and not TukuiCF["raidframes"].enable
 ------------------------------------------------------------------------
 --	UnitFrame Functions
 ------------------------------------------------------------------------
-local SetUpAnimGroup = function(self)
-	self.anim = self:CreateAnimationGroup("Flash")
-	self.anim.fadein = self.anim:CreateAnimation("ALPHA", "FadeIn")
-	self.anim.fadein:SetChange(1)
-	self.anim.fadein:SetOrder(2)
-
-	self.anim.fadeout = self.anim:CreateAnimation("ALPHA", "FadeOut")
-	self.anim.fadeout:SetChange(-1)
-	self.anim.fadeout:SetOrder(1)
-end
-
-local Flash = function(self, duration)
-	if not self.anim then
-		SetUpAnimGroup(self)
-	end
-
-	self.anim.fadein:SetDuration(duration)
-	self.anim.fadeout:SetDuration(duration)
-	self.anim:Play()
-end
-
-local StopFlash = function(self)
-	if self.anim then
-		self.anim:Finish()
-	end
-end
-
 function TukuiDB.SpawnMenu(self)
 	local unit = self.unit:gsub("(.)", string.upper, 1)
 	if self.unit == "targettarget" then return end
@@ -532,6 +583,8 @@ TukuiDB.AuraFilter = function(icons, unit, icon, name, rank, texture, count, dty
 			if header == "oUF_TukuiHealR6R25" and DebuffHealerWhiteList[name] then
 				return true
 			elseif header == "oUF_TukuiDPSR6R25" and DebuffDPSWhiteList[name] then
+				return true
+			else
 				return false
 			end
 		end	

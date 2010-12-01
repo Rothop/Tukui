@@ -47,9 +47,7 @@ TukuiDB.Kill(FriendsMicroButton)
 TukuiDB.Kill(ChatFrameMenuButton)
 
 local EditBoxDummy = CreateFrame("Frame", "EditBoxDummy", UIParent)
-EditBoxDummy:SetWidth(TukuiCF["chat"].chatwidth)
-EditBoxDummy:SetHeight(TukuiBottomPanel:GetHeight())
-EditBoxDummy:SetPoint("BOTTOM", ChatFrame1, "TOP", 0, TukuiDB.Scale(5))
+EditBoxDummy:SetAllPoints(TukuiInfoLeft)
 
 -- set the chat style
 local function SetChatStyle(frame)
@@ -69,7 +67,7 @@ local function SetChatStyle(frame)
 		tab:HookScript("OnLeave", function() _G[chat.."TabText"]:Hide() end)
 	end
 	_G[chat.."TabText"]:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-	_G[chat.."TabText"]:SetFont(TukuiCF.media.font,12,"THINOUTLINE")
+	_G[chat.."TabText"]:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"THINOUTLINE")
 	_G[chat.."TabText"].SetTextColor = TukuiDB.dummy
 	local originalpoint = select(2, _G[chat.."TabText"]:GetPoint())
 	_G[chat.."TabText"]:SetPoint("LEFT", originalpoint, "RIGHT", 0, -TukuiDB.mult*2)
@@ -160,6 +158,7 @@ local function SetChatStyle(frame)
 	-- create our own texture for edit box
 	local EditBoxBackground = CreateFrame("frame", "TukuiChatchatEditBoxBackground", _G[chat.."EditBox"])
 	TukuiDB.CreatePanel(EditBoxBackground, 1, 1, "LEFT", _G[chat.."EditBox"], "LEFT", 0, 0)
+	TukuiDB.SetNormTexTemplate(EditBoxBackground)
 	EditBoxBackground:ClearAllPoints()
 	EditBoxBackground:SetAllPoints(EditBoxDummy)
 	EditBoxBackground:SetFrameStrata("LOW")
@@ -212,20 +211,26 @@ local function SetupChat(self)
 	ChatTypeInfo.CHANNEL.sticky = var
 end
 
+
 local function SetupChatPosAndFont(self)
+	local chatrightfound = false
+	local lastseen
 	for i = 1, NUM_CHAT_WINDOWS do
 		local chat = _G[format("ChatFrame%s", i)]
 		local id = chat:GetID()
 		local name = FCF_GetChatWindowInfo(id)
 		local point = GetChatWindowSavedPosition(id)
 		local _, fontSize = FCF_GetChatWindowInfo(id)
-
-		-- well... tukui font under fontsize 12 is unreadable.
-		if fontSize < 12 then		
-			FCF_SetChatWindowFontSize(nil, chat, 12)
+		local button = _G[format("ButtonCF%d", i)]
+		local _, _, _, _, _, _, _, _, docked, _ = GetChatWindowInfo(id)
+		
+		-- well... tukui font under fontsize 10 is unreadable.
+		if fontSize < 10 then		
+			FCF_SetChatWindowFontSize(nil, chat, 10)
 		else
 			FCF_SetChatWindowFontSize(nil, chat, fontSize)
 		end
+		
 		
 		-- force chat position on #1 and #4, needed if we change ui scale or resolution
 		if i == 1 then
@@ -233,6 +238,32 @@ local function SetupChatPosAndFont(self)
 			chat:SetPoint("BOTTOMLEFT", ChatLBackground, "BOTTOMLEFT", TukuiDB.Scale(2), TukuiDB.Scale(4))
 			_G["ChatFrame"..i]:SetSize(TukuiDB.Scale(TukuiCF["chat"].chatwidth - 4), TukuiDB.Scale(TukuiCF["chat"].chatheight))
 			FCF_SavePositionAndDimensions(chat)
+			button:ClearAllPoints()
+			button:SetPoint("BOTTOMRIGHT", ChatLBackground, "TOPRIGHT", 0, TukuiDB.Scale(3))
+		elseif point == "BOTTOMRIGHT" and TukuiCF["chat"].rightchat == true and chat:IsShown() and docked == nil then
+			chatrightfound = true
+			TukuiDB.ChatRightShown = true
+			chat:ClearAllPoints()
+			chat:SetPoint("BOTTOMLEFT", ChatRBackground, "BOTTOMLEFT", TukuiDB.Scale(2), TukuiDB.Scale(4))
+			_G["ChatFrame"..i]:SetSize(TukuiDB.Scale(TukuiCF["chat"].chatwidth - 4), TukuiDB.Scale(TukuiCF["chat"].chatheight))
+			FCF_SavePositionAndDimensions(chat)
+			button:ClearAllPoints()
+			button:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", 0, TukuiDB.Scale(3))
+		else
+			button:ClearAllPoints()
+			button:SetPoint("BOTTOMRIGHT", ChatLBackground, "TOPRIGHT", 0, TukuiDB.Scale(3))
+		end
+		
+		if TukuiCF["chat"].rightchat ~= true then
+			chatrightfound = true
+		else
+			if ChatRBG then
+				ChatRBG:SetAlpha(1)
+			end
+		end
+		
+		if i == NUM_CHAT_WINDOWS and chatrightfound == false and not StaticPopup1:IsShown() then
+			StaticPopup_Show("CHAT_WARN")
 		end
 	end
 end
@@ -250,41 +281,6 @@ TukuiChat:SetScript("OnEvent", function(self, event, ...)
 	elseif event == "PLAYER_ENTERING_WORLD" then
 			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			SetupChatPosAndFont(self)
-	end
-	
-	for i = 1, NUM_CHAT_WINDOWS do
-		local chat = _G[format("ChatFrame%s", i)]
-		local id = chat:GetID()
-		local point = GetChatWindowSavedPosition(id)
-		local _, _, _, _, _, _, _, _, docked, _ = GetChatWindowInfo(id)
-		local tab = _G[chat:GetName().."Tab"]
-		local button = _G[format("ButtonCF%d", i)]
-		if point == "BOTTOMRIGHT" and chat:IsShown() and docked == nil then
-			if TukuiCF["chat"].showbackdrop == true then
-				ChatRBG:SetAlpha(1)
-			end
-			TukuiDB.ChatRightShown = true
-			if not InCombatLockdown() then
-				SetChatWindowSavedDimensions(id, TukuiDB.Scale(TukuiCF["chat"].chatwidth + -4), TukuiDB.Scale(TukuiCF["chat"].chatheight))
-				chat:SetWidth(TukuiCF["chat"].chatwidth + -4)
-				chat:SetHeight(TukuiCF["chat"].chatheight)
-				chat:ClearAllPoints()
-				chat:SetPoint("BOTTOMLEFT", RDummyFrame, "BOTTOMLEFT", TukuiDB.Scale(2), TukuiDB.Scale(4))
-				button:ClearAllPoints()
-				button:SetPoint("BOTTOMRIGHT", RDummyFrame, "TOPRIGHT", 0, TukuiDB.Scale(3))
-				FCF_SavePositionAndDimensions(chat)
-			end
-			break
-		else
-			if TukuiCF["chat"].showbackdrop == true then
-				ChatRBG:SetAlpha(0)
-			end
-			if not InCombatLockdown() then
-				button:ClearAllPoints()
-				button:SetPoint("BOTTOMRIGHT", ChatLBackground, "TOPRIGHT", 0, TukuiDB.Scale(3))				
-			end
-			TukuiDB.ChatRightShown = false
-		end
 	end
 end)
 
@@ -333,12 +329,16 @@ local function CreatCopyFrame()
 	})
 	frame:SetBackdropColor(unpack(TukuiCF["media"].backdropcolor))
 	frame:SetBackdropBorderColor(unpack(TukuiCF["media"].bordercolor))
-	frame:SetWidth(TukuiDB.Scale(710))
 	frame:SetHeight(TukuiDB.Scale(200))
 	frame:SetScale(1)
-	frame:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, TukuiDB.Scale(10))
+	frame:SetPoint("BOTTOMLEFT", TukuiSplitActionBarLeftBackground, "BOTTOMLEFT", 0, 0)
+	frame:SetPoint("BOTTOMRIGHT", TukuiSplitActionBarRightBackground, "BOTTOMRIGHT", 0, 0)
 	frame:Hide()
+	frame:EnableMouse(true)
 	frame:SetFrameStrata("DIALOG")
+
+	
+	AnimGroup(frame, 0, TukuiDB.Scale(-220), 0.4)
 
 	local scrollArea = CreateFrame("ScrollFrame", "CopyScroll", frame, "UIPanelScrollFrameTemplate")
 	scrollArea:SetPoint("TOPLEFT", frame, "TOPLEFT", TukuiDB.Scale(8), TukuiDB.Scale(-30))
@@ -352,14 +352,24 @@ local function CreatCopyFrame()
 	editBox:SetFontObject(ChatFontNormal)
 	editBox:SetWidth(TukuiDB.Scale(710))
 	editBox:SetHeight(TukuiDB.Scale(200))
-	editBox:SetScript("OnEscapePressed", function() frame:Hide() end)
+	editBox:SetScript("OnEscapePressed", function()
+		SlideOut(frame)
+	end)
 
 	scrollArea:SetScrollChild(editBox)
 
 	local close = CreateFrame("Button", "CopyCloseButton", frame, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
-
+	close:EnableMouse(true)
+	close:SetScript("OnMouseDown", function()
+		SlideOut(frame)
+	end)
+	
 	isf = true
+	
+	frame:HookScript("OnShow", function(self, ...)
+		SlideIn(frame)
+	end)
 end
 
 local function GetLines(...)
@@ -382,7 +392,7 @@ local function Copy(cf)
 	local text = table.concat(lines, "\n", 1, lineCt)
 	FCF_SetChatWindowFontSize(cf, cf, size)
 	if not isf then CreatCopyFrame() end
-	if frame:IsShown() then frame:Hide() return end
+	if frame:IsShown() then SlideOut(frame) return end
 	frame:Show()
 	editBox:SetText(text)
 end
@@ -390,21 +400,28 @@ end
 function TukuiDB.ChatCopyButtons()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local cf = _G[format("ChatFrame%d",  i)]
+		local tab = _G[format("ChatFrame%dTab", i)]
 		local button = CreateFrame("Button", format("ButtonCF%d", i), cf)
+		local id = cf:GetID()
+		local name = FCF_GetChatWindowInfo(id)
+		local point = GetChatWindowSavedPosition(id)
+		local _, fontSize = FCF_GetChatWindowInfo(id)
+		local button = _G[format("ButtonCF%d", i)]
+		local _, _, _, _, _, _, _, _, docked, _ = GetChatWindowInfo(id)
+		
 		button:SetHeight(TukuiDB.Scale(22))
 		button:SetWidth(TukuiDB.Scale(20))
-		if TukuiCF["chat"].showbackdrop ~= true then
+		if TukuiCF["chat"].showbackdrop ~= true or (TukuiCF["chat"].rightchat ~= true and docked == nil) then
 			button:SetAlpha(0)
 			button:SetPoint("TOPRIGHT", 0, 0)
 		else
 			button:SetPoint("BOTTOMRIGHT", ChatLBackground, "TOPRIGHT", 0, TukuiDB.Scale(3))
 		end
-		TukuiDB.SetTransparentTemplate(button)
-		button:SetBackdropColor(unpack(TukuiCF["media"].backdropcolor))
+		TukuiDB.SetNormTexTemplate(button)
 		TukuiDB.CreateShadow(button)
 		
 		local buttontext = button:CreateFontString(nil,"OVERLAY",nil)
-		buttontext:SetFont(TukuiCF.media.font,12,"OUTLINE")
+		buttontext:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
 		buttontext:SetText("C")
 		buttontext:SetPoint("CENTER", TukuiDB.Scale(1), 0)
 		buttontext:SetJustifyH("CENTER")
@@ -470,3 +487,71 @@ if TukuiCF.chat.whispersound then
 		end
 	end)
 end
+
+----------------------------------------------------------------------
+-- Setup animating chat during combat
+----------------------------------------------------------------------
+
+local ChatCombatHider = CreateFrame("Frame")
+ChatCombatHider:RegisterEvent("PLAYER_REGEN_ENABLED")
+ChatCombatHider:RegisterEvent("PLAYER_REGEN_DISABLED")
+ChatCombatHider:SetScript("OnEvent", function(self, event)
+	if TukuiCF["chat"].combathide ~= "Left" and TukuiCF["chat"].combathide ~= "Right" and TukuiCF["chat"].combathide ~= "Both" then self:UnregisterAllEvents() return end
+	if (TukuiCF["chat"].combathide == "Right" or TukuiCF["chat"].combathide == "Both") and TukuiCF["chat"].rightchat ~= true then return end
+	
+	if event == "PLAYER_REGEN_DISABLED" then
+		if TukuiCF["chat"].combathide == "Both" then	
+			if TukuiChatRIn ~= false then
+				SlideOut(ChatRBackground)		
+				TukuiDB.ChatRightShown = false
+				TukuiChatRIn = false
+				TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))			
+			end
+			if TukuiChatLIn ~= false then
+				SlideOut(ChatLBackground)
+				TukuiChatLIn = false
+				TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+			end
+		elseif TukuiCF["chat"].combathide == "Right" then
+			if TukuiChatRIn ~= false then
+				SlideOut(ChatRBackground)		
+				TukuiDB.ChatRightShown = false
+				TukuiChatRIn = false
+				TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))			
+			end		
+		elseif TukuiCF["chat"].combathide == "Left" then
+			if TukuiChatLIn ~= false then
+				SlideOut(ChatLBackground)
+				TukuiChatLIn = false
+				TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+			end		
+		end
+	else
+		if TukuiCF["chat"].combathide == "Both" then
+			if TukuiChatRIn ~= true then
+				SlideIn(ChatRBackground)		
+				TukuiDB.ChatRightShown = true
+				TukuiChatRIn = true
+				TukuiInfoRightRButton.Text:SetTextColor(1,1,1)			
+			end
+			if TukuiChatLIn ~= true then
+				SlideIn(ChatLBackground)
+				TukuiChatLIn = true
+				TukuiInfoLeftLButton.Text:SetTextColor(1,1,1)
+			end
+		elseif TukuiCF["chat"].combathide == "Right" then
+			if TukuiChatRIn ~= true then
+				SlideIn(ChatRBackground)		
+				TukuiDB.ChatRightShown = true
+				TukuiChatRIn = true
+				TukuiInfoRightRButton.Text:SetTextColor(1,1,1)			
+			end		
+		elseif TukuiCF["chat"].combathide == "Left" then
+			if TukuiChatLIn ~= true then
+				SlideIn(ChatLBackground)
+				TukuiChatLIn = true
+				TukuiInfoLeftLButton.Text:SetTextColor(1,1,1)
+			end		
+		end	
+	end
+end)

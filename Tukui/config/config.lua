@@ -1,10 +1,11 @@
 ﻿TukuiCF["general"] = {
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["multisampleprotect"] = true,         -- i don't recommend this because of border but, voila!
-	["embedright"] = "Skada",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
+	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
+	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
 	["classcolortheme"] = false,			--class colored theme for panels
 	["autocustomlagtolerance"] = true,		--set custom lag tollerance to your latency
+	["fontscale"] = 12,					--Master font
 }
 
 TukuiCF["skin"] = {	--Skin addons by Darth Android
@@ -20,23 +21,23 @@ TukuiCF["unitframes"] = {
 	["fontsize"] = 12,						-- default font height for unitframes
 	["lowThreshold"] = 20,                 -- global low threshold, for low mana warning.
 	["targetpowerplayeronly"] = true,         -- enable power text on pvp target only
-	["showfocustarget"] = true,           -- show focus's target
+	["showfocustarget"] = false,           -- show focus's target
 	["showtotalhpmp"] = false,             -- change the display of info text on player and target with XXXX/Total.
 	["showsmooth"] = true,                 -- enable smooth bar
 	["showthreat"] = true,                 -- enable the threat bar anchored to info left panel.
-	["charportrait"] = true,              -- enable character portrait
-	["classcolor"] = true,                  -- color unitframes by class
+	["charportrait"] = false,              -- enable character portrait
+	["classcolor"] = false,                  -- color unitframes by class
 	["healthcolor"] = TukuiCF["media"].bordercolor, --color of the unitfram
 	["healthbackdropcolor"] = TukuiCF["media"].backdropcolor, --backdropcolor of the unitframe
 	["healthcolorbyvalue"] = true,			-- color health by current health remaining
-	["combatfeedback"] = true,             -- enable combattext on player and target.
+	["combatfeedback"] = false,             -- enable combattext on player and target.
 	["playeraggro"] = true,                -- color player border to red if you have aggro on current target.
 	["positionbychar"] = true,             -- save X, Y position with /uf (movable frame) per character instead of per account.
 	["swingbar"] = false,					--enables swingbar (dps layout only)
 	["debuffhighlight"] = true,				--highlight frame with the debuff color if the frame is dispellable
 	["showsymbols"] = true,	               -- show symbol.
 	["aggro"] = true,                      -- show aggro
-	["poweroffset"] = 9,					--powerbar offset
+	["poweroffset"] = 0,					--powerbar offset
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
 }
@@ -67,10 +68,10 @@ TukuiCF["raidframes"] = {
 	["mainassist"] = true,                -- enable mainassist
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
 	["partypets"] = true,					-- enable party pets for the healer layout
-	["disableblizz"] = true,				-- duh
+	["disableblizz"] = true,				-- fuck fuck fuckin fuck
 	["healthdeficit"] = false,			-- show the health deficit on the raidframes
 	["griddps"] = true,					-- show dps layout in grid style
-	["role"] = true,					--display role on raidframe
+	["role"] = false,					--display role on raidframe
 }
 
 TukuiCF["auras"] = {
@@ -130,9 +131,9 @@ TukuiCF["actionbar"] = {
 		["rightbarmouseover"] = false,         -- enable right bars on mouse over
 		["shapeshiftmouseover"] = false,       -- enable shapeshift or totembar on mouseover
 		["hideshapeshift"] = false,            -- hide shapeshift or totembar because it was a lot requested.
-		["bottomrows"] = 2,                    -- numbers of row you want to show at the bottom (select between 1, 1.5, 2 only)
+		["bottomrows"] = 1,                    -- numbers of row you want to show at the bottom (select between 1, 1.5, 2 only)
 		["rightbars"] = 0,                     -- numbers of right bar you want
-		["splitbar"] = true,					-- split the third right actionbar into two rows of 3 on the left and right side of the main actionbar
+		["splitbar"] = false,					-- split the third right actionbar into two rows of 3 on the left and right side of the main actionbar
 		["showgrid"] = true,                   -- show grid on empty button
 		["bottompetbar"] = false,				-- position petbar below the actionbars instead of the right side
 		["buttonsize"] = 27,					--size of action buttons
@@ -140,13 +141,14 @@ TukuiCF["actionbar"] = {
 		["petbuttonsize"] = 25,					--size of pet/stance buttons
 		["petbuttonspacing"] = 4,				--spacing of pet/stance buttons
 		["swaptopbottombar"] = false,			--swap the main actionbar position with the bottom actionbar
+		["macrotext"] = false,					--show macro text on actionbuttons
 }
 
 TukuiCF["nameplate"] = {
 	["enable"] = true,                     -- enable nice skinned nameplates that fit into tukui
 		["showhealth"] = true,					-- show health text on nameplate
 		["enhancethreat"] = true,				-- threat features based on if your a tank or not
-		["overlap"] = true,				--allow nameplates to overlap
+		["overlap"] = false,				--allow nameplates to overlap
 		["combat"] = false,					--only show enemy nameplates in-combat.
 		["goodcolor"] = {0, 1, 0},			--good threat color (tank shows this with threat, everyone else without)
 		["badcolor"] = {1, 0, 0},			--bad threat color (opposite of above)
@@ -186,7 +188,7 @@ TukuiCF["datatext"] = {
 	
 	["battleground"] = true,               -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = false,                     -- set time to 24h format.
-	["localtime"] = false,                 -- set time to local time instead of server time.
+	["localtime"] = true,                 -- set time to local time instead of server time.
 	["fontsize"] = 12,                     -- font size for panels.
 }
 
@@ -198,6 +200,8 @@ TukuiCF["chat"] = {
 		["chatheight"] = 111,					-- height of chat frame
 		["fadeoutofuse"] = true,				-- fade chat text when out of use
 		["sticky"] = true,						-- when opening the chat edit box resort to previous channel
+		["rightchat"] = true,					-- enable chat frame on right
+		["combathide"] = "NONE",			-- Set to "Left", "Right", "Both", or "NONE"
 	["bubbles"] = true,							--skin blizzard chat bubbles
 }
 
@@ -223,10 +227,10 @@ TukuiCF["buffreminder"] = {
 TukuiCF["others"] = {
 	["pvpautorelease"] = false,            -- enable auto-release in bg or wintergrasp.
 	["sellgrays"] = true,                  -- automaticly sell grays?
-	["autorepair"] = false,                 -- automaticly repair?
+	["autorepair"] = true,                 -- automaticly repair?
 	["errorenable"] = true,                     -- true to enable this mod, false to disable
 	["autoacceptinv"] = true,                 -- auto-accept invite from guildmate and friends.
 	["enablemap"] = true,                     -- reskin the map to fit tukui
 	["enablebag"] = true,                     -- enable an all in one bag mod that fit tukui perfectly
-	["spincam"] = false,						-- spin camera while afk
+	["spincam"] = true,						-- spin camera while afk
 }

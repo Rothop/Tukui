@@ -1,21 +1,12 @@
 ﻿------------------------------------------------------------------------
 --	First Time Launch and On Login file
 ------------------------------------------------------------------------
+BINDING_HEADER_TUKUI = GetAddOnMetadata("Tukui", "Title") --Header name inside keybinds menu
 
 local function install()
 	SetCVar("buffDurations", 1)
-	SetCVar("lootUnderMouse", 1)
-	SetCVar("autoSelfCast", 1)
 	SetCVar("mapQuestDifficulty", 1)
 	SetCVar("scriptErrors", 0)
-	SetCVar("nameplateShowFriends", 0)
-	SetCVar("nameplateShowFriendlyPets", 0)
-	SetCVar("nameplateShowFriendlyGuardians", 0)
-	SetCVar("nameplateShowFriendlyTotems", 0)
-	SetCVar("nameplateShowEnemies", 1)
-	SetCVar("nameplateShowEnemyPets", 1)
-	SetCVar("nameplateShowEnemyGuardians", 1)
-	SetCVar("nameplateShowEnemyTotems", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("screenshotQuality", 10)
 	SetCVar("cameraDistanceMax", 50)
@@ -29,13 +20,9 @@ local function install()
 	SetCVar("autoQuestWatch", 1)
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("showLootSpam", 1)
-	SetCVar("guildMemberNotify", 1)
-	SetCVar("chatBubblesParty", 1)
-	SetCVar("chatBubbles", 1)	
 	SetCVar("UberTooltips", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("gxTextureCacheSize", 512)
-	SetCVar("showToastWindow", 0)
 	
 	-- Var ok, now setting chat frames if using Tukui chats.	
 	if (TukuiCF.chat.enable == true) and (not IsAddOnLoaded("Prat") or not IsAddOnLoaded("Chatter")) then					
@@ -43,6 +30,13 @@ local function install()
 		FCF_SetLocked(ChatFrame1, 1)
 		FCF_DockFrame(ChatFrame2)
 		FCF_SetLocked(ChatFrame2, 1)
+		
+		if TukuiCF["chat"].rightchat == true then
+			FCF_OpenNewWindow(LOOT)
+			FCF_UnDockFrame(ChatFrame3)
+			FCF_SetLocked(ChatFrame3, 1)
+			ChatFrame3:Show()		
+		end
 				
 		for i = 1, NUM_CHAT_WINDOWS do
 			local frame = _G[format("ChatFrame%s", i)]
@@ -58,6 +52,9 @@ local function install()
 			if i == 1 then
 				frame:ClearAllPoints()
 				frame:SetPoint("BOTTOMLEFT", ChatLBackground, "BOTTOMLEFT", TukuiDB.Scale(2), 0)
+			elseif i == 3 and TukuiCF["chat"].rightchat == true then
+				frame:ClearAllPoints()
+				frame:SetPoint("BOTTOMLEFT", ChatRBackground, "BOTTOMLEFT", TukuiDB.Scale(2), 0)			
 			end
 					
 			-- save new default position and dimension
@@ -69,6 +66,7 @@ local function install()
 			-- rename windows general because moved to chat #3
 			if i == 1 then FCF_SetWindowName(frame, "G, S & W") end
 			if i == 2 then FCF_SetWindowName(frame, "Log") end
+			if i == 3 then FCF_SetWindowName(frame, LOOT.." / "..WHISPER) end
 		end
 		
 	ChatFrame_RemoveAllMessageGroups(ChatFrame1)
@@ -111,9 +109,18 @@ local function install()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
 	ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_XP_GAIN")
 	ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame1, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_XP_GAIN")		
+	ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_XP_GAIN")
+	
+	if TukuiCF["chat"].rightchat == true then
+		ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
+		ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame3, "WHISPER")
+		ChatFrame_AddMessageGroup(ChatFrame3, "BN_WHISPER")
+	else
+		ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame1, "MONEY")	
+	end
 	
 	
 	if TukuiDB.myname == "Elv" then
@@ -205,6 +212,15 @@ StaticPopupDialogs["DISABLE_RAID"] = {
 	whileDead = 1,
 }
 
+StaticPopupDialogs["CHAT_WARN"] = {
+	text = tukuilocal.popup_rightchatwarn,
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = install,
+	timeout = 0,
+	whileDead = 1,
+}
+
 ------------------------------------------------------------------------
 --	On login function, look for some infos!
 ------------------------------------------------------------------------
@@ -229,7 +245,6 @@ TukuiOnLogon:SetScript("OnEvent", function(self, event)
 		SetCVar("uiScale", TukuiCF["general"].uiscale)
 		if (TukuiData == nil) then TukuiData = {} end
 
-		
 		if ElvUIInstalled ~= true then
 			StaticPopup_Show("INSTALL_UI")
 		end
@@ -243,7 +258,51 @@ TukuiOnLogon:SetScript("OnEvent", function(self, event)
 		SetCVar("showArenaEnemyFrames", 0)
 	end
 	
+	TukuiChatLIn = true
+	TukuiChatRIn = true
+	
+
+	
+	for i = 1, NUM_CHAT_WINDOWS do
+		local chat = _G[format("ChatFrame%s", i)]
+		local tab = _G[format("ChatFrame%sTab", i)]
+		local id = chat:GetID()
+		local name = FCF_GetChatWindowInfo(id)
+		local point = GetChatWindowSavedPosition(id)
+		local _, fontSize = FCF_GetChatWindowInfo(id)
+		local button = _G[format("ButtonCF%d", i)]
+		local _, _, _, _, _, _, _, _, docked, _ = GetChatWindowInfo(id)
+		
+		if point == "BOTTOMRIGHT" and TukuiCF["chat"].rightchat == true and chat:IsShown() and docked == nil then
+			tab:SetParent(ChatRBackground)
+		end
+		--chat:SetParent(tab)
+	end
+	GeneralDockManager:SetParent(ChatLBackground)
+	
+	--Fixing fucked up border on right chat button, really do not understand why this is happening
+	if TukuiCF["chat"].rightchat == true and TukuiCF["chat"].showbackdrop == true then
+		if not ButtonCF3 then return end
+		local x = CreateFrame("Frame", nil, ChatFrame3Tab)
+		x:SetAllPoints(ButtonCF3)
+		TukuiDB.SetTemplate(x)
+		x:SetBackdropColor(0,0,0,0)
+	end
+	
 	print(tukuilocal.core_welcome2)
+end)
+
+local eventcount = 0
+local TukuiInGame = CreateFrame("Frame")
+TukuiInGame:RegisterAllEvents()
+TukuiInGame:SetScript("OnEvent", function(self, event)
+	eventcount = eventcount + 1
+	if eventcount == 250 then
+		self:UnregisterAllEvents()
+		eventcount = nil
+		collectgarbage("collect")
+		return
+	end
 end)
 
 ------------------------------------------------------------------------

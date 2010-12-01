@@ -17,6 +17,7 @@ tukuilocal.chat_FLAG_DND = "[DND]"
 tukuilocal.chat_FLAG_GM = "[GM]"
 tukuilocal.chat_ERR_FRIEND_ONLINE_SS = "is now |cff298F00online|r"
 tukuilocal.chat_ERR_FRIEND_OFFLINE_S = "is now |cffff0000offline|r"
+tukuilocal.raidbufftoggler = "Raid Buff Reminder: "
 
 tukuilocal.disband = "Disbanding group."
 
@@ -91,6 +92,7 @@ tukuilocal.Slots = {
 tukuilocal.popup_disableui = "Tukui doesn't work for this resolution, do you want to disable Tukui? (Cancel if you want to try another resolution)"
 tukuilocal.popup_install = "First time running Tukui on this character, you need to setup chat windows and actionbars."
 tukuilocal.popup_2raidactive = "2 raid layouts are active, please select a layout."
+tukuilocal.popup_rightchatwarn = "You may of accidentally removed the right chat, currently Tukui is dependent on this, you have to disable it through the config, otherwise hit accept to reset your chat windows."
 
 tukuilocal.merchant_repairnomoney = "You don't have enough money for repair!"
 tukuilocal.merchant_repaircost = "Your items have been repaired for"
@@ -138,8 +140,6 @@ tukuilocal.bags_rightclick_search = "Right-click to search."
 
 tukuilocal.chat_invalidtarget = "Invalid Target"
 
-
-
 tukuilocal.core_autoinv_enable = "Autoinvite ON: invite"
 tukuilocal.core_autoinv_enable_c = "Autoinvite ON: "
 tukuilocal.core_autoinv_disable = "Autoinvite OFF"
@@ -183,6 +183,7 @@ tukuilocal.core_raidutil_clear = "Clear"
 
 tukuilocal.hunter_unhappy = "Your pet is unhappy!"
 tukuilocal.hunter_content = "Your pet is content!"
+tukuilocal.hunter_happy = "Your pet is happy!"
 
 function TukuiDB.UpdateHotkey(self, actionButtonType)
 	local hotkey = _G[self:GetName() .. 'HotKey']
@@ -209,4 +210,3 @@ function TukuiDB.UpdateHotkey(self, actionButtonType)
 		hotkey:SetText(text)
 	end
 end
-tukuilocal.hunter_happy = "Your pet is happy!"

@@ -7,6 +7,7 @@ TukuiL.option_general_customuiscale = "UI Scale (if auto-scale is disabled)"
 TukuiL.option_general_embedright = "Addon to embed to right chat panel (Recount, Omen, Skada)"
 TukuiL.option_general_classtheme = "Color border colors to your class"
 TukuiL.option_general_autocustomlagtolerance = "Automatically update the Blizzard Custom Lag Tolerance option to your latency."
+TukuiL.option_general_fontscale = "Master font scale"
 
 --Media
 TukuiL.option_media = "Media"
@@ -31,7 +32,7 @@ TukuiL.option_media_glossy = "Glossy Bar Texture"
 -- nameplate
 TukuiL.option_nameplates = "Nameplates"
 TukuiL.option_nameplates_enable = "Enable Nameplates"
-TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your roll"
+TukuiL.option_nameplates_enhancethreat = "Enable threat feature, automatically changes by your role"
 TukuiL.option_nameplates_showhealth = "Show health on nameplate"
 TukuiL.option_nameplates_combat = "Only show enemy nameplates in-combat"
 TukuiL.option_nameplates_goodcolor = "Good threat color, varies depending if your a tank or dps/heal"
@@ -221,6 +222,7 @@ TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
 TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
 TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
 TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
+TukuiL.option_actionbar_macrotext = "Display macro text on actionbuttons"
 	
 -- arena
 TukuiL.option_arena = "Arena"
@@ -247,6 +249,8 @@ TukuiL_option_chat_backdrop = "Show backdrop behind chat window"
 TukuiL_option_chat_chatheight = "Height of chat frames"
 TukuiL_option_chat_fadeoutofuse = "Fade chat text when not in use"
 TukuiL_option_chat_sticky = "Sticky some chat channels when opening new chat edit"
+TukuiL_option_chat_rightchat = "Display right chat window"
+TukuiL_option_chat_combathide = "Slide chatframe out during combat ('Left', 'Right', 'Both', or 'NONE')"
 
 -- buttons
 TukuiL.option_button_reset = "Reset UI"

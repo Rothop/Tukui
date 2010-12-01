@@ -3,7 +3,7 @@ if not TukuiCF["nameplate"].enable == true then return end
 
 local TEXTURE = TukuiCF["media"].normTex
 local FONT = TukuiCF["media"].font
-local FONTSIZE = 11
+local FONTSIZE = TukuiCF["general"].fontscale*0.9
 local FONTFLAG = "THINOUTLINE"
 local hpHeight = 12
 local hpWidth = 110
@@ -466,16 +466,10 @@ if TukuiCF["nameplate"].combat == true then
 	end
 	
 	function NamePlates:PLAYER_ENTERING_WORLD()
-		SetCVar("threatWarning", 3) --WE NEED THIS
 		if InCombatLockdown() then
 			SetCVar("nameplateShowEnemies", 1)
 		else
 			SetCVar("nameplateShowEnemies", 0)
 		end
-	end
-else
-	NamePlates:RegisterEvent("PLAYER_ENTERING_WORLD")
-	function NamePlates:PLAYER_ENTERING_WORLD()
-		SetCVar("threatWarning", 3) --WE NEED THIS
 	end
 end
