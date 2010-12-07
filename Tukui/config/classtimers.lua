@@ -316,17 +316,13 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 10060 ), -- Power Infusion
 			CreateSpellEntry( 588 ), -- Inner Fire
 			CreateSpellEntry( 47585 ), -- Dispersion
-
-
-
-
 			CreateSpellEntry( 81700 ), -- Archangel
 			CreateSpellEntry( 14751 ), -- Chakra
 			CreateSpellEntry( 81208 ), -- Chakra Heal
 			CreateSpellEntry( 81207 ), -- Chakra Renew
 			CreateSpellEntry( 81209 ), -- Chakra Smite
 			CreateSpellEntry( 81206 ), -- Prayer of Healing
-
+			CreateSpellEntry( 63877 ), -- Pain Suppression
 		},
 		procs = {
 			CreateSpellEntry( 63735 ), -- Serendipity
@@ -336,6 +332,7 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 81661 ), -- Evangelism
 			CreateSpellEntry( 72418 ), -- Kuhlendes Wissen
 			CreateSpellEntry( 71584 ), -- Revitalize
+			CreateSpellEntry( 95799 ), -- Empowered Shadow
 		},
 	},
 	ROGUE = { 
@@ -445,11 +442,11 @@ CLASS_FILTERS = {
 	},
 	WARRIOR = { 
 		target = {
-			CreateSpellEntry( 772 ), -- Rend
+			CreateSpellEntry( 94009 ), -- Rend
 			CreateSpellEntry( 12294 ), -- Mortal Strike
 			CreateSpellEntry( 1160 ), -- Demoralizing Shout
 			CreateSpellEntry( 64382 ), -- Shattering Throw
-			CreateSpellEntry( 7386 ), -- Sunder Armor
+			CreateSpellEntry( 58567 ), -- Sunder Armor
 			CreateSpellEntry( 86346 ), -- Colossus Smash
 			CreateSpellEntry( 7922 ), -- Charge (stun)
 			CreateSpellEntry( 1715 ), -- Hamstring
@@ -469,7 +466,7 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 1719 ), -- Recklessness
 			CreateSpellEntry( 20230 ), -- Retaliation
 			CreateSpellEntry( 2565 ), -- Shield Block
-			CreateSpellEntry( 12975 ), -- Last Stand
+			CreateSpellEntry( 12976 ), -- Last Stand
 			CreateSpellEntry( 90806 ), -- Executioner
 			CreateSpellEntry( 85738 ), CreateSpellEntry( 85739 ), -- Meat Cleaver Rank 1 and 2
 			CreateSpellEntry( 86662 ), CreateSpellEntry( 86663 ), -- Rude interruption rank 1 and 2

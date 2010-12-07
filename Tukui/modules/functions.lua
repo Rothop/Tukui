@@ -59,7 +59,7 @@ local shadows = {
 function TukuiDB.CreateShadow(f)
 	if f.shadow then return end
 	local shadow = CreateFrame("Frame", nil, f)
-	shadow:SetFrameLevel(1)
+	shadow:SetFrameLevel(0)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetPoint("TOPLEFT", -TukuiDB.Scale(4), TukuiDB.Scale(4))
 	shadow:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(4), TukuiDB.Scale(-4))
@@ -119,22 +119,10 @@ function TukuiDB.SetTransparentTemplate(f)
       bgFile = TukuiCF["media"].blank,
       edgeFile = TukuiCF["media"].blank,
       tile = false, tileSize = 0, edgeSize = mult,
-      insets = { left = TukuiDB.Scale(2), right = TukuiDB.Scale(2), top = TukuiDB.Scale(2), bottom = TukuiDB.Scale(2)}
+      insets = { left = -mult, right = -mult, top = -mult, bottom = -mult}
     })
     f:SetBackdropColor(unpack(TukuiCF["media"].backdropfadecolor))
     f:SetBackdropBorderColor(unpack(TukuiCF["media"].bordercolor))
- 
-    local border = CreateFrame("Frame", nil, f)
-    border:SetFrameLevel(0)
-    border:SetPoint("TOPLEFT", f, "TOPLEFT", TukuiDB.Scale(-1), TukuiDB.Scale(1))
-    border:SetFrameStrata("BACKGROUND")
-    border:SetBackdrop {
-        edgeFile = TukuiCF["media"].blank, edgeSize = TukuiDB.Scale(3),
-        insets = {left = 0, right = 0, top = 0, bottom = 0}
-    }
-    border:SetBackdropColor(unpack(TukuiCF["media"].backdropcolor))
-    border:SetBackdropBorderColor(unpack(TukuiCF["media"].backdropcolor))
-    border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", TukuiDB.Scale(1), TukuiDB.Scale(-1))
 end
 
 TukuiDB.SetFontString = function(parent, fontName, fontHeight, fontStyle)
@@ -333,6 +321,84 @@ SlideOut = function(self)
 
 	self.anim:Stop()
 	self.anim_o:Play()
+end
+
+------------------------------------------------------------------------
+-- Chat Animation Functions
+------------------------------------------------------------------------
+ToggleSlideChatL = function()
+	if TukuiChatLIn == true then
+		for i = 1, NUM_CHAT_WINDOWS do
+			local chat = _G[format("ChatFrame%s", i)]
+			local tab = _G[format("ChatFrame%sTab", i)]
+			chat:SetParent(tab)
+		end
+		SlideOut(ChatLBackground)	
+		TukuiChatLIn = false
+		TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+	else
+		SlideIn(ChatLBackground)
+		TukuiChatLIn = true
+		TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
+	end
+end
+
+ToggleSlideChatR = function()
+	if TukuiChatRIn == true then
+		SlideOut(ChatRBackground)	
+		if IsAddOnLoaded("DXE") and DXEAlertsTopStackAnchor and TukuiCF["skin"].hookdxeright == true and TukuiCF["chat"].rightchat == true and TukuiCF["chat"].showbackdrop == true then
+			DXEAlertsTopStackAnchor:ClearAllPoints()
+			DXEAlertsTopStackAnchor:SetPoint("BOTTOM", ChatRBackground2, "TOP", 13, -5)
+		end
+		TukuiChatRIn = false
+		TukuiDB.ChatRightShown = false
+		TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+	else
+		SlideIn(ChatRBackground)
+		if IsAddOnLoaded("DXE") and DXEAlertsTopStackAnchor and TukuiCF["skin"].hookdxeright == true and TukuiCF["chat"].rightchat == true and TukuiCF["chat"].showbackdrop == true then
+			DXEAlertsTopStackAnchor:ClearAllPoints()
+			DXEAlertsTopStackAnchor:SetPoint("BOTTOM", ChatRBackground2, "TOP", 13, 18)
+		end
+		TukuiChatRIn = true
+		TukuiDB.ChatRightShown = true
+		TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
+	end
+end
+
+--Bindings For Chat Sliders
+function ChatLeft_HotkeyPressed(keystate)
+	if keystate == "up" then return end
+	if TukuiChatLIn == true then
+		for i = 1, NUM_CHAT_WINDOWS do
+			local chat = _G[format("ChatFrame%s", i)]
+			local tab = _G[format("ChatFrame%sTab", i)]
+			chat:SetParent(tab)
+		end
+		ToggleSlideChatL()
+	else
+		ToggleSlideChatL()
+	end		
+end
+
+function ChatRight_HotkeyPressed(keystate)
+	if keystate == "up" then return end
+	ToggleSlideChatR()		
+end
+
+function ChatBoth_HotkeyPressed(keystate)
+	if keystate == "up" then return end
+	if TukuiChatLIn == true then
+		for i = 1, NUM_CHAT_WINDOWS do
+			local chat = _G[format("ChatFrame%s", i)]
+			local tab = _G[format("ChatFrame%sTab", i)]
+			chat:SetParent(tab)
+		end
+		ToggleSlideChatR()
+		ToggleSlideChatL()
+	else
+		ToggleSlideChatR()
+		ToggleSlideChatL()
+	end
 end
 
 ------------------------------------------------------------------------
@@ -1407,8 +1473,8 @@ function TukuiDB.createAuraWatch(self, unit)
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = spell[1]
 			icon.anyUnit = spell[4]
-			icon:SetWidth(TukuiDB.Scale(7))
-			icon:SetHeight(TukuiDB.Scale(7))
+			icon:SetWidth(TukuiDB.Scale(TukuiCF["auras"].buffindicatorsize))
+			icon:SetHeight(TukuiDB.Scale(TukuiCF["auras"].buffindicatorsize))
 			icon:SetPoint(spell[2], 0, 0)
 
 			local tex = icon:CreateTexture(nil, "OVERLAY")

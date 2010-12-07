@@ -186,6 +186,7 @@ end
 
 --INFO LEFT
 local infoleft = CreateFrame("Frame", "TukuiInfoLeft", UIParent)
+infoleft:SetFrameLevel(2)
 TukuiDB.SetNormTexTemplate(infoleft)
 TukuiDB.CreateShadow(infoleft)
 infoleft:SetPoint("TOPLEFT", chatlbgdummy2, "BOTTOMLEFT", TukuiDB.Scale(17), TukuiDB.Scale(-4))
@@ -202,7 +203,8 @@ infoleft:SetPoint("BOTTOMRIGHT", chatlbgdummy2, "BOTTOMRIGHT", TukuiDB.Scale(-17
 	TukuiDB.SetNormTexTemplate(infoleftRbutton)
 	infoleftRbutton:SetPoint("TOPLEFT", infoleft, "TOPRIGHT", TukuiDB.Scale(2), 0)
 	infoleftRbutton:SetPoint("BOTTOMRIGHT", chatlbgdummy2, "BOTTOMRIGHT", 0, TukuiDB.Scale(-26))
-
+	
+	infoleft.shadow:ClearAllPoints()
 	infoleft.shadow:SetPoint("TOPLEFT", infoleftLbutton, "TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(4))
 	infoleft.shadow:SetPoint("BOTTOMRIGHT", infoleftRbutton, "BOTTOMRIGHT", TukuiDB.Scale(4), TukuiDB.Scale(-4))
 
@@ -217,6 +219,7 @@ infoleft:SetPoint("BOTTOMRIGHT", chatlbgdummy2, "BOTTOMRIGHT", TukuiDB.Scale(-17
 --INFO RIGHT
 local inforight = CreateFrame("Frame", "TukuiInfoRight", UIParent)
 TukuiDB.SetNormTexTemplate(inforight)
+infoleft:SetFrameLevel(2)
 TukuiDB.CreateShadow(inforight)
 inforight:SetPoint("TOPLEFT", chatrbgdummy2, "BOTTOMLEFT", TukuiDB.Scale(17), TukuiDB.Scale(-4))
 inforight:SetPoint("BOTTOMRIGHT", chatrbgdummy2, "BOTTOMRIGHT", TukuiDB.Scale(-17), TukuiDB.Scale(-26))
@@ -232,7 +235,8 @@ inforight:SetPoint("BOTTOMRIGHT", chatrbgdummy2, "BOTTOMRIGHT", TukuiDB.Scale(-1
 	TukuiDB.SetNormTexTemplate(inforightRbutton)
 	inforightRbutton:SetPoint("TOPLEFT", inforight, "TOPRIGHT", TukuiDB.Scale(2), 0)
 	inforightRbutton:SetPoint("BOTTOMRIGHT", chatrbgdummy2, "BOTTOMRIGHT", 0, TukuiDB.Scale(-26))
-
+	
+	inforight.shadow:ClearAllPoints()
 	inforight.shadow:SetPoint("TOPLEFT", inforightLbutton, "TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(4))
 	inforight.shadow:SetPoint("BOTTOMRIGHT", inforightRbutton, "BOTTOMRIGHT", TukuiDB.Scale(4), TukuiDB.Scale(-4))
 
@@ -541,86 +545,6 @@ function PositionAllPanels()
 	end	
 end
 
-
---Setup Button Scripts
-infoleftLbutton:SetScript("OnMouseDown", function(self, btn)
-	if btn == "RightButton" then
-		if TukuiChatLIn == true then
-			for i = 1, NUM_CHAT_WINDOWS do
-				local chat = _G[format("ChatFrame%s", i)]
-				local tab = _G[format("ChatFrame%sTab", i)]
-				chat:SetParent(tab)
-			end
-			SlideOut(ChatLBackground)
-			SlideOut(ChatRBackground)		
-			TukuiDB.ChatRightShown = false
-			TukuiChatLIn = false
-			TukuiChatRIn = false
-			TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-			TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-		else
-			SlideIn(ChatLBackground)
-			SlideIn(ChatRBackground)
-			TukuiDB.ChatRightShown = true
-			TukuiChatLIn = true
-			TukuiChatRIn = true
-			TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
-			TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
-		end	
-	else
-		if TukuiChatLIn == true then
-			for i = 1, NUM_CHAT_WINDOWS do
-				local chat = _G[format("ChatFrame%s", i)]
-				local tab = _G[format("ChatFrame%sTab", i)]
-				chat:SetParent(tab)
-			end
-			SlideOut(ChatLBackground)	
-			TukuiChatLIn = false
-			TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-		else
-			SlideIn(ChatLBackground)
-			TukuiChatLIn = true
-			TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
-		end		
-	end
-end)
-
-inforightRbutton:SetScript("OnMouseDown", function(self, btn)
-	if TukuiCF["chat"].rightchat ~= true then self:EnableMouse(false) return end
-	if btn == "RightButton" then
-		if TukuiChatRIn == true then
-			SlideOut(ChatLBackground)
-			SlideOut(ChatRBackground)		
-			TukuiDB.ChatRightShown = false
-			TukuiChatLIn = false
-			TukuiChatRIn = false
-			TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-			TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-		else
-			SlideIn(ChatLBackground)
-			SlideIn(ChatRBackground)
-			TukuiDB.ChatRightShown = true
-			TukuiChatLIn = true
-			TukuiChatRIn = true
-			TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
-			TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
-		end	
-	else
-		if TukuiChatRIn == true then
-			SlideOut(ChatRBackground)	
-			TukuiChatRIn = false
-			TukuiDB.ChatRightShown = false
-			TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-		else
-			SlideIn(ChatRBackground)
-			TukuiChatRIn = true
-			TukuiDB.ChatRightShown = true
-			TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
-		end		
-	end
-end)
-
-
 --Fixes chat windows not displaying
 ChatLBackground.anim_o:HookScript("OnFinished", function()
 	for i = 1, NUM_CHAT_WINDOWS do
@@ -655,74 +579,61 @@ ChatLBackground.anim:HookScript("OnFinished", function()
 			ChatFrame3:SetParent(ChatFrame3Tab)
 		end
 	end
+	TukuiInfoLeft.shadow:SetBackdropBorderColor(0,0,0,1)
+	TukuiInfoLeft:SetScript("OnUpdate", function() end)
+	StopFlash(TukuiInfoLeft.shadow)
 end)
 
 if TukuiCF["chat"].rightchat == true then
 	ChatRBackground.anim_o:HookScript("OnPlay", function()
 		ChatFrame3:SetParent(ChatFrame3Tab)
+		ChatFrame3:SetFrameStrata("LOW")
 	end)
 
 	ChatRBackground.anim:HookScript("OnFinished", function()
 		ChatFrame3:SetParent(UIParent)
+		ChatFrame3:SetFrameStrata("LOW")
+		TukuiInfoRight.shadow:SetBackdropBorderColor(0,0,0,1)
+		TukuiInfoRight:SetScript("OnUpdate", function() end)
+		StopFlash(TukuiInfoRight.shadow)
 	end)
 end
 
---Bindings For Chat Sliders
-function ChatLeft_HotkeyPressed(keystate)
-	if keystate == "up" then return end
-	if TukuiChatLIn == true then
-		for i = 1, NUM_CHAT_WINDOWS do
-			local chat = _G[format("ChatFrame%s", i)]
-			local tab = _G[format("ChatFrame%sTab", i)]
-			chat:SetParent(tab)
-		end
-		SlideOut(ChatLBackground)	
-		TukuiChatLIn = false
-		TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
+--Setup Button Scripts
+infoleftLbutton:SetScript("OnMouseDown", function(self, btn)
+	if btn == "RightButton" then
+		if TukuiChatLIn == true then
+			for i = 1, NUM_CHAT_WINDOWS do
+				local chat = _G[format("ChatFrame%s", i)]
+				local tab = _G[format("ChatFrame%sTab", i)]
+				chat:SetParent(tab)
+			end
+			ToggleSlideChatR()
+			ToggleSlideChatL()
+		else
+			ToggleSlideChatR()
+			ToggleSlideChatL()
+		end	
 	else
-		SlideIn(ChatLBackground)
-		TukuiChatLIn = true
-		TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
-	end		
-end
-
-function ChatRight_HotkeyPressed(keystate)
-	if keystate == "up" then return end
-	if TukuiChatRIn == true then
-		SlideOut(ChatRBackground)	
-		TukuiChatRIn = false
-		TukuiDB.ChatRightShown = false
-		TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-	else
-		SlideIn(ChatRBackground)
-		TukuiChatRIn = true
-		TukuiDB.ChatRightShown = true
-		TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
-	end		
-end
-
-function ChatBoth_HotkeyPressed(keystate)
-	if keystate == "up" then return end
-	if TukuiChatLIn == true then
-		for i = 1, NUM_CHAT_WINDOWS do
-			local chat = _G[format("ChatFrame%s", i)]
-			local tab = _G[format("ChatFrame%sTab", i)]
-			chat:SetParent(tab)
-		end
-		SlideOut(ChatLBackground)
-		SlideOut(ChatRBackground)		
-		TukuiDB.ChatRightShown = false
-		TukuiChatLIn = false
-		TukuiChatRIn = false
-		TukuiInfoLeftLButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-		TukuiInfoRightRButton.Text:SetTextColor(unpack(TukuiCF["media"].valuecolor))
-	else
-		SlideIn(ChatLBackground)
-		SlideIn(ChatRBackground)
-		TukuiDB.ChatRightShown = true
-		TukuiChatLIn = true
-		TukuiChatRIn = true
-		TukuiInfoLeftLButton.Text:SetTextColor(1,1,1,1)
-		TukuiInfoRightRButton.Text:SetTextColor(1,1,1,1)
+		if TukuiChatLIn == true then
+			for i = 1, NUM_CHAT_WINDOWS do
+				local chat = _G[format("ChatFrame%s", i)]
+				local tab = _G[format("ChatFrame%sTab", i)]
+				chat:SetParent(tab)
+			end
+			ToggleSlideChatL()
+		else
+			ToggleSlideChatL()
+		end		
 	end
-end
+end)
+
+inforightRbutton:SetScript("OnMouseDown", function(self, btn)
+	if TukuiCF["chat"].rightchat ~= true then self:EnableMouse(false) return end
+	if btn == "RightButton" then
+		ToggleSlideChatR()
+		ToggleSlideChatL()
+	else
+		ToggleSlideChatR()
+	end
+end)

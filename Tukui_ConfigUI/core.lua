@@ -32,7 +32,6 @@ local function Local(o)
 	if o == "TukuiConfigUIgeneraloverridelowtohigh" then o = TukuiL.option_general_override end
 	if o == "TukuiConfigUIgeneralmultisampleprotect" then o = TukuiL.option_general_multisample end
 	if o == "TukuiConfigUIgeneraluiscale" then o = TukuiL.option_general_customuiscale end
-	if o == "TukuiConfigUIgeneralembedright" then o = TukuiL.option_general_embedright end
 	if o == "TukuiConfigUIgeneralclasscolortheme" then o = TukuiL.option_general_classtheme end
 	if o == "TukuiConfigUIgeneralautocustomlagtolerance" then o = TukuiL.option_general_autocustomlagtolerance end
 	if o == "TukuiConfigUIgeneralfontscale" then o = TukuiL.option_general_fontscale end 
@@ -63,6 +62,8 @@ local function Local(o)
 	if o =="TukuiConfigUIskinomen" then o = TukuiL.option_skin_omen end
 	if o =="TukuiConfigUIskinrecount" then o = TukuiL.option_skin_recount end
 	if o =="TukuiConfigUIskinskada" then o = TukuiL.option_skin_skada end
+	if o == "TukuiConfigUIskinhookdxeright" then o = TukuiL.option_hookdxeright end
+	if o == "TukuiConfigUIskinembedright" then o = TukuiL.option_general_embedright end
 	
 	--Combat Text
 	if o == "TukuiConfigUIcombattext" then o = TukuiL.option_combattext end
@@ -130,6 +131,7 @@ local function Local(o)
 	if o == "TukuiConfigUIaurasraidunitbuffwatch" then o = TukuiL.option_auras_RaidUnitBuffWatch end
 	if o == "TukuiConfigUIaurasplaytarbuffperrow" then o = TukuiL.option_auras_playtarbuffperrow end
 	if o == "TukuiConfigUIaurassmallbuffperrow" then o = TukuiL.option_auras_smallbuffperrow end
+	if o == "TukuiConfigUIaurasbuffindicatorsize" then o = TukuiL.option_auras_buffindicatorsize end
 	
 	--castbars
 	if o == "TukuiConfigUIcastbar" then o = TukuiL.option_castbar end
@@ -163,6 +165,7 @@ local function Local(o)
 	if o == "TukuiConfigUIraidframeshealthdeficit" then o = SHOW.." "..RAID_HEALTH_TEXT_LOSTHEALTH end
 	if o == "TukuiConfigUIraidframesgriddps" then o = TukuiL.option_raidframes_griddps end
 	if o == "TukuiConfigUIraidframesrole" then o = TRACKER_FILTER_LABEL.." "..RAID_SORT_GROUP.." "..RAID_SORT_ROLE end
+	if o == "TukuiConfigUIraidframespartytarget" then o = TukuiL.option_raidframes_partytarget end
 	
 	-- unit frames
 	if o == "TukuiConfigUIunitframes" then o = TukuiL.option_unitframes_unitframes end
@@ -191,6 +194,7 @@ local function Local(o)
 	if o == "TukuiConfigUIunitframeshealthbackdropcolor" then o = TukuiL.option_unitframes_healthbackdropcolor end
 	if o == "TukuiConfigUIunitframeshealthcolorbyvalue" then o = TukuiL.option_unitframes_healthcolorbyvalue end
 	if o == "TukuiConfigUIunitframescombat" then o = TukuiL.option_unitframes_combat end
+	if o == "TukuiConfigUIunitframespettarget" then o = TukuiL.option_unitframes_pettarget end
 	
 	-- frame sizes
 	if o == "TukuiConfigUIframesizes" then o = TukuiL.option_framesizes end
@@ -261,6 +265,7 @@ local function Local(o)
 	if o == "TukuiConfigUIactionbarpetbuttonspacing" then o = TukuiL.option_actionbar_petbuttonspacing end
 	if o == "TukuiConfigUIactionbarswaptopbottombar" then o = TukuiL.option_actionbar_swaptopbottombar end
 	if o == "TukuiConfigUIactionbarmacrotext" then o = TukuiL.option_actionbar_macrotext end
+	if o == "TukuiConfigUIactionbarverticalstance" then o = TukuiL.option_actionbar_verticalstance end
 	
 	-- arena
 	if o == "TukuiConfigUIarena" then o = TukuiL.option_arena end

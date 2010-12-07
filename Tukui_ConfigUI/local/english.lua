@@ -45,6 +45,7 @@ TukuiL.option_skin_dxe = "Deus Vox Encounters"
 TukuiL.option_skin_omen = "Omen"
 TukuiL.option_skin_recount = "Recount"
 TukuiL.option_skin_skada = "Skada"
+TukuiL.option_hookdxeright = "Force DXE's top bar anchor to be positioned above right chat frame"
 
 -- combat text
 TukuiL.option_combattext = "Combat Text"
@@ -100,6 +101,7 @@ TukuiL.option_auras_playerdebuffsonly = "Show only your debuffs, and CC debuffs 
 TukuiL.option_auras_RaidUnitBuffWatch = "Enable buff watch on raid frames"
 TukuiL.option_auras_playtarbuffperrow = "Amount of Buffs/Debuffs in a row on the Player/Target frames"
 TukuiL.option_auras_smallbuffperrow = "Amount of Debuffs in a row on the TargetTarget/Focus frames"
+TukuiL.option_auras_buffindicatorsize = "Size of buff indicator icons on party/raid frames"
 
 -- raidframes
 TukuiL.option_raidframes = "Raid Frames"
@@ -118,6 +120,7 @@ TukuiL.option_raidframes_fontsize = "Font size on raidframes"
 TukuiL.option_raidframes_scale = "Scale of raidframes (use decimals ex: 0.96)"
 TukuiL.option_raidframes_disableblizz = "Disable blizzard default party and raid frames"
 TukuiL.option_raidframes_griddps = "Display the DPS Layout in grid layout instead of a vertical layout (Not Party)"
+TukuiL.option_raidframes_partytarget = "Display party members target's (DPS Only)"
 
 -- castbar
 TukuiL.option_castbar = "Castbar"
@@ -156,6 +159,7 @@ TukuiL.option_unitframes_classbar = "Enable Classbar (TotemBar, RuneBar, HolyBar
 TukuiL.option_unitframes_healthbackdropcolor = "Backdrop color of health on all unitframes"
 TukuiL.option_unitframes_healthcolorbyvalue = "Color Healthbars by Health Remaining"
 TukuiL.option_unitframes_combat = "Fade unitframes while not in-combat"
+TukuiL.option_unitframes_pettarget = "Display your pet's target (DPS Only)"
 
 -- frame sizes
 TukuiL.option_framesizes = "UnitFrame Sizes"
@@ -219,11 +223,12 @@ TukuiL.option_actionbar_splitbar = "Enable split actionbar"
 TukuiL.option_actionbar_bottompetbar = "Position pet bar below the main actionbar, moves main actionbar up"
 TukuiL.option_actionbar_buttonsize = "Size of the main action buttons"
 TukuiL.option_actionbar_buttonspacing = "Spacing of the main action buttons"
-TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance/totem action buttons"
-TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance/totem action buttons"
+TukuiL.option_actionbar_petbuttonsize = "Size of the pet/stance action buttons"
+TukuiL.option_actionbar_petbuttonspacing = "Spacing of the pet/stance action buttons"
 TukuiL.option_actionbar_swaptopbottombar = "Swap the top and bottom actionbar positions"
 TukuiL.option_actionbar_macrotext = "Display macro text on actionbuttons"
-	
+TukuiL.option_actionbar_verticalstance = "Vertical Stance Bar"
+
 -- arena
 TukuiL.option_arena = "Arena"
 TukuiL.option_arena_st = "Enable enemy spell tracker in arena"

@@ -1,4 +1,5 @@
 if not TukuiCF["raidframes"].enable == true == true or TukuiCF["raidframes"].gridonly == true then return end
+if IsAddOnLoaded("Tukui_Dps_Layout") then return end
 
 local font2 = TukuiCF["media"].uffont
 local font1 = TukuiCF["media"].font
@@ -363,7 +364,7 @@ oUF:Factory(function(self)
 			"unitsPerColumn", 5,
 			"showPlayer", TukuiCF["raidframes"].showplayerinparty,
 			"xoffset", TukuiDB.Scale(6),
-			'template', 'oUF_HealerParty'
+			'template', 'oUF_HealerPartyPets'
 		)	
 	else
 		party = self:SpawnHeader("oUF_TukuiHealParty", nil, "custom [@raid6,exists] hide;show", 

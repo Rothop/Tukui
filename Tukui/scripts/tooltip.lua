@@ -35,19 +35,19 @@ xOffset = xOffset + TukuiCF["tooltip"].xOfs
 local function CheckAddOnShown()
 	if TukuiDB.ChatRightShown == true then
 		return true
-	elseif TukuiCF["general"].embedright == "Omen" and IsAddOnLoaded("Omen") and OmenAnchor then
+	elseif TukuiCF["skin"].embedright == "Omen" and IsAddOnLoaded("Omen") and OmenAnchor then
 		if OmenAnchor:IsShown() then
 			return true
 		else
 			return false
 		end
-	elseif TukuiCF["general"].embedright == "Recount" and IsAddOnLoaded("Recount") and Recount_MainWindow then
+	elseif TukuiCF["skin"].embedright == "Recount" and IsAddOnLoaded("Recount") and Recount_MainWindow then
 		if Recount_MainWindow:IsShown() then
 			return true
 		else
 			return false
 		end
-	elseif  TukuiCF["general"].embedright ==  "Skada" and IsAddOnLoaded("Skada") and SkadaBarWindowSkada then
+	elseif  TukuiCF["skin"].embedright ==  "Skada" and IsAddOnLoaded("Skada") and SkadaBarWindowSkada then
 		if SkadaBarWindowSkada:IsShown() then
 			return true
 		else
@@ -257,7 +257,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 			local guildName, guildRankName, guildRankIndex = GetGuildInfo(unit);
 			if guildRankName then
 			-- can't use setformated text because some assholes have % signs in their guild ranks
-				_G["GameTooltipTextLeft2"]:SetText("<|cff00ff10"..GetGuildInfo(unit).."|r> [|cff00ff10"..guildRankName.."|r]")
+				_G["GameTooltipTextLeft2"]:SetText("<|cff00ff10"..guildName.."|r> [|cff00ff10"..guildRankName.."|r]")
 			else
 				_G["GameTooltipTextLeft2"]:SetFormattedText("<|cff00ff10%s|r>", GetGuildInfo(unit))
 			end

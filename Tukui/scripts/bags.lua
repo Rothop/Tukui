@@ -393,7 +393,7 @@ function Stuffing:CreateBagFrame(w)
 	f:EnableMouse(1)
 	f:SetMovable(1)
 	f:SetToplevel(1)
-	f:SetFrameStrata("HIGH")
+	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(20)
 
 	if w == "Bank" then
@@ -424,7 +424,7 @@ function Stuffing:CreateBagFrame(w)
 	-- create the bags frame
 	local fb = CreateFrame ("Frame", n .. "BagsFrame", f)
 	fb:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, TukuiDB.Scale(2))
-	fb:SetFrameStrata("HIGH")
+	fb:SetFrameStrata("DIALOG")
 	f.bags_frame = fb
 
 	return f
@@ -471,7 +471,7 @@ function Stuffing:InitBags()
 	editbox:Hide()
 	editbox:SetAutoFocus(true)
 	editbox:SetHeight(TukuiDB.Scale(32))
-	TukuiDB.SetTemplate(editbox)
+	TukuiDB.SetNormTexTemplate(editbox)
 
 	local resetAndClear = function (self)
 		self:GetParent().detail:Show()
@@ -716,8 +716,8 @@ function Stuffing:Layout(lb)
 					b.frame:SetPushedTexture("")
 					b.frame:SetNormalTexture("")
 					b.frame:Show()
-					TukuiDB.SetTemplate(b.frame)
-					b.frame:SetBackdropColor(unpack(TukuiCF["media"].backdropfadecolor))
+					TukuiDB.SetNormTexTemplate(b.frame)
+					--b.frame:SetBackdropColor(unpack(TukuiCF["media"].backdropfadecolor))
 					TukuiDB.StyleButton(b.frame)
 					local clink = GetContainerItemLink
 					if (clink and b.rarity and b.rarity > 1) then
@@ -914,7 +914,7 @@ function Stuffing:PLAYER_ENTERING_WORLD()
 		t:SetTexCoord(.08, .92, .08, .92)
 		t:SetPoint("TOPLEFT", slot, TukuiDB.Scale(2), TukuiDB.Scale(-2))
 		t:SetPoint("BOTTOMRIGHT", slot, TukuiDB.Scale(-2), TukuiDB.Scale(2))
-		TukuiDB.SetTemplate(slot)
+		TukuiDB.SetNormTexTemplate(slot)
 		
 		TukuiDB.StyleButton(slot, false)
 	end
@@ -1141,6 +1141,7 @@ end
 
 
 function Stuffing:SortBags()
+	if (UnitAffectingCombat("player")) then return end;
 	local bs = self.sortBags
 	if #bs < 1 then
 		Print (tukuilocal.bags_nothingsort)
@@ -1178,36 +1179,33 @@ function Stuffing:SortBags()
 	end)
 
 	-- for each button we want to sort, get a destination button
-	local st_idx = 1
+	local st_idx = #bs
 	local dbag = bs[st_idx]
-	local dslot = 1
-	local max_dslot = GetContainerNumSlots(dbag)
-
+	local dslot = GetContainerNumSlots(dbag)
+ 
 	for i, v in ipairs (st) do
 		v.dbag = dbag
 		v.dslot = dslot
 		v.dstSlot = self:SlotNew(dbag, dslot)
-
-		dslot = dslot + 1
-
-		if dslot > max_dslot then
-			dslot = 1
-
+ 
+		dslot = dslot - 1
+ 
+		if dslot == 0 then
 			while true do
-				st_idx = st_idx + 1
-
-				if st_idx > #bs then
+				st_idx = st_idx - 1
+ 
+				if st_idx < 0 then
 					break
 				end
-
+ 
 				dbag = bs[st_idx]
-
-				if Stuffing:BagType(dbag) == ST_NORMAL or Stuffing:BagType(dbag) == ST_SPECIAL or dbag > 4 then
+ 
+				if Stuffing:BagType(dbag) == ST_NORMAL or Stuffing:BagType(dbag) == ST_SPECIAL or dbag < 1 then
 					break
 				end
 			end
-
-			max_dslot = GetContainerNumSlots(dbag)
+ 
+			dslot = GetContainerNumSlots(dbag)
 		end
 	end
 

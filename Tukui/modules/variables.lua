@@ -18,3 +18,4 @@ TukuiDB.incombat = UnitAffectingCombat("player")
 TukuiDB.patch = GetBuildInfo()
 TukuiDB.level = UnitLevel("player")
 TukuiDB.IsElvsEdit = true
+BINDING_HEADER_TUKUI = GetAddOnMetadata("Tukui", "Title") --Header name inside keybinds menu
