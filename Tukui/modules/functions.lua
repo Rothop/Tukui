@@ -730,7 +730,8 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 					health.bg:SetTexture(unpack(TukuiCF["unitframes"].healthbackdropcolor))		
 				else
 					if (UnitIsPlayer(unit)) then
-						local c = TukuiDB.oUF_colors.class[TukuiDB.myclass]
+						local class = select(2, UnitClass(unit))
+						local c = TukuiDB.oUF_colors.class[class]
 						health:SetStatusBarColor(c[1], c[2], c[3], 1)
 						health.bg:SetTexture(c[1], c[2], c[3], 0.3)	
 					else
@@ -751,7 +752,8 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 				health.bg:SetTexture(unpack(TukuiCF["unitframes"].healthbackdropcolor))		
 			else		
 				if (UnitIsPlayer(unit)) then
-					local c = TukuiDB.oUF_colors.class[TukuiDB.myclass]
+					local class = select(2, UnitClass(unit))
+					local c = TukuiDB.oUF_colors.class[class]
 					health:SetStatusBarColor(c[1], c[2], c[3], 1)
 					health.bg:SetTexture(c[1], c[2], c[3], 0.3)	
 				else
@@ -1186,7 +1188,7 @@ TukuiDB.MoveBuffs = function(self, login)
 	if self:IsShown() then
 		if self == parent.EclipseBar then
 			parent.FlashInfo:Hide()
-			parent.Status:Hide()
+			parent.PvP:SetAlpha(0)
 		end
 		parent.FrameBorder.shadow:SetPoint("TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(17))
 		
@@ -1202,7 +1204,7 @@ TukuiDB.MoveBuffs = function(self, login)
 	else
 		if self == parent.EclipseBar then
 			parent.FlashInfo:Show()
-			parent.Status:Show()
+			parent.PvP:SetAlpha(1)
 		end
 		parent.FrameBorder.shadow:SetPoint("TOPLEFT", TukuiDB.Scale(-4), TukuiDB.Scale(4))
 		
@@ -1324,7 +1326,10 @@ TukuiDB.UpdateReputation = function(self, event, unit, bar, min, max, value, nam
 	local name, id = GetWatchedFactionInfo()
 	bar:SetStatusBarColor(FACTION_BAR_COLORS[id].r, FACTION_BAR_COLORS[id].g, FACTION_BAR_COLORS[id].b)
 	
-	bar.Text:SetFormattedText(name..': '..TukuiDB.ShortValue(min)..' / '..TukuiDB.ShortValue(max)..' <%d%%>', min / max * 100)
+	local cur = value - min
+	local total = max - min
+	
+	bar.Text:SetFormattedText(name..': '..TukuiDB.ShortValue(cur)..' / '..TukuiDB.ShortValue(total)..' <%d%%>', (cur / total) * 100)
 end
 
 local delay = 0
