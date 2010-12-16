@@ -14,6 +14,7 @@ TRINKET_FILTER = {
 
 	CreateSpellEntry( 2825, true ), --Heroism
 	CreateSpellEntry( 32182, true ), -- Bloodlust
+	CreateSpellEntry( 90355, true ), -- Hunter Pet Bloodlust
 	CreateSpellEntry( 80353 ), -- Time Warp 
 	CreateSpellEntry( 26297 ), -- Berserking (troll racial)
 	CreateSpellEntry( 33702 ), CreateSpellEntry( 33697 ), CreateSpellEntry( 20572 ), -- Blood Fury (orc racial)
@@ -337,6 +338,7 @@ CLASS_FILTERS = {
 			CreateSpellEntry( 73651 ), -- Recuperate --
 			CreateSpellEntry( 5171 ), -- Slice and Dice
 			CreateSpellEntry( 13877 ), -- Blade Flurry --
+			CreateSpellEntry( 58426 ), --Overkill
 		},
 		procs = {
 			CreateSpellEntry( 71396 ), -- Rage of the Fallen

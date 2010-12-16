@@ -238,7 +238,7 @@ local function CheckRole(self, event, unit)
 		local base, posBuff, negBuff = UnitAttackPower("player");
 		local playerap = base + posBuff + negBuff;
 
-		if (((playerap > playerint) or (playeragi > playerint)) and not (TukuiDB.myclass == "SHAMAN" and tree ~= 1 and tree ~= 3) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139)))) or TukuiDB.myclass == "ROGUE" or TukuiDB.myclass == "HUNTER" then
+		if (((playerap > playerint) or (playeragi > playerint)) and not (TukuiDB.myclass == "SHAMAN" and tree ~= 1 and tree ~= 3) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139)))) or TukuiDB.myclass == "ROGUE" or TukuiDB.myclass == "HUNTER" or (TukuiDB.myclass == "SHAMAN" and tree == 2) then
 			TukuiDB.Role = "Melee"
 		else
 			TukuiDB.Role = "Caster"
@@ -716,6 +716,9 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 		if (UnitIsTapped("target")) and (not UnitIsTappedByPlayer("target")) and unit == "target" then
 			health:SetStatusBarColor(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 1)
 			health.bg:SetTexture(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 0.3)		
+		elseif not UnitIsConnected(unit) then
+			health:SetStatusBarColor(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 1)
+			health.bg:SetTexture(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 0.3)				
 		else
 			local perc = (min/max)*100
 			if(perc <= 50 and perc >= 26) then
@@ -736,6 +739,7 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 						health.bg:SetTexture(c[1], c[2], c[3], 0.3)	
 					else
 						local reaction = UnitReaction(unit, 'player')
+						if not reaction then return end
 						local c = TukuiDB.oUF_colors.reaction[reaction]
 						health:SetStatusBarColor(c[1], c[2], c[3], 1)
 						health.bg:SetTexture(c[1], c[2], c[3], 0.3)						
@@ -746,6 +750,10 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 	else
 		if (UnitIsTapped("target")) and (not UnitIsTappedByPlayer("target")) and unit == "target" then
 			health:SetStatusBarColor(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 1)
+			health.bg:SetTexture(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 0.3)		
+		elseif not UnitIsConnected(unit) then
+			health:SetStatusBarColor(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 1)
+			health.bg:SetTexture(TukuiDB.oUF_colors.tapped[1], TukuiDB.oUF_colors.tapped[2], TukuiDB.oUF_colors.tapped[3], 0.3)						
 		else
 			if TukuiCF["unitframes"].classcolor ~= true then
 				health:SetStatusBarColor(unpack(TukuiCF["unitframes"].healthcolor))
@@ -758,6 +766,7 @@ TukuiDB.PostUpdateHealth = function(health, unit, min, max)
 					health.bg:SetTexture(c[1], c[2], c[3], 0.3)	
 				else
 					local reaction = UnitReaction(unit, 'player')
+					if not reaction then return end
 					local c = TukuiDB.oUF_colors.reaction[reaction]
 					health:SetStatusBarColor(c[1], c[2], c[3], 1)
 					health.bg:SetTexture(c[1], c[2], c[3], 0.3)						
@@ -1272,7 +1281,7 @@ TukuiDB.ComboDisplay = function(self, event, unit)
 	
 	local cpoints = self.CPoints
 	local cp
-	if(UnitExists'vehicle') and VehicleMenuBarActionButton1:IsShown() then
+	if (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) then
 		cp = GetComboPoints('vehicle', 'target')
 	else
 		cp = GetComboPoints('player', 'target')
