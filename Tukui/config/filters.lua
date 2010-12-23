@@ -63,12 +63,28 @@ BuffReminderRaidBuffs = {
 		79638, --"Flask of Enhancement-STR"
 		79639, --"Flask of Enhancement-AGI"
 		79640, --"Flask of Enhancement-INT"
+		92679, --Flask of battle
 	},
 	BattleElixir = {
-		33721, --"Spellpower Elixir",
+		--Scrolls
+		89343, --Agility
+		63308, --Armor 
+		89347, --Int
+		89342, --Spirit
+		63306, --Stam
+		89346, --Strength
+		
+		--Elixirs
+		79481, --Hit
+		79632, --Haste
+		79477, --Crit
+		79635, --Mastery
+		79474, --Expertise
+		79468, --Spirit
 	},
 	GuardianElixir = {
-		60343, --"Elixir of Mighty Defense",
+		79480, --Armor
+		58143, --Resistance+90
 	},
 	Food = {
 		87545, --90 STR
@@ -227,10 +243,7 @@ DebuffBlacklist = {
 	[SpellName(71041)] = true, --dungeon deserter
 	[SpellName(41425)] = true, --"Hypothermia"
 	[SpellName(55711)] = true, --Weakened Heart
-	[SpellName(28531)] = true, --frost aura (naxx)
-	[SpellName(67604)] = true, --Powering Up toc
 	[SpellName(8326)] = true, --ghost
-	[SpellName(20584)] = true, --ghost
 	[SpellName(23445)] = true, --evil twin
 	[SpellName(24755)] = true, --gay homosexual tricked or treated debuff
 	[SpellName(25163)] = true, --fucking annoying pet debuff oozeling disgusting aura
@@ -249,6 +262,7 @@ DebuffWhiteList = {
 		[SpellName(2637)] = true, --Hibernate
 		[SpellName(339)] = true, --Entangling Roots
 		[SpellName(80964)] = true, --Skull Bash
+		[SpellName(78675)] = true, --Solar Beam
 	-- Hunter
 		[SpellName(3355)] = true, --Freezing Trap Effect
 		--[SpellName(60210)] = true, --Freezing Arrow Effect
@@ -344,6 +358,7 @@ DebuffHealerWhiteList = {
 		
 		--Chimaeron
 		[SpellName(82881)] = true, -- Break
+		[SpellName(89084)] = true, -- Low Health
 		
 		--Nefarian
 		
@@ -365,6 +380,8 @@ DebuffHealerWhiteList = {
 		[SpellName(92488)] = true, -- Gravity Crush
 		
 		--Cho'gall
+		[SpellName(86028)] = true, -- Cho's Blast
+		[SpellName(86029)] = true, -- Gall's Blast
 		
 	--Throne of the Four Winds
 		--Conclave of Wind
@@ -399,6 +416,7 @@ DebuffDPSWhiteList = {
 		
 		--Chimaeron
 		[SpellName(82881)] = true, -- Break
+		[SpellName(89084)] = true, -- Low Health
 		
 		--Nefarian
 		
@@ -419,6 +437,8 @@ DebuffDPSWhiteList = {
 		[SpellName(92488)] = true, -- Gravity Crush
 		
 		--Cho'gall
+		[SpellName(86028)] = true, -- Cho's Blast
+		[SpellName(86029)] = true, -- Gall's Blast
 		
 	--Throne of the Four Winds
 		--Conclave of Wind
