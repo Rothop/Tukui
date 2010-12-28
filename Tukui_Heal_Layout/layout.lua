@@ -290,6 +290,7 @@ local function Shared(self, unit)
 			Experience:SetStatusBarColor(0, 0.4, 1, .8)
 			Experience:SetWidth(original_width)
 			Experience:SetHeight(TukuiDB.Scale(5))
+			Experience:SetFrameStrata("HIGH")
 			if powerbar_offset ~= 0 then
 				Experience:SetPoint("TOPLEFT", self.Health, "BOTTOMLEFT", 0, -powerbar_offset + -TukuiDB.Scale(5))
 			else	
@@ -321,7 +322,6 @@ local function Shared(self, unit)
 			self.Experience.Rested:SetStatusBarColor(1, 0, 1, 0.2)
 			self.Experience.Rested:SetBackdrop(backdrop)
 			self.Experience.Rested:SetBackdropColor(unpack(TukuiCF["media"].backdropcolor))
-
 			
 			local Resting = Experience:CreateTexture(nil, "OVERLAY", Experience.Rested)
 			Resting:SetHeight(22)
@@ -704,13 +704,15 @@ local function Shared(self, unit)
 			castbar:SetHeight(TukuiDB.Scale(20))
 			castbar:SetStatusBarTexture(normTex)
 			castbar:SetFrameLevel(6)
- 
+			castbar:SetFrameStrata("DIALOG")
+			
 			castbar.bg = CreateFrame("Frame", nil, castbar)
 			TukuiDB.SetTemplate(castbar.bg)
 			castbar.bg:SetPoint("TOPLEFT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
 			castbar.bg:SetPoint("BOTTOMRIGHT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
 			castbar.bg:SetFrameLevel(5)
- 
+			castbar.bg:SetFrameStrata("DIALOG")
+			
 			castbar.time = TukuiDB.SetFontString(castbar, font1, TukuiCF["unitframes"].fontsize, "THINOUTLINE")
 			castbar.time:SetPoint("RIGHT", castbar, "RIGHT", TukuiDB.Scale(-4), TukuiDB.Scale(1))
 			castbar.time:SetTextColor(0.84, 0.75, 0.65)
@@ -1650,22 +1652,22 @@ local function Shared(self, unit)
 			end
 		end
 		
+		-- create arena/boss debuff/buff spawn point
+		local buffs = CreateFrame("Frame", nil, self)
+		buffs:SetHeight(arenaboss_height)
+		buffs:SetWidth(252)
+		buffs:SetPoint("RIGHT", self, "LEFT", TukuiDB.Scale(-4), 0)
+		buffs.size = arenaboss_height
+		buffs.num = 3
+		buffs.spacing = 2
+		buffs.initialAnchor = 'RIGHT'
+		buffs["growth-x"] = "LEFT"
+		buffs.PostCreateIcon = TukuiDB.PostCreateAura
+		buffs.PostUpdateIcon = TukuiDB.PostUpdateAura
+		self.Buffs = buffs		
+		
 		--only need to see debuffs for arena frames
-		if (unit and unit:find("arena%d")) and TukuiCF["auras"].arenadebuffs == true then
-			-- create arena/boss debuff/buff spawn point
-			local buffs = CreateFrame("Frame", nil, self)
-			buffs:SetHeight(arenaboss_height)
-			buffs:SetWidth(252)
-			buffs:SetPoint("RIGHT", self, "LEFT", TukuiDB.Scale(-4), 0)
-			buffs.size = arenaboss_height
-			buffs.num = 3
-			buffs.spacing = 2
-			buffs.initialAnchor = 'RIGHT'
-			buffs["growth-x"] = "LEFT"
-			buffs.PostCreateIcon = TukuiDB.PostCreateAura
-			buffs.PostUpdateIcon = TukuiDB.PostUpdateAura
-			self.Buffs = buffs
-			
+		if (unit and unit:find("arena%d")) and TukuiCF["auras"].arenadebuffs == true then	
 			local debuffs = CreateFrame("Frame", nil, self)
 			debuffs:SetHeight(arenaboss_height)
 			debuffs:SetWidth(arenaboss_width*2)

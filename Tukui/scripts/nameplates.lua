@@ -80,7 +80,6 @@ local badR, badG, badB = unpack(TukuiCF["nameplate"].badcolor)
 local transitionR, transitionG, transitionB = unpack(TukuiCF["nameplate"].transitioncolor)
 local function UpdateThreat(frame, elapsed)
 	frame.hp:Show()
-	
 	if TukuiCF["nameplate"].enhancethreat ~= true then
 		if(frame.region:IsShown()) then
 			local _, val = frame.region:GetVertexColor()
@@ -96,14 +95,14 @@ local function UpdateThreat(frame, elapsed)
 				frame.healthborder_tex4:SetTexture(badR, badG, badB)
 			end
 		else
-			frame.healthborder_tex1:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex2:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex3:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex4:SetTexture(0.6, 0.6, 0.6)
+			frame.healthborder_tex1:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex2:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex3:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex4:SetTexture(0.3, 0.3, 0.3)
 		end
 	else
 		if not frame.region:IsShown() then
-			if InCombatLockdown() and frame.hasclass ~= true then
+			if InCombatLockdown() and frame.hasclass ~= true and frame.isFriendly ~= true then
 				--No Threat
 				if TukuiDB.Role == "Tank" then
 					frame.hp:SetStatusBarColor(badR, badG, badB)
@@ -156,33 +155,55 @@ local function UpdateThreat(frame, elapsed)
 	end
 	
 	--Setup frame shadow to change depending on enemy players health, also setup targetted unit to have white shadow
-	if frame.hasclass == true then
-		if(d <= 50 and d >= 21) then
+	if frame.hasclass == true or frame.isFriendly == true then
+		if(d <= 50 and d >= 20) then
 			frame.healthborder_tex1:SetTexture(1, 1, 0)
 			frame.healthborder_tex2:SetTexture(1, 1, 0)
 			frame.healthborder_tex3:SetTexture(1, 1, 0)
 			frame.healthborder_tex4:SetTexture(1, 1, 0)
-		elseif(d < 21) then
+		elseif(d < 20) then
 			frame.healthborder_tex1:SetTexture(1, 0, 0)
 			frame.healthborder_tex2:SetTexture(1, 0, 0)
 			frame.healthborder_tex3:SetTexture(1, 0, 0)
 			frame.healthborder_tex4:SetTexture(1, 0, 0)
 		else
-			frame.healthborder_tex1:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex2:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex3:SetTexture(0.6, 0.6, 0.6)
-			frame.healthborder_tex4:SetTexture(0.6, 0.6, 0.6)
+			frame.healthborder_tex1:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex2:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex3:SetTexture(0.3, 0.3, 0.3)
+			frame.healthborder_tex4:SetTexture(0.3, 0.3, 0.3)
 		end
-	elseif frame.hasclass ~= true and TukuiCF["nameplate"].enhancethreat == true then
-		frame.healthborder_tex1:SetTexture(0.6, 0.6, 0.6)
-		frame.healthborder_tex2:SetTexture(0.6, 0.6, 0.6)
-		frame.healthborder_tex3:SetTexture(0.6, 0.6, 0.6)
-		frame.healthborder_tex4:SetTexture(0.6, 0.6, 0.6)
+	elseif (frame.hasclass ~= true and frame.isFriendly ~= true) and TukuiCF["nameplate"].enhancethreat == true then
+		frame.healthborder_tex1:SetTexture(0.3, 0.3, 0.3)
+		frame.healthborder_tex2:SetTexture(0.3, 0.3, 0.3)
+		frame.healthborder_tex3:SetTexture(0.3, 0.3, 0.3)
+		frame.healthborder_tex4:SetTexture(0.3, 0.3, 0.3)
 	end
 end
 
+local function Colorize(frame)
+	local r,g,b = frame.hp:GetStatusBarColor()
+	if frame.hasclass == true then frame.isFriendly = false return end
+	
+	if g+b == 0 then -- hostile
+		r,g,b = unpack(TukuiDB.oUF_colors.reaction[1])
+		frame.isFriendly = false
+	elseif r+b == 0 then -- friendly npc
+		r,g,b = unpack(TukuiDB.oUF_colors.power["MANA"])
+		frame.isFriendly = true
+	elseif r+g > 1.95 then -- neutral
+		r,g,b = unpack(TukuiDB.oUF_colors.reaction[4])
+		frame.isFriendly = false
+	elseif r+g == 0 then -- friendly player
+		r,g,b = unpack(TukuiDB.oUF_colors.reaction[5])
+		frame.isFriendly = true
+	else -- enemy player
+		frame.isFriendly = false
+	end
+	frame.hp:SetStatusBarColor(r,g,b)
+end
+
 local function UpdateObjects(frame)
-	frame = frame:GetParent()
+	local frame = frame:GetParent()
 	
 	local r, g, b = frame.hp:GetStatusBarColor()
 	local r, g, b = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(b*100+.5)/100
@@ -190,13 +211,13 @@ local function UpdateObjects(frame)
 	
 	frame.hp:ClearAllPoints()
 	frame.hp:SetSize(hpWidth, hpHeight)	
-	frame.hp:SetPoint('CENTER', frame, 0, -10)
+	frame.hp:SetPoint('TOP', frame, 'TOP', 0, -noscalemult*3)
 	frame.hp:GetStatusBarTexture():SetHorizTile(true)
-
-	--create variable for original colors
-	frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor = frame.hp:GetStatusBarColor()
-	frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.25)
 	
+	frame.healthbarbackdrop_tex:ClearAllPoints()
+	frame.healthbarbackdrop_tex:SetPoint("TOPLEFT", frame.hp, "TOPLEFT", -noscalemult*3, noscalemult*3)
+	frame.healthbarbackdrop_tex:SetPoint("BOTTOMRIGHT", frame.hp, "BOTTOMRIGHT", noscalemult*3, -noscalemult*3)
+		
 	--Class Icons
 	for class, color in pairs(RAID_CLASS_COLORS) do
 		if RAID_CLASS_COLORS[class].r == r and RAID_CLASS_COLORS[class].g == g and RAID_CLASS_COLORS[class].b == b then
@@ -221,6 +242,11 @@ local function UpdateObjects(frame)
 		frame.hasclass = true
 	end
 	frame.class:SetTexCoord(texcoord[1],texcoord[2],texcoord[3],texcoord[4])
+	
+	--create variable for original colors
+	Colorize(frame)
+	frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor = frame.hp:GetStatusBarColor()
+	frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.25)
 	
 	--Set the name text
 	frame.name:SetText(frame.oldname:GetText())
@@ -247,7 +273,7 @@ local function UpdateObjects(frame)
 	
 	frame.overlay:ClearAllPoints()
 	frame.overlay:SetAllPoints(frame.hp)
-	
+
 	HideObjects(frame)
 end
 
@@ -258,8 +284,13 @@ local function UpdateCastbar(frame)
 	frame:GetStatusBarTexture():SetHorizTile(true)
 
 	if(not frame.shield:IsShown()) then
-		frame:SetStatusBarColor(1, 0.3, 0.3)
+		frame:SetStatusBarColor(0.78, 0.25, 0.25, 1)
 	end
+	
+	local frame = frame:GetParent()
+	frame.castbarbackdrop_tex:ClearAllPoints()
+	frame.castbarbackdrop_tex:SetPoint("TOPLEFT", frame.cb, "TOPLEFT", -noscalemult*3, noscalemult*3)
+	frame.castbarbackdrop_tex:SetPoint("BOTTOMRIGHT", frame.cb, "BOTTOMRIGHT", noscalemult*3, -noscalemult*3)
 end	
 
 local function UpdateCastText(frame, curValue)
@@ -288,6 +319,16 @@ local OnSizeChanged = function(self)
 	self.needFix = true
 end
 
+local function OnHide(frame)
+	frame.overlay:Hide()
+	frame.cb:Hide()
+	frame.hasclass = nil
+	frame.isFriendly = nil
+	frame.hp.rcolor = nil
+	frame.hp.gcolor = nil
+	frame.hp.bcolor = nil
+end
+
 local function SkinObjects(frame)
 	local hp, cb = frame:GetChildren()
 	local threat, hpborder, cbshield, cbborder, cbicon, overlay, oldname, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
@@ -303,37 +344,37 @@ local function SkinObjects(frame)
 	healthbarbackdrop_tex:SetPoint("TOPLEFT", hp, "TOPLEFT", -noscalemult*3, noscalemult*3)
 	healthbarbackdrop_tex:SetPoint("BOTTOMRIGHT", hp, "BOTTOMRIGHT", noscalemult*3, -noscalemult*3)
 	healthbarbackdrop_tex:SetTexture(0.1, 0.1, 0.1)
+	frame.healthbarbackdrop_tex = healthbarbackdrop_tex
 	
 	--Create our fake border.. fuck blizz
 	local healthbarborder_tex1 = hp:CreateTexture(nil, "BORDER")
 	healthbarborder_tex1:SetPoint("TOPLEFT", hp, "TOPLEFT", -noscalemult*2, noscalemult*2)
 	healthbarborder_tex1:SetPoint("TOPRIGHT", hp, "TOPRIGHT", noscalemult*2, noscalemult*2)
 	healthbarborder_tex1:SetHeight(noscalemult)
-	healthbarborder_tex1:SetTexture(0.6, 0.6, 0.6)	
+	healthbarborder_tex1:SetTexture(0.3, 0.3, 0.3)	
 	frame.healthborder_tex1 = healthbarborder_tex1
 	
 	local healthbarborder_tex2 = hp:CreateTexture(nil, "BORDER")
 	healthbarborder_tex2:SetPoint("BOTTOMLEFT", hp, "BOTTOMLEFT", -noscalemult*2, -noscalemult*2)
 	healthbarborder_tex2:SetPoint("BOTTOMRIGHT", hp, "BOTTOMRIGHT", noscalemult*2, -noscalemult*2)
 	healthbarborder_tex2:SetHeight(noscalemult)
-	healthbarborder_tex2:SetTexture(0.6, 0.6, 0.6)	
+	healthbarborder_tex2:SetTexture(0.3, 0.3, 0.3)	
 	frame.healthborder_tex2 = healthbarborder_tex2
 	
 	local healthbarborder_tex3 = hp:CreateTexture(nil, "BORDER")
 	healthbarborder_tex3:SetPoint("TOPLEFT", hp, "TOPLEFT", -noscalemult*2, noscalemult*2)
 	healthbarborder_tex3:SetPoint("BOTTOMLEFT", hp, "BOTTOMLEFT", noscalemult*2, -noscalemult*2)
 	healthbarborder_tex3:SetWidth(noscalemult)
-	healthbarborder_tex3:SetTexture(0.6, 0.6, 0.6)	
+	healthbarborder_tex3:SetTexture(0.3, 0.3, 0.3)	
 	frame.healthborder_tex3 = healthbarborder_tex3
 	
 	local healthbarborder_tex4 = hp:CreateTexture(nil, "BORDER")
 	healthbarborder_tex4:SetPoint("TOPRIGHT", hp, "TOPRIGHT", noscalemult*2, noscalemult*2)
 	healthbarborder_tex4:SetPoint("BOTTOMRIGHT", hp, "BOTTOMRIGHT", -noscalemult*2, -noscalemult*2)
 	healthbarborder_tex4:SetWidth(noscalemult)
-	healthbarborder_tex4:SetTexture(0.6, 0.6, 0.6)	
+	healthbarborder_tex4:SetTexture(0.3, 0.3, 0.3)	
 	frame.healthborder_tex4 = healthbarborder_tex4
 	
-	hp:HookScript('OnShow', UpdateObjects)
 	hp:SetStatusBarTexture(TEXTURE)
 	frame.hp = hp
 	
@@ -372,31 +413,32 @@ local function SkinObjects(frame)
 	castbarbackdrop_tex:SetPoint("TOPLEFT", cb, "TOPLEFT", -noscalemult*3, noscalemult*3)
 	castbarbackdrop_tex:SetPoint("BOTTOMRIGHT", cb, "BOTTOMRIGHT", noscalemult*3, -noscalemult*3)
 	castbarbackdrop_tex:SetTexture(0.1, 0.1, 0.1)
+	frame.castbarbackdrop_tex = castbarbackdrop_tex
 	
 	--Create our fake border.. fuck blizz
 	local castbarborder_tex1 = cb:CreateTexture(nil, "BORDER")
 	castbarborder_tex1:SetPoint("TOPLEFT", cb, "TOPLEFT", -noscalemult*2, noscalemult*2)
 	castbarborder_tex1:SetPoint("TOPRIGHT", cb, "TOPRIGHT", noscalemult*2, noscalemult*2)
 	castbarborder_tex1:SetHeight(noscalemult)
-	castbarborder_tex1:SetTexture(0.6, 0.6, 0.6)	
+	castbarborder_tex1:SetTexture(0.3, 0.3, 0.3)	
 	
 	local castbarborder_tex2 = cb:CreateTexture(nil, "BORDER")
 	castbarborder_tex2:SetPoint("BOTTOMLEFT", cb, "BOTTOMLEFT", -noscalemult*2, -noscalemult*2)
 	castbarborder_tex2:SetPoint("BOTTOMRIGHT", cb, "BOTTOMRIGHT", noscalemult*2, -noscalemult*2)
 	castbarborder_tex2:SetHeight(noscalemult)
-	castbarborder_tex2:SetTexture(0.6, 0.6, 0.6)	
+	castbarborder_tex2:SetTexture(0.3, 0.3, 0.3)	
 	
 	local castbarborder_tex3 = cb:CreateTexture(nil, "BORDER")
 	castbarborder_tex3:SetPoint("TOPLEFT", cb, "TOPLEFT", -noscalemult*2, noscalemult*2)
 	castbarborder_tex3:SetPoint("BOTTOMLEFT", cb, "BOTTOMLEFT", noscalemult*2, -noscalemult*2)
 	castbarborder_tex3:SetWidth(noscalemult)
-	castbarborder_tex3:SetTexture(0.6, 0.6, 0.6)	
+	castbarborder_tex3:SetTexture(0.3, 0.3, 0.3)	
 	
 	local castbarborder_tex4 = cb:CreateTexture(nil, "BORDER")
 	castbarborder_tex4:SetPoint("TOPRIGHT", cb, "TOPRIGHT", noscalemult*2, noscalemult*2)
 	castbarborder_tex4:SetPoint("BOTTOMRIGHT", cb, "BOTTOMRIGHT", -noscalemult*2, -noscalemult*2)
 	castbarborder_tex4:SetWidth(noscalemult)
-	castbarborder_tex4:SetTexture(0.6, 0.6, 0.6)	
+	castbarborder_tex4:SetTexture(0.3, 0.3, 0.3)	
 	
 	--Setup CastBar Icon
 	cbicon:ClearAllPoints()
@@ -414,7 +456,7 @@ local function SkinObjects(frame)
 	local casticonborder_tex = cb:CreateTexture(nil, "BORDER")
 	casticonborder_tex:SetPoint("TOPLEFT", cbicon, "TOPLEFT", -noscalemult*2, noscalemult*2)
 	casticonborder_tex:SetPoint("BOTTOMRIGHT", cbicon, "BOTTOMRIGHT", noscalemult*2, -noscalemult*2)
-	casticonborder_tex:SetTexture(0.6, 0.6, 0.6)	
+	casticonborder_tex:SetTexture(0.3, 0.3, 0.3)	
 	
 	--Create Health Backdrop Frame
 	local casticonbackdrop2_tex = cb:CreateTexture(nil, "ARTWORK")
@@ -480,6 +522,8 @@ local function SkinObjects(frame)
 	UpdateObjects(hp)
 	UpdateCastbar(cb)
 	
+	frame.hp:HookScript('OnShow', UpdateObjects)
+	frame:HookScript('OnHide', OnHide)
 	frames[frame] = true
 end
 
