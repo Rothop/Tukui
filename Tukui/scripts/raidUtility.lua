@@ -1,25 +1,6 @@
 --Raid Utility by Elv22
 if TukuiCF["raidframes"].disableblizz ~= true then return end
---if not IsAddOnLoaded("Blizzard_RaidUI") then LoadAddOn("Blizzard_RaidUI") end
 
-local panel_height = ((TukuiDB.Scale(5)*4) + (TukuiDB.Scale(20)*4))
-
---Create main frame
-local RaidUtilityPanel = CreateFrame("Frame", "RaidUtilityPanel", UIParent)
-TukuiDB.CreatePanel(RaidUtilityPanel, TukuiDB.Scale(170), panel_height, "TOP", UIParent, "TOP", -300, panel_height + 15)
-local r,g,b,_ = TukuiCF["media"].backdropcolor
-RaidUtilityPanel:SetBackdropColor(r,g,b,0.6)
-TukuiDB.CreateShadow(RaidUtilityPanel)
-
---Check if We are Raid Leader or Raid Officer
-local function CheckRaidStatus()
-	local inInstance, instanceType = IsInInstance()
-	if (UnitIsRaidOfficer("player")) and not (inInstance and (instanceType == "pvp" or instanceType == "arena")) then
-		return true
-	else
-		return false
-	end
-end
 
 --Change border when mouse is inside the button
 local function ButtonEnter(self)
@@ -32,150 +13,25 @@ local function ButtonLeave(self)
 	self:SetBackdropBorderColor(unpack(TukuiCF["media"].bordercolor))
 end
 
--- Function to create buttons in this module
-local function CreateButton(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
-	local b = CreateFrame("Button", name, parent, template)
-	b:SetWidth(width)
-	b:SetHeight(height)
-	b:SetPoint(point, relativeto, point2, xOfs, yOfs)
-	b:HookScript("OnEnter", ButtonEnter)
-	b:HookScript("OnLeave", ButtonLeave)
-	b:EnableMouse(true)
-	TukuiDB.SetTemplate(b)
-	if text then
-		local t = b:CreateFontString(nil,"OVERLAY",b)
-		t:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
-		t:SetPoint("CENTER")
-		t:SetJustifyH("CENTER")
-		t:SetText(text)
-	elseif texture then
-		local t = b:CreateTexture(nil,"OVERLAY",nil)
-		t:SetTexture(texture)
-		t:SetPoint("TOPLEFT", b, "TOPLEFT", TukuiDB.mult, -TukuiDB.mult)
-		t:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -TukuiDB.mult, TukuiDB.mult)	
+--Check if We are Raid Leader or Raid Officer
+local function CheckRaidStatus()
+	local inInstance, instanceType = IsInInstance()
+	if (IsRaidLeader() or IsRaidOfficer()) and not (inInstance and (instanceType == "pvp" or instanceType == "arena")) then
+		return true
+	else
+		return false
 	end
 end
 
---Create button to toggle the frame
-CreateButton("ShowButton", RaidUtilityPanel, "SecureHandlerClickTemplate", RaidUtilityPanel:GetWidth() / 2.5, TukuiDB.Scale(18), "TOP", UIParent, "TOP", -300, 2, tukuilocal.core_raidutil, nil)
-ShowButton:SetAttribute("_onclick", [=[
- if select(5, self:GetPoint()) > 0 then
-	 self:GetParent():ClearAllPoints()
-	 self:GetParent():SetPoint("TOP", UIParent, "TOP", -300, 1)
-	 self:ClearAllPoints()
-	 self:SetPoint("TOP", UIParent, "TOP", -300, -100)
- else
-	 self:GetParent():ClearAllPoints()
-	 self:GetParent():SetPoint("TOP", UIParent, "TOP", -300, 500)
-	 self:ClearAllPoints()
-	 self:SetPoint("TOP", UIParent, "TOP", -300, 1) 
- end
-]=])
-
---Disband Raid button
-CreateButton("DisbandRaidButton", RaidUtilityPanel, nil, RaidUtilityPanel:GetWidth() * 0.8, TukuiDB.Scale(18), "TOP", RaidUtilityPanel, "TOP", 0, TukuiDB.Scale(-5), tukuilocal.core_raidutil_disbandgroup, nil)
-DisbandRaidButton:SetScript("OnMouseUp", function(self)
-	if CheckRaidStatus() then
-		StaticPopup_Show("DISBAND_RAID")
-	end
-end)
-
---Role Check button
-CreateButton("RoleCheckButton", RaidUtilityPanel, nil, RaidUtilityPanel:GetWidth() * 0.8, TukuiDB.Scale(18), "TOP", DisbandRaidButton, "BOTTOM", 0, TukuiDB.Scale(-5), ROLE_POLL, nil)
-RoleCheckButton:SetScript("OnMouseUp", function(self)
-	if CheckRaidStatus() then
-		InitiateRolePoll()
-	end
-end)
-
---MainTank Button
-CreateButton("MainTankButton", RaidUtilityPanel, "SecureActionButtonTemplate", (DisbandRaidButton:GetWidth() / 2) - TukuiDB.Scale(2), TukuiDB.Scale(18), "TOPLEFT", RoleCheckButton, "BOTTOMLEFT", 0, TukuiDB.Scale(-5), MAINTANK, nil)
-MainTankButton:SetAttribute("type", "maintank")
-MainTankButton:SetAttribute("unit", "target")
-MainTankButton:SetAttribute("action", "set")
-
---MainAssist Button
-CreateButton("MainAssistButton", RaidUtilityPanel, "SecureActionButtonTemplate", (DisbandRaidButton:GetWidth() / 2) - TukuiDB.Scale(2), TukuiDB.Scale(18), "TOPRIGHT", RoleCheckButton, "BOTTOMRIGHT", 0, TukuiDB.Scale(-5), MAINASSIST, nil)
-MainAssistButton:SetAttribute("type", "mainassist")
-MainAssistButton:SetAttribute("unit", "target")
-MainAssistButton:SetAttribute("action", "set")
-
---Ready Check button
-CreateButton("ReadyCheckButton", RaidUtilityPanel, nil, RoleCheckButton:GetWidth() * 0.75, TukuiDB.Scale(18), "TOPLEFT", MainTankButton, "BOTTOMLEFT", 0, TukuiDB.Scale(-5), READY_CHECK, nil)
-ReadyCheckButton:SetScript("OnMouseUp", function(self)
-	if CheckRaidStatus() then
-		DoReadyCheck()
-	end
-end)
-
---World Marker button
-CreateButton("WorldMarkerButton", RaidUtilityPanel, "SecureHandlerClickTemplate", RoleCheckButton:GetWidth() * 0.2, TukuiDB.Scale(18), "TOPRIGHT", MainAssistButton, "BOTTOMRIGHT", 0, TukuiDB.Scale(-5), nil, "Interface\\RaidFrame\\Raid-WorldPing")
-WorldMarkerButton:SetAttribute("_onclick", [=[
- if self:GetChildren():IsShown() then
-	self:GetChildren():Hide()
- else
-	self:GetChildren():Show()
- end
-]=])
-
--- Marker Buttons
-local function CreateMarkerButton(name, text, point, relativeto, point2)
-	local f = CreateFrame("Button", name, MarkerFrame, "SecureActionButtonTemplate")
-	f:SetPoint(point, relativeto, point2, 0, TukuiDB.Scale(-5))
-	f:SetWidth(MarkerFrame:GetWidth())
-	f:SetHeight((MarkerFrame:GetHeight() / 6) + TukuiDB.Scale(-5))
-	f:SetFrameLevel(MarkerFrame:GetFrameLevel() + 1)
-	f:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
-	
-	local t = f:CreateFontString(nil,"OVERLAY",f)
-	t:SetFont(TukuiCF.media.font,TukuiCF["general"].fontscale,"OUTLINE")
-	t:SetText(text)
-	t:SetPoint("CENTER")
-	t:SetJustifyH("CENTER")	
-	
-	f:SetAttribute("type", "macro")
-end
-
---Marker Holder Frame
-local MarkerFrame = CreateFrame("Frame", "MarkerFrame", WorldMarkerButton)
-TukuiDB.SetTemplate(MarkerFrame)
-MarkerFrame:SetBackdropColor(r,g,b,0.6)
-TukuiDB.CreateShadow(MarkerFrame)
-MarkerFrame:SetWidth(RaidUtilityPanel:GetWidth() * 0.4)
-MarkerFrame:SetHeight(RaidUtilityPanel:GetHeight()* 1.2)
-MarkerFrame:SetPoint("TOPLEFT", WorldMarkerButton, "BOTTOMRIGHT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-MarkerFrame:Hide()
-
---Setup Secure Buttons
-MarkerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-MarkerFrame:SetScript("OnEvent", function(self, event)
-	if not CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton then print("error with worldmarkers, report to elv") end
-	CreateMarkerButton("BlueFlare", "|cff0062FF"..RAID_TARGET_6.."|r", "TOPLEFT", MarkerFrame, "TOPLEFT")
-	BlueFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button1")
-	CreateMarkerButton("GreenFlare", "|cff00FF00"..RAID_TARGET_4.."|r", "TOPLEFT", BlueFlare, "BOTTOMLEFT")
-	GreenFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button2")
-	CreateMarkerButton("PurpleFlare", "|cffB500B5"..RAID_TARGET_3.."|r", "TOPLEFT", GreenFlare, "BOTTOMLEFT")
-	PurpleFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button3")
-	CreateMarkerButton("RedFlare", "|cffFF0000"..RAID_TARGET_7.."|r", "TOPLEFT", PurpleFlare, "BOTTOMLEFT")
-	RedFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button4")
-	CreateMarkerButton("WhiteFlare", "|cffFFFF00"..RAID_TARGET_1.."|r", "TOPLEFT", RedFlare, "BOTTOMLEFT")
-	WhiteFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button5")
-	CreateMarkerButton("ClearFlare", REMOVE_WORLD_MARKERS, "TOPLEFT", WhiteFlare, "BOTTOMLEFT")
-	ClearFlare:SetAttribute("macrotext", "/click CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton\n/click DropDownList1Button6")
-	self:UnregisterAllEvents()
-end)
-MarkerFrame:SetHeight(MarkerFrame:GetHeight() + TukuiDB.Scale(4))
-
+--We need this because blizzard raid utility displays if you arent raid leader, we only want it when you are raidleader/assist
 local function ToggleRaidUtil(self, event)
 	if InCombatLockdown() then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
 		
-	if CheckRaidStatus() then
-		RaidUtilityPanel:Show()
-	else
-		RaidUtilityPanel:Hide()
+	if not CheckRaidStatus() then
+		CompactRaidFrameManager:Hide()
 	end
 	
 	if event == "PLAYER_REGEN_ENABLED" then
@@ -188,3 +44,126 @@ local LeadershipCheck = CreateFrame("Frame")
 LeadershipCheck:RegisterEvent("RAID_ROSTER_UPDATE")
 LeadershipCheck:RegisterEvent("PLAYER_ENTERING_WORLD")
 LeadershipCheck:SetScript("OnEvent", ToggleRaidUtil)
+
+-- Function to create buttons in this module
+local function CreateButton(name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
+	local b = CreateFrame("Button", name, parent, template)
+	b:SetWidth(width)
+	b:SetHeight(height)
+	b:SetPoint(point, relativeto, point2, xOfs, yOfs)
+	b:HookScript("OnEnter", ButtonEnter)
+	b:HookScript("OnLeave", ButtonLeave)
+	b:EnableMouse(true)
+	TukuiDB.SetTemplate(b)
+	if text then
+		local t = b:CreateFontString(nil,"OVERLAY",b, "OUTLINE")
+		t:SetFont(TukuiCF.media.font,10,nil)
+		t:SetShadowOffset(TukuiDB.mult, -TukuiDB.mult)
+		t:SetPoint("CENTER")
+		t:SetJustifyH("CENTER")
+		t:SetText(text)
+		b:SetFontString(t)
+	elseif texture then
+		local t = b:CreateTexture(nil,"OVERLAY",nil)
+		t:SetTexture(texture)
+		t:SetPoint("TOPLEFT", b, "TOPLEFT", TukuiDB.mult, -TukuiDB.mult)
+		t:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -TukuiDB.mult, TukuiDB.mult)	
+	end
+end
+
+--Disband Raid button
+CreateButton("DisbandRaidButton", CompactRaidFrameManagerDisplayFrameLeaderOptions, "UIMenuButtonStretchTemplate", CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll:GetWidth(), CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck:GetHeight(), "TOPLEFT", CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck, "BOTTOMLEFT", 0, TukuiDB.Scale(-1), tukuilocal.core_raidutil_disbandgroup, nil)
+DisbandRaidButton:SetScript("OnClick", function(self)
+	StaticPopup_Show("DISBAND_RAID")
+end)
+
+--MainTank Button
+CreateButton("MainTankButton", CompactRaidFrameManagerDisplayFrameLeaderOptions, "UIMenuButtonStretchTemplate, SecureActionButtonTemplate", (CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll:GetWidth() / 2) - 1, CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck:GetHeight(), "BOTTOMLEFT", CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll, "TOPLEFT", 0, 1, MAINTANK, nil)
+MainTankButton:SetAttribute("type", "maintank")
+MainTankButton:SetAttribute("unit", "target")
+MainTankButton:SetAttribute("action", "set")
+
+--MainAssist Button
+CreateButton("MainAssistButton", CompactRaidFrameManagerDisplayFrameLeaderOptions, "UIMenuButtonStretchTemplate, SecureActionButtonTemplate", (CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll:GetWidth() / 2) - 1, CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck:GetHeight(), "BOTTOMRIGHT", CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll, "TOPRIGHT", 0, 1, MAINASSIST, nil)
+MainAssistButton:SetAttribute("type", "mainassist")
+MainAssistButton:SetAttribute("unit", "target")
+MainAssistButton:SetAttribute("action", "set")
+
+--Destroy some things
+do
+	for i=1, MAX_RAID_GROUPS do
+		local f = _G["CompactRaidFrameManagerDisplayFrameFilterGroup"..i]
+		TukuiDB.Kill(f)
+	end
+	
+	local buttons = {
+		"CompactRaidFrameManagerDisplayFrameFilterRoleTank",
+		"CompactRaidFrameManagerDisplayFrameFilterRoleHealer",
+		"CompactRaidFrameManagerDisplayFrameFilterRoleDamager",
+		"CompactRaidFrameManagerDisplayFrameLockedModeToggle",
+		"CompactRaidFrameManagerContainerResizeFrame",
+		"CompactRaidFrameManagerDisplayFrameHiddenModeToggle",
+		"CompactRaidFrameManagerDisplayFrameOptionsButton"
+	}
+	
+	local textures = {
+		"CompactRaidFrameManagerBorderTopLeft",
+		"CompactRaidFrameManagerBorderTopRight",
+		"CompactRaidFrameManagerBorderBottomLeft",
+		"CompactRaidFrameManagerBorderBottomRight",
+		"CompactRaidFrameManagerBorderTop",
+		"CompactRaidFrameManagerBorderBottom",
+		"CompactRaidFrameManagerBorderRight",
+		"CompactRaidFrameManagerBg",
+		"CompactRaidFrameManagerDisplayFrameHeaderDelineator",
+		"CompactRaidFrameManagerDisplayFrameFooterDelineator",
+		"CompactRaidFrameManagerDisplayFrameHeaderBackground"
+	}
+	
+	for i, button in pairs(buttons) do
+		TukuiDB.Kill(_G[button])
+	end
+	
+	for i, texture in pairs(textures) do
+		_G[texture]:SetTexture("")
+	end
+	
+end
+
+--Reskin Stuff
+do
+	local buttons = {
+		"CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck",
+		"CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton",
+		"CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll",
+		"DisbandRaidButton",
+		"MainTankButton",
+		"MainAssistButton"
+	}
+
+	for i, button in pairs(buttons) do
+		local f = _G[button]
+		_G[button.."Left"]:SetAlpha(0)
+		_G[button.."Middle"]:SetAlpha(0)
+		_G[button.."Right"]:SetAlpha(0)		
+		f:SetHighlightTexture("")
+		f:SetDisabledTexture("")
+		f:HookScript("OnEnter", ButtonEnter)
+		f:HookScript("OnLeave", ButtonLeave)
+		TukuiDB.SetNormTexTemplate(f)
+	end
+	
+	TukuiDB.SetTransparentTemplate(CompactRaidFrameManager)
+	TukuiDB.CreateShadow(CompactRaidFrameManager)
+end
+
+--Move and Resize
+do
+	CompactRaidFrameManagerToggleButton:ClearAllPoints()
+	CompactRaidFrameManagerToggleButton:SetPoint("RIGHT", CompactRaidFrameManager, "RIGHT", -TukuiDB.mult, 0)
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidMarker6:ClearAllPoints()
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidMarker6:SetPoint("BOTTOMLEFT", MainTankButton, "TOPLEFT", 0, 15)
+	CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateRolePoll:SetPoint("BOTTOMLEFT", CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck, "TOPLEFT", 0, 1)
+	CompactRaidFrameManager:SetHeight(185)
+	CompactRaidFrameManager.SetHeight = TukuiDB.dummy -- Dont resize the frame ever again
+end
