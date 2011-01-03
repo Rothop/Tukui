@@ -130,17 +130,50 @@ end
 oUF.TagEvents['Tukui:nameshort'] = 'UNIT_NAME_UPDATE'
 oUF.Tags['Tukui:nameshort'] = function(unit)
 	local name = UnitName(unit)
-	return utf8sub(name, 10, false)
+	local colorblind = GetCVarBool("colorblindMode")
+	if colorblind ~= 1 then
+		return utf8sub(name, 10, false)
+	else
+		if (UnitIsPlayer(unit)) then
+			local class = select(2, UnitClass(unit))
+			local texcoord = CLASS_BUTTONS[class]
+			return (utf8sub((name), 10, false)).." |TInterface\\WorldStateFrame\\Icons-Classes:25:25:0:0:256:256:"..tostring(texcoord[1]*256)..":"..tostring(texcoord[2]*256)..":"..tostring(texcoord[3]*256)..":"..tostring(texcoord[4]*256).."|t"
+		else
+			return utf8sub(name, 10, false)
+		end
+	end
 end
 
 oUF.TagEvents['Tukui:namemedium'] = 'UNIT_NAME_UPDATE'
 oUF.Tags['Tukui:namemedium'] = function(unit)
 	local name = UnitName(unit)
-	return utf8sub(name, 15, true)
+	local colorblind = GetCVarBool("colorblindMode")
+	if colorblind ~= 1 then
+		return utf8sub(name, 15, false)
+	else
+		if (UnitIsPlayer(unit)) then
+			local class = select(2, UnitClass(unit))
+			local texcoord = CLASS_BUTTONS[class]
+			return (utf8sub((name), 15, false)).." |TInterface\\WorldStateFrame\\Icons-Classes:25:25:0:0:256:256:"..tostring(texcoord[1]*256)..":"..tostring(texcoord[2]*256)..":"..tostring(texcoord[3]*256)..":"..tostring(texcoord[4]*256).."|t"
+		else
+			return utf8sub(name, 15, false)
+		end
+	end
 end
 
 oUF.TagEvents['Tukui:namelong'] = 'UNIT_NAME_UPDATE'
 oUF.Tags['Tukui:namelong'] = function(unit)
 	local name = UnitName(unit)
-	return utf8sub(name, 20, true)
+	local colorblind = GetCVarBool("colorblindMode")
+	if colorblind ~= 1 then
+		return utf8sub(name, 20, false)
+	else
+		if (UnitIsPlayer(unit)) then
+			local class = select(2, UnitClass(unit))
+			local texcoord = CLASS_BUTTONS[class]
+			return (utf8sub((name), 20, false)).." |TInterface\\WorldStateFrame\\Icons-Classes:25:25:0:0:256:256:"..tostring(texcoord[1]*256)..":"..tostring(texcoord[2]*256)..":"..tostring(texcoord[3]*256)..":"..tostring(texcoord[4]*256).."|t"
+		else
+			return utf8sub(name, 20, false)
+		end
+	end
 end

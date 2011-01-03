@@ -1,4 +1,4 @@
-if not TukuiCF["unitframes"].enable == true and not TukuiCF["raidframes"].enable == true then return end
+if not TukuiCF["unitframes"].enable == true and not TukuiCF["raidframes"].enable == true and not TukuiCF["nameplate"].enable == true then return end
 ------------------------------------------------------------------------
 --	Colors
 ------------------------------------------------------------------------
@@ -60,6 +60,10 @@ if TukuiCF["general"].classcolortheme == true then
 	local r, g, b = RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b
 	TukuiCF["media"].altbordercolor = { r,g,b,1 }
 	TukuiCF["media"].bordercolor = { r,g,b,1 }
+end
+
+if TukuiDB.myname == "Platinúm" then
+	TukuiDB.oUF_colors.power.RAGE = {1, 0, 0}
 end
 
 
