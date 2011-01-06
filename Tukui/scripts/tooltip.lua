@@ -60,7 +60,11 @@ end
 
 hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent)
 	if db.cursor == true then
-		self:SetOwner(parent, "ANCHOR_CURSOR")	
+		if IsAddOnLoaded("Tukui_Heal_Layout") and parent ~= UIParent then 
+			self:SetOwner(parent, "ANCHOR_NONE")	
+		else
+			self:SetOwner(parent, "ANCHOR_CURSOR")
+		end
 	else
 		self:SetOwner(parent, "ANCHOR_NONE")
 		self:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -15+xOffset, TukuiDB.Scale(42+yOffset))	
@@ -70,6 +74,13 @@ end)
 
 GameTooltip:HookScript("OnUpdate",function(self, ...)
 	local inInstance, instanceType = IsInInstance()
+	if self:GetAnchorType() == "ANCHOR_CURSOR" then
+		local x, y = GetCursorPosition();
+		local effScale = self:GetEffectiveScale();
+		self:ClearAllPoints();
+		self:SetPoint("BOTTOMLEFT","UIParent","BOTTOMLEFT",(x / effScale + (15)),(y / effScale + (7)))		
+	end
+	
 	if self:GetAnchorType() == "ANCHOR_CURSOR" and NeedBackdropBorderRefresh == true and db.cursor ~= true then
 		-- h4x for world object tooltip border showing last border color 
 		-- or showing background sometime ~blue :x
@@ -238,7 +249,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 	local crtype = UnitCreatureType(unit)
 	local classif = UnitClassification(unit)
 	local title = UnitPVPName(unit)
-	if level == -1 then level = MAX_PLAYER_LEVEL + 5 end
+
 	local r, g, b = GetQuestDifficultyColor(level).r, GetQuestDifficultyColor(level).g, GetQuestDifficultyColor(level).b
 
 	local color = GetColor(unit)	
@@ -246,7 +257,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 
 	_G["GameTooltipTextLeft1"]:SetFormattedText("%s%s%s", color, title or name, realm and realm ~= "" and " - "..realm.."|r" or "|r")
 	
-	if level == MAX_PLAYER_LEVEL + 5 then level = "??" end
+
 	if(UnitIsPlayer(unit)) then
 		if UnitIsAFK(unit) then
 			self:AppendText((" %s"):format(CHAT_FLAG_AFK))
@@ -275,7 +286,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 	else
 		for i = 2, lines do
 			if((_G["GameTooltipTextLeft"..i]:GetText():find("^"..LEVEL)) or (crtype and _G["GameTooltipTextLeft"..i]:GetText():find("^"..crtype))) then
-				_G["GameTooltipTextLeft"..i]:SetFormattedText("|cff%02x%02x%02x%s|r%s %s", r*255, g*255, b*255, classif ~= "worldboss" and level ~= 0 and level or "", classification[classif] or "", crtype or "")
+				_G["GameTooltipTextLeft"..i]:SetFormattedText("|cff%02x%02x%02x%s|r%s %s", r*255, g*255, b*255, classif ~= "worldboss" and level > 0 and level or "??", classification[classif] or "", crtype or "")
 				break
 			end
 		end
