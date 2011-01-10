@@ -1,6 +1,9 @@
 tukuilocal = {}
--- localization for enUS and enGB
+local tukuilocal = tukuilocal
+local TukuiDB = TukuiDB
+TukuiDB.client = GetLocale() 
 
+-- localization for enUS and enGB
 tukuilocal.chat_BATTLEGROUND_GET = "[B]"
 tukuilocal.chat_BATTLEGROUND_LEADER_GET = "[B]"
 tukuilocal.chat_BN_WHISPER_GET = "From"
@@ -165,6 +168,8 @@ tukuilocal.core_uihelp18 = "|cffFF0000/resetele|r - Resets all elements to their
 tukuilocal.core_uihelp19 = "|cffFF0000/farmmode|r - Toggles increasing/decreasing the size of the minimap, useful when farming."
 tukuilocal.core_uihelp20 = "|cffFF0000/micro|r - Toggles the unlocking of the MicroBar"
 tukuilocal.core_uihelp14 = "(Scroll up for more commands ...)"
+
+tukuilocal.tooltip_whotarget = "Targeted By"
 
 tukuilocal.bind_combat = "You can't bind keys in combat."
 tukuilocal.bind_saved = "All keybindings have been saved."
