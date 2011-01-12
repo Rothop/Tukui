@@ -335,11 +335,11 @@ TukuiDB.LoadUFFunctions = function(layout)
 			power:SetStatusBarColor(color[1], color[2], color[3])
 		end
 	end
-
+	
 	TukuiDB.PostUpdatePower = function(power, unit, min, max)
 		local self = power:GetParent()
 		local header = power:GetParent():GetParent():GetName()
-		local pType, pToken = UnitPowerType(unit)
+		local pType, pToken, altR, altG, altB = UnitPowerType(unit)
 		local color = TukuiDB.oUF_colors.power[pToken]
 		
 		if header == "oUF_TukuiDPSR6R25" or header == "oUF_TukuiHealR6R25" then
@@ -354,12 +354,18 @@ TukuiDB.LoadUFFunctions = function(layout)
 		
 		if color then
 			power.value:SetTextColor(color[1], color[2], color[3])
+		else
+			power.value:SetTextColor(altR, altG, altB, 1)
 		end	
 			
 		if min == 0 then 
-				power.value:SetText("") 
+			power.value:SetText("") 
+			if (unit and unit:find("boss%d")) then
+				self.Health.value:ClearAllPoints()
+				self.Health.value:SetPoint("LEFT", self.Health, "LEFT", TukuiDB.Scale(2), TukuiDB.Scale(1))
+			end
 		else
-			if not UnitIsPlayer(unit) and not UnitPlayerControlled(unit) or not UnitIsConnected(unit) then
+			if (not UnitIsPlayer(unit) and not UnitPlayerControlled(unit) or not UnitIsConnected(unit)) and not (unit and unit:find("boss%d")) then
 				power.value:SetText()
 			elseif UnitIsDead(unit) or UnitIsGhost(unit) then
 				power.value:SetText()
@@ -380,6 +386,14 @@ TukuiDB.LoadUFFunctions = function(layout)
 							end
 						elseif (unit and unit:find("arena%d")) then
 							power.value:SetText(TukuiDB.ShortValue(min))
+						elseif (unit and unit:find("boss%d")) then
+							if TukuiCF["unitframes"].showtotalhpmp == true then
+								power.value:SetFormattedText("%s |cffD7BEA5|||r %s", TukuiDB.ShortValue(max), TukuiDB.ShortValue(max - (max - min)))
+							else
+								power.value:SetFormattedText("%s |cffD7BEA5-|r %d%%", TukuiDB.ShortValue(max - (max - min)), floor(min / max * 100))
+							end		
+							self.Health.value:ClearAllPoints()
+							self.Health.value:SetPoint("TOPLEFT", self.Health, "TOPLEFT", TukuiDB.Scale(2), TukuiDB.Scale(-2))						
 						else
 							if TukuiCF["unitframes"].showtotalhpmp == true then
 								power.value:SetFormattedText("%s |cffD7BEA5|||r %s", TukuiDB.ShortValue(max - (max - min)), TukuiDB.ShortValue(max))
